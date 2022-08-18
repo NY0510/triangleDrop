@@ -88,11 +88,47 @@ const messageBlock = document.getElementById("message");
 function handleSendMessage(event) {
   event.preventDefault();
   const message = document.getElementById("messageInput");
-  myDataChannel.send(message.value);
+  myDataChannel.send(`{"type": "chat", "value": "${message.value}"}`);
   messageBlock.innerHTML += `<li>${message.value}</li>`;
   message.value = "";
 }
 
 function handleReceiveMessage(event) {
-  messageBlock.innerHTML += `<li>${event.data}</li>`;
+  console.log(event.data);
+  const message = JSON.parse(event.data);
+  console.log(message);
+  if (message.type === "chat") {
+    messageBlock.innerHTML += `<li>${message.value}</li>`;
+  } else if (message.type === "file") {
+    fetch(message.value)
+      .then((res) => res.blob())
+      .then(saveFile);
+  }
+}
+
+function saveFile(blob) {
+  const li = document.createElement("li");
+  const link = document.createElement("a");
+  link.href = window.URL.createObjectURL(blob);
+  link.target = "_blank";
+  link.rel = "noopener noreferrer";
+  link.innerHTML = "Download";
+  //   link.download = "File Name";
+  messageBlock.appendChild(li);
+  li.appendChild(link);
+}
+
+// send file with datachannel
+
+fileForm = document.querySelector("#fileForm");
+fileForm.addEventListener("submit", handleSendFile);
+
+function handleSendFile(event) {
+  event.preventDefault();
+  const file = document.getElementById("fileInput");
+  const fileReader = new FileReader();
+  fileReader.onload = (event) => {
+    myDataChannel.send(`{"type": "file", "value": "${event.target.result}"}`);
+  };
+  fileReader.readAsDataURL(file.files[0]);
 }
