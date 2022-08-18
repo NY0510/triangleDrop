@@ -1,11 +1,22 @@
-# triangleDrop
+# Triangle Drop
 
-냠냠
+## Installation
 
+1. Clone the repository
+
+```bash
+git clone https://github.com/NY0510/triangleDrop
 ```
-git clone https://github.com/NY0510/triangleDrop.git
+
+2. Install dependencies
+
+```bash
 cd triangleDrop
 npm install
-node index.js
+```
 
+3. Run the application
+
+```bash
+npm start
 ```
