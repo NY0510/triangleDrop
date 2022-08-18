@@ -1,4 +1,4 @@
-# Triangle Drop
+# 📡 Triangle Drop
 
 ## Installation
 
