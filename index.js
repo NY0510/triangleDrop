@@ -9,13 +9,24 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
+app.get("/app.js", (req, res) => {
+  res.sendFile(__dirname + "/app.js");
+});
+
 io.on("connection", (socket) => {
-  io.emit("chat message", "누군가가 입장했습니다.");
-  socket.on("disconnect", () => {
-    io.emit("chat message", "누군가가 퇴장했습니다.");
+  console.log("a user connected");
+  socket.on("join_room", (roomName) => {
+    socket.join(roomName);
+    socket.to(roomName).emit("welcome");
   });
-  socket.on("chat message", (msg) => {
-    io.emit("chat message", msg);
+  socket.on("offer", (offer, roomName) => {
+    socket.to(roomName).emit("offer", offer);
+  });
+  socket.on("answer", (answer, roomName) => {
+    socket.to(roomName).emit("answer", answer);
+  });
+  socket.on("ice", (ice, roomName) => {
+    socket.to(roomName).emit("ice", ice);
   });
 });
 
