@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="/css/style.css" />
+    <link
+      rel="stylesheet"
+      href="//unpkg.com/@picocss/pico@latest/css/pico.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
+    <title>webRTC chat</title>
+  </head>
+  <body>
+    <div class="app">
+      <div class="codeLabel">Your Code is</div>
+      <div class="code" data-tooltip="Click To Copy Code">
+        <a href="#" aria-busy="true">Please wait…</a>
+      </div>
+      <div id="welcome">
+        <div class="waitLabel" aria-busy="true" hidden>
+          Waiting for another user…
+        </div>
+        <hr />
+        <!-- <p class="animate__animated noRoom" hidden>Invalid code</p> -->
+
+        <form action="" id="enterRoom">
+          <input
+            autocomplete="off"
+            type="text"
+            id="roomCodeInput"
+            placeholder="Please input Code"
+          />
+          <button class="animate__animated">Enter</button>
+        </form>
+      </div>
+      <div id="inRoom" hidden>
+        <div class="progress">
+          <div class="label">Send progress:</div>
+          <progress id="sendProgress" max="0" value="0"></progress>
+        </div>
+
+        <div class="progress">
+          <div class="label">Receive progress:</div>
+          <progress id="receiveProgress" max="0" value="0"></progress>
+        </div>
+        <form action="" id="fileForm">
+          <input type="file" placeholder="file select" id="fileInput" />
+          <button>Send</button>
+        </form>
+        <div id="message">
+          <ul></ul>
+        </div>
+
+        <form action="" id="messageForm">
+          <input
+            autocomplete="off"
+            type="text"
+            id="messageInput"
+            placeholder="message"
+          />
+          <button>Send</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/app.js"></script>
+  </body>
+</html>
