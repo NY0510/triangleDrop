@@ -4,17 +4,33 @@ const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
+const path = require("path");
+
+app.use(express.static("public"));
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
-});
-
-app.get("/app.js", (req, res) => {
-  res.sendFile(__dirname + "/app.js");
+  res.sendFile(path.join(__dirname, "public", "html", "index.html"));
 });
 
 io.on("connection", (socket) => {
   console.log("a user connected");
+
+  socket.on("create_room", (roomName, callback) => {
+    // io.sockets.adapter.rooms.forEach((room) => {
+    //   console.log(room);
+    // });
+    // console.log(Object.entries(io.sockets.adapter.rooms));
+    console.log("roomName: ", roomName);
+
+    if (io.sockets.adapter.rooms.get(roomName) === undefined) {
+      socket.join(roomName);
+      callback(true);
+    } else {
+      callback(false);
+    }
+
+    // console.log(io.sockets.adapter.rooms);
+  });
   socket.on("join_room", (roomName) => {
     socket.join(roomName);
     socket.to(roomName).emit("welcome");
