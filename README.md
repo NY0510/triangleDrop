@@ -32,6 +32,6 @@ npm start
 
 ### NY64
 
-- [ ] Light mode CSS
+- [ ] Please wait label center algin
 - [ ] Message CSS
 - [ ] Drag and Drop
