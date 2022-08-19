@@ -1,4 +1,4 @@
-const { json } = require("express");
+// const { json } = require("express");
 
 const socket = io();
 
@@ -14,6 +14,9 @@ let myDataChannel;
 let fileReader;
 
 let timestampStart;
+
+let rxFileName;
+let rxFileSize;
 
 let receiveBuffer = [];
 let receivedSize = 0;
@@ -111,6 +114,8 @@ function handleReceiveMessage(event) {
   if (typeof event.data === "string") {
     const message = JSON.parse(event.data);
     if (message.type == "filesignal") {
+      rxFileName = message.fileName;
+      rxFileSize = message.fileSize;
     }
     messageBlock.innerHTML += `<li>${message.value}</li>`;
   } else if (typeof event.data === "object") {
@@ -118,9 +123,9 @@ function handleReceiveMessage(event) {
     receivedSize += event.data.byteLength;
     receiveProgress.value = receivedSize;
 
-    const file = fileInput.files[0];
+    // const file = fileInput.files[0];
 
-    if (receivedSize === file.size) {
+    if (receivedSize === rxFileSize) {
       const blob = new Blob(receiveBuffer);
       receiveBuffer = [];
 
