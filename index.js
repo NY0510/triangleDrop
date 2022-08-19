@@ -16,24 +16,24 @@ io.on("connection", (socket) => {
   console.log("a user connected");
 
   socket.on("create_room", (roomName, callback) => {
-    // io.sockets.adapter.rooms.forEach((room) => {
-    //   console.log(room);
-    // });
-    // console.log(Object.entries(io.sockets.adapter.rooms));
     console.log("roomName: ", roomName);
-
     if (io.sockets.adapter.rooms.get(roomName) === undefined) {
       socket.join(roomName);
+      socket.to(roomName).emit("welcome");
       callback(true);
     } else {
       callback(false);
     }
-
-    // console.log(io.sockets.adapter.rooms);
   });
-  socket.on("join_room", (roomName) => {
-    socket.join(roomName);
-    socket.to(roomName).emit("welcome");
+  socket.on("join_room", (roomName, callback) => {
+    console.log(io.sockets.adapter.rooms.get(roomName));
+    if (io.sockets.adapter.rooms.get(roomName) === undefined) {
+      callback(false);
+    } else {
+      socket.join(roomName);
+      socket.to(roomName).emit("welcome");
+      callback(true);
+    }
   });
   socket.on("offer", (offer, roomName) => {
     socket.to(roomName).emit("offer", offer);
