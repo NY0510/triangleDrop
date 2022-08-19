@@ -20,3 +20,17 @@ npm install
 ```bash
 npm start
 ```
+
+<details>
+<summary>TODO</summary>
+
+### Obtuse-triangle
+
+- [ ] Send / receive progress bar hide / show
+- [ ] In Room change Code
+- [ ] Send Button merge
+
+### NY64
+
+- [ ] Message CSS
+- [ ] Drag and Drop

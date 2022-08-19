@@ -16,7 +16,6 @@ io.on("connection", (socket) => {
   console.log("a user connected");
 
   socket.on("create_room", (roomName, callback) => {
-    console.log("roomName: ", roomName);
     if (io.sockets.adapter.rooms.get(roomName) === undefined) {
       socket.join(roomName);
       socket.to(roomName).emit("welcome");
@@ -26,7 +25,6 @@ io.on("connection", (socket) => {
     }
   });
   socket.on("join_room", (roomName, callback) => {
-    console.log(io.sockets.adapter.rooms.get(roomName));
     if (io.sockets.adapter.rooms.get(roomName) === undefined) {
       callback(false);
     } else {
