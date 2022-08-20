@@ -1,3 +1,5 @@
+// const e = require("express");
+
 // const { json } = require("express");
 const socket = io();
 
@@ -7,6 +9,8 @@ const sendProgress = document.querySelector("progress#sendProgress");
 const receiveProgress = document.querySelector("progress#receiveProgress");
 const code = document.querySelector(".code");
 const roomCodeInput = document.querySelector("#roomCodeInput");
+const sendProgressDiv = document.querySelector(".sendProgress");
+const receiveProgressDiv = document.querySelector(".receiveProgress");
 
 roomCodeInput.addEventListener("keydown", (event) => {
   roomCodeInput.value = roomCodeInput.value.toUpperCase();
@@ -177,7 +181,7 @@ const makeConnection = () => {
   myPeerConnection = new RTCPeerConnection({
     iceServers: [
       {
-        urls: ["stun:stun.l.google.com:19302"], // 이건 뭐지
+        urls: ["stun:stun.l.google.com:19302"],
       },
     ],
   });
@@ -195,11 +199,12 @@ const handleIceCandidate = (data) => {
 const handleSendMessage = (event) => {
   event.preventDefault();
   const message = document.getElementById("messageInput");
-  if (message.value.length < 0 || message.value.length > 20000) {
+  if (message.value.length == 0 || message.value.length > 20000) {
     alert("내용이 없거나 글자수 제한을 초과했습니다.");
+    return;
   }
   myDataChannel.send(`{"type": "chat", "value": "${message.value}"}`);
-  messageBlock.innerHTML += `<li>${message.value}</li>`;
+  messageBlock.innerHTML += `<div>${message.value}</div>`;
   message.value = "";
 };
 
@@ -219,11 +224,12 @@ const handleReceiveMessage = (event) => {
       timestampStart = Date.now();
       receiveProgress.max = rxFileSize;
       receiveProgress.value = 0;
+      receiveProgressDiv.hidden = false;
       receiveBuffer = [];
       receivedSize = 0;
-      messageBlock.innerHTML += `<li>Receiving ${rxFileName}</li>`;
+      messageBlock.innerHTML += `<div>Receiving ${rxFileName}</div>`;
     } else {
-      messageBlock.innerHTML += `<li>${message.value}</li>`;
+      messageBlock.innerHTML += `<div>${message.value}</div>`;
     }
   } else if (typeof event.data === "object") {
     receiveBuffer.push(event.data);
@@ -246,15 +252,15 @@ const handleReceiveMessage = (event) => {
 };
 
 const saveFile = (blob) => {
-  const li = document.createElement("li");
   const link = document.createElement("a");
   link.href = window.URL.createObjectURL(blob);
   link.target = "_blank";
   link.rel = "noopener noreferrer";
   link.innerHTML = "Download";
+  link.download = rxFileName;
+  receiveProgressDiv.hidden = true;
   //   link.download = "File Name";
-  messageBlock.appendChild(li);
-  li.appendChild(link);
+  messageBlock.appendChild(link);
 };
 
 // send file with datachannel
@@ -269,6 +275,7 @@ const handleSendFile = (event) => {
   myDataChannel.send(
     `{"type": "filesignal", "fileName": "${file.name}", "fileSize": ${file.size}, "fileType": "${file.type}", "fileLastModified": ${file.lastModified}}`
   );
+  messageBlock.innerHTML += `<div>Sending ${file.name}</div>`;
 
   if (file.size === 0) {
     alert("File is empty");
@@ -276,6 +283,8 @@ const handleSendFile = (event) => {
   }
 
   sendProgress.max = file.size;
+  sendProgress.value = 0;
+  sendProgressDiv.hidden = false;
   const chunkSize = 16384;
 
   fileReader = new FileReader();
@@ -294,7 +303,11 @@ const handleSendFile = (event) => {
     console.log(`Sent ${offset} bytes`);
     sendProgress.value = offset;
     if (offset < file.size) {
-      readSlice(offset);
+      // 아직 보낼 파일이 남았을때
+      readSlice(offset); // 슬라이스해서 보내기
+    } else {
+      messageBlock.innerHTML += `<div>${file.name} is sent</div>`; // 보내기 완료
+      sendProgressDiv.hidden = true; 
     }
   });
 

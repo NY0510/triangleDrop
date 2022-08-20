@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <link rel="icon" type="image/x-icon" href="/img/favicon.png"></link>
+
     <link rel="stylesheet" href="/css/style.css" />
     <link
       rel="stylesheet"
@@ -24,6 +26,7 @@
       <div class="code" data-tooltip="Click To Copy Code">
         <span aria-busy="true" class="codeLoading">Please wait…</span>
       </div>
+      <!-- 첫화면 -->
       <div id="welcome">
         <div class="waitLabel" aria-busy="true" hidden>
           Waiting for another user…
@@ -41,22 +44,24 @@
           <button class="animate__animated">Enter</button>
         </form>
       </div>
-      <div id="inRoom" hidden>
-        <div class="progress">
-          <div class="label">Send progress:</div>
-          <progress id="sendProgress" max="0" value="0"></progress>
-        </div>
 
-        <div class="progress">
-          <div class="label">Receive progress:</div>
-          <progress id="receiveProgress" max="0" value="0"></progress>
-        </div>
+      <!-- 룸 입장후 -->
+      <div id="inRoom" hidden>
         <form action="" id="fileForm">
           <input type="file" placeholder="file select" id="fileInput" />
           <button>Send</button>
         </form>
-        <div id="messageBlock">
-          <ul></ul>
+        <div id="messageBlock"></div>
+
+        <div class="progress">
+          <div class="sendProgress" hidden>
+            <div class="label">Send progress:</div>
+            <progress id="sendProgress" max="0" value="0"></progress>
+          </div>
+          <div class="receiveProgress" hidden>
+            <div class="label">Receive progress:</div>
+            <progress id="receiveProgress" max="0" value="0"></progress>
+          </div>
         </div>
 
         <form action="" id="messageForm">

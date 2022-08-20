@@ -19,6 +19,10 @@ button:hover {
     .app {
         width: 100% !important;
     }
+    #inRoom, #welcome {
+        width: 90% !important;
+        margin: 1rem;
+    }
 }
 
 
@@ -38,10 +42,13 @@ body {
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: center;
-    width: 50%;
+    width: 70%;
     text-align: center;
     margin: 2rem auto;
+}
 
+#inRoom, #welcome {
+    width: 70%;
 }
 
 .code {
