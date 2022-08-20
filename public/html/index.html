@@ -22,7 +22,7 @@
     <div class="app">
       <div class="codeLabel">Your Code is</div>
       <div class="code" data-tooltip="Click To Copy Code">
-        <a href="#" aria-busy="true">Please wait…</a>
+        <span aria-busy="true" class="codeLoading">Please wait…</span>
       </div>
       <div id="welcome">
         <div class="waitLabel" aria-busy="true" hidden>
@@ -55,7 +55,7 @@
           <input type="file" placeholder="file select" id="fileInput" />
           <button>Send</button>
         </form>
-        <div id="message">
+        <div id="messageBlock">
           <ul></ul>
         </div>
 

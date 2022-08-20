@@ -41,9 +41,21 @@ let receivedSize = 0;
 
 inRoom.hidden = true;
 
+// 나갈때
+const initExit = () => {
+  welcome.hidden = false;
+  inRoom.hidden = true;
+  code.innerHTML = `<span aria-busy="true" class="codeLoading">Please wait…</span>`;
+  roomName = "";
+  createRoomName();
+};
+
+// 들어갈때
 const initRoom = () => {
   welcome.hidden = true;
   inRoom.hidden = false;
+  code.innerHTML = roomName;
+  document.querySelector(".codeLabel").innerHTML = "Current Code is";
 };
 
 const createRoomName = (result = false) => {
@@ -183,6 +195,9 @@ const handleIceCandidate = (data) => {
 const handleSendMessage = (event) => {
   event.preventDefault();
   const message = document.getElementById("messageInput");
+  if (message.value.length < 0 || message.value.length > 20000) {
+    alert("내용이 없거나 글자수 제한을 초과했습니다.");
+  }
   myDataChannel.send(`{"type": "chat", "value": "${message.value}"}`);
   messageBlock.innerHTML += `<li>${message.value}</li>`;
   message.value = "";
@@ -190,7 +205,7 @@ const handleSendMessage = (event) => {
 
 messageForm = document.querySelector("#messageForm");
 messageForm.addEventListener("submit", handleSendMessage);
-const messageBlock = document.getElementById("message");
+const messageBlock = document.getElementById("messageBlock");
 
 const handleReceiveMessage = (event) => {
   console.log(event.data);
