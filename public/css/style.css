@@ -101,9 +101,13 @@ button:hover {
 	text-decoration: none;
 	display: inline-block;
 	position: relative;
-	color: var(--color-light-green);
 
 	margin-bottom: 0.5rem;
+	background: linear-gradient(45deg, red, #33b4ff, #1c4fbd);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: transparent;
 }
 
 span.code:after {
@@ -139,6 +143,7 @@ span.code:hover:after {
 	margin: 0;
 	padding: 0;
 	width: unset;
+	padding-bottom: 0.5rem;
 	/* position: unset !important;
 	transform: none !important;
 	top: unset !important;
