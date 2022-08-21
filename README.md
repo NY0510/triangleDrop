@@ -28,7 +28,7 @@ npm start
 
 -   [x] Send / receive progress bar hide / show
 -   [x] In Room change Code
--   [ ] Send Button merge
+-   [x] Send Button merge
 
 ### NY64
 
