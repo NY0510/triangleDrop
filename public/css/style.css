@@ -15,7 +15,7 @@ button:hover {
     transition: filter 0.5s;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
     .app {
         width: 100% !important;
     }
@@ -115,22 +115,27 @@ hr {
 .fileInputLabel {
     cursor: pointer;
     font-size: 1.2rem;
-    font-weight: 600;
     display: inline-block;
     margin-right: 10px;
     background-color: #1095c1;
-    padding: 5px;
     border-radius: 500px;
-    width: 54.52px;
+    width: 50px;
     height: 50px;
     margin-bottom: 0;
-    padding-top: 7.5px;
-    padding-left: 5.5px;
+    flex-shrink: 0;
 
 }
-.inputDiv {
+.messageDiv {
     display: flex;
     flex-direction: row;
     align-items: baseline;
     flex-wrap: nowrap;
+}
+#messageInput, #messageSendButton {
+    margin-bottom: 0;
+}
+
+#messageSendButton {
+    width: min-content;
+    margin-left: 10px;
 }
