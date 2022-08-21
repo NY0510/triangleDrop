@@ -199,8 +199,21 @@ const handleIceCandidate = (data) => {
 const handleSendMessage = (event) => {
   event.preventDefault();
   const message = document.getElementById("messageInput");
-  if (message.value.length == 0 || message.value.length > 20000) {
-    alert("내용이 없거나 글자수 제한을 초과했습니다.");
+  if (message.value.length == 0) {
+    return;
+  }
+  if (message.value.length > 20000) {
+    const sendButton = document.querySelector("#messageSendButton");
+    sendButton.innerHTML = "Message too long";
+    messageForm.classList.add("animate__shakeX");
+    messageForm.querySelector("input").style.borderColor = "red";
+    sendButton.disabled = true;
+    setTimeout(() => {
+      sendButton.innerHTML = "Send";
+      sendButton.disabled = false;
+      messageForm.classList.remove("animate__shakeX");
+      messageForm.querySelector("input").style.borderColor = "";
+    }, 2000);
     return;
   }
   myDataChannel.send(`{"type": "chat", "value": "${message.value}"}`);
@@ -307,7 +320,7 @@ const handleSendFile = (event) => {
       readSlice(offset); // 슬라이스해서 보내기
     } else {
       messageBlock.innerHTML += `<div>${file.name} is sent</div>`; // 보내기 완료
-      sendProgressDiv.hidden = true; 
+      sendProgressDiv.hidden = true;
     }
   });
 
