@@ -45,9 +45,12 @@ button:hover {
 
 @media (max-width: 1500px) {
 	.app {
-		width: 100% !important;
+		width: 100vw !important;
 	}
-	#inRoom,
+	#inRoom {
+		width: 90vw !important;
+		margin: 1rem;
+	}
 	#welcome {
 		width: 90% !important;
 		margin: 1rem;
@@ -81,6 +84,16 @@ button:hover {
 .codeLabel {
 	font-size: 2.6rem;
 	font-weight: 400;
+}
+
+hr {
+	height: 1px;
+	border: none;
+	background-color: #4e4e4e;
+	margin: 1rem;
+	margin-left: 0;
+	margin-right: 0;
+	
 }
 
 .code {
@@ -361,4 +374,22 @@ div.receiveProgress > div.label {
 .prv.prvFileSizeAndType {
 	font-size: 1rem;
 	color: #e2e2e2;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.spin {
+	animation: spin 1s ease-in-out infinite;
+}
+.fa-solid.fa-circle-notch {
+	width: 22px;
+	height: 22px;
+	font-size: 22px;
 }
