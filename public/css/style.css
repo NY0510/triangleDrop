@@ -185,6 +185,7 @@ input[type="text"] {
 	flex-basis: 100%;
 	font-family: "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono", monospace;
 	text-transform: uppercase;
+	font-size: 1.5rem!important;
 }
 
 .roomCodeInput:hover,
@@ -201,7 +202,7 @@ input[type="text"] {
 	font-size: 1.2rem;
 	border-radius: 10px;
 	outline: none;
-	padding: 0.5rem;
+	padding: 1rem;
 	background-color: #222222;
 
 	transition: box-shadow 0.4s;
