@@ -15,7 +15,7 @@ button:hover {
     transition: filter 0.5s;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1500px) {
     .app {
         width: 100% !important;
     }
