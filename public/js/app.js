@@ -9,6 +9,7 @@ const $roomCodeInput = document.querySelector("#roomCodeInput");
 const $sendProgressDiv = document.querySelector(".sendProgress");
 const $receiveProgressDiv = document.querySelector(".receiveProgress");
 const $filePrv = document.querySelector(".filesPreview");
+const $dropZone = document.querySelector(".dragAndDrop");
 
 $roomCodeInput.addEventListener("keydown", (event) => {
   $roomCodeInput.value = $roomCodeInput.value.toUpperCase();
@@ -40,6 +41,12 @@ let rxFileSize;
 
 let receiveBuffer = [];
 let receivedSize = 0;
+
+let bytesPrev = 0;
+let timestampPrev = 0;
+let bitrateMax = 0;
+
+let statsInterval = null;
 
 $inRoom.hidden = true;
 history.pushState(null, null, " ");
@@ -193,7 +200,7 @@ const handleIceCandidate = (data) => {
   socket.emit("ice", data.candidate, roomName);
 };
 
-const filter = (message) => {
+const filter = (message, itFile = false) => {
   let result = message.replaceAll(/[\u0000-\u0019]+/g, "");
   result = result.replaceAll("<", "&lt;");
   result = result.replaceAll(">", "&gt;");
@@ -204,7 +211,9 @@ const filter = (message) => {
   result = result.replaceAll("\n", "<br>");
   result = result.replaceAll("\r", "<br>");
   result = result.replaceAll("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
-  result = result.replaceAll(" ", "&nbsp;");
+  if (!itFile) {
+    result = result.replaceAll(" ", "&nbsp;");
+  }
 
   return result;
 };
@@ -253,7 +262,7 @@ const handleReceiveMessage = (event) => {
   if (typeof event.data === "string") {
     const message = JSON.parse(event.data);
     if (message.type == "filesignal") {
-      rxFileName = filter(message.fileName);
+      rxFileName = filter(message.fileName, true);
       rxFileSize = message.fileSize;
       timestampStart = Date.now();
       $receiveProgress.max = rxFileSize;
@@ -276,6 +285,8 @@ const handleReceiveMessage = (event) => {
     if (receivedSize === rxFileSize) {
       const blob = new Blob(receiveBuffer);
       receiveBuffer = [];
+      clearInterval(statsInterval);
+      statsInterval = null;
 
       saveFile(blob);
 
@@ -331,7 +342,7 @@ const handleSendFile = (file) => {
   );
   $filePrv.hidden = true;
 
-  const fileNameToSend = filter(file.name);
+  const fileNameToSend = filter(file.name, true);
   myDataChannel.send(
     `{"type": "filesignal", "fileName": "${fileNameToSend}", "fileSize": ${file.size}, "fileType": "${file.type}", "fileLastModified": ${file.lastModified}}`
   );
@@ -345,7 +356,7 @@ const handleSendFile = (file) => {
   $sendProgress.max = file.size;
   $sendProgress.value = 0;
   $sendProgressDiv.hidden = false;
-  const chunkSize = 16384;
+  const chunkSize = 30000;
 
   fileReader = new FileReader();
   let offset = 0;
@@ -356,14 +367,22 @@ const handleSendFile = (file) => {
   fileReader.addEventListener("abort", (event) => {
     alert("File reading aborted");
   });
-  fileReader.addEventListener("load", (event) => {
-    console.log("FileRead.onload", event);
+  fileReader.addEventListener("load", async (event) => {
     myDataChannel.send(event.target.result);
     offset += event.target.result.byteLength;
     console.log(`Sent ${offset} bytes`);
+    console.log(myDataChannel.bufferedAmount);
     $sendProgress.value = offset;
+    // displayStats(); // 개발중
     if (offset < file.size) {
       // 아직 보낼 파일이 남았을때
+
+      for (; 16760000 - myDataChannel.bufferedAmount < chunkSize; ) {
+        // 버퍼에 남은 공간이 작을때
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        console.log("wait");
+      }
+
       readSlice(offset); // 슬라이스해서 보내기
     } else {
       messageBlock.innerHTML += `<div>${fileNameToSend} is sent</div>`; // 보내기 완료
@@ -378,3 +397,69 @@ const handleSendFile = (file) => {
   };
   readSlice(0);
 };
+
+// 개발중
+function displayStats() {
+  const stats = myPeerConnection.getStats();
+  console.log(stats);
+  let activeCandidatePair;
+  stats.forEach((report) => {
+    if (report.type === "transport") {
+      activeCandidatePair = stats.get(report.selectedCandidatePairId);
+    }
+  });
+  if (activeCandidatePair) {
+    if (timestampStart === activeCandidatePair.timestamp) {
+      return;
+    }
+    const byteNow = activeCandidatePair.bytesReceived;
+    const bitrate = Math.round(
+      ((byteNow - bytesPrev) * 8) /
+        (activeCandidatePair.timestamp - timestampStart)
+    );
+    timestampPrev = activeCandidatePair.timestamp;
+    bytesPrev = byteNow;
+    console.log(bitrate);
+    if (bitrate > bitrateMax) {
+      bitrateMax = bitrate;
+    }
+  }
+}
+
+function handleDragAndDropEnter(event) {
+  event.stopPropagation();
+  event.preventDefault();
+  if (!$inRoom.hidden) {
+    $dropZone.classList.add("drop-zone-active");
+    console.log("DragAndDropEnter");
+  }
+}
+
+$dropZone.addEventListener("dragleave", handleDragAndDropLeave);
+$dropZone.addEventListener("dragover", handleDragAndDropOver, false);
+$dropZone.addEventListener("drop", handleDragAndDropDrop, false);
+
+function handleDragAndDropOver(evnet) {
+  event.stopPropagation();
+  event.preventDefault();
+  console.log("DragAndDropOver");
+}
+
+function handleDragAndDropLeave(event) {
+  event.stopPropagation();
+  event.preventDefault();
+  if (!$inRoom.hidden) {
+    $dropZone.classList.remove("drop-zone-active");
+    console.log("DragAndDropLeave");
+  }
+}
+
+function handleDragAndDropDrop(event) {
+  event.stopPropagation();
+  event.preventDefault();
+  $dropZone.classList.remove("drop-zone-active");
+  console.log("DragAndDropDrop");
+  const files = event.dataTransfer.files;
+  $inRoom.querySelector("#fileInput").files = files;
+  handleChangeFile({ target: { files: [files[0]] } });
+}

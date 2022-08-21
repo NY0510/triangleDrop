@@ -55,6 +55,9 @@ button:hover {
 		width: 90% !important;
 		margin: 1rem;
 	}
+	.messageDiv, .messageSendBlock, .filesPreview{
+		width: 90vw !important;
+	}
 }
 
 /* to bottom, #f5f5f5, #e6e6e6 */
@@ -225,8 +228,7 @@ input[type="text"] {
     font-weight: 900;
 } */
 
-#inRoom,
-#welcome {
+#inRoom {
 	width: 70%;
 }
 #fileInput {
@@ -269,7 +271,7 @@ input[type="text"] {
 	align-items: center;
 	flex-wrap: nowrap;
 	justify-content: space-between;
-	width: 90vw;
+	width: 70vw;
 	bottom: 2rem;
 	margin: 0 auto;
 	position: fixed;
@@ -280,7 +282,7 @@ input[type="text"] {
 .messageSendBlock{
 	margin: 0;
 	position:fixed;
-	width: 90vw;
+	width: 70vw;
 }
 .filesPreview {
 	padding: 0.5rem;
@@ -289,9 +291,9 @@ input[type="text"] {
 	border-radius: 10px;
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
-	width: 90vw;
+	width: 70vw;
 	text-align: left;
-	position: relative;
+	position: fixed;
 	bottom: 50px;
 }
 
@@ -398,4 +400,21 @@ div.receiveProgress > div.label {
 	width: 22px;
 	height: 22px;
 	font-size: 22px;
+}
+.dragAndDrop {
+	position: fixed;
+	width: 100vw;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+	background-color: white;
+	opacity: 0;
+	transition: opacity 1s;
+}
+.drop-zone-active {
+	transition: opacity 1s;
+	display: block;
+	opacity: 0.8;
+	pointer-events: all;
 }
