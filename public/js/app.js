@@ -199,6 +199,10 @@ const handleIceCandidate = (data) => {
 const handleSendMessage = (event) => {
   event.preventDefault();
   const message = document.getElementById("messageInput");
+  const file = document.querySelector("#fileInput");
+  if (file.files[0] !== undefined) {
+    handleSendFile(file.files[0]);
+  }
   if (message.value.length == 0) {
     return;
   }
@@ -212,7 +216,7 @@ const handleSendMessage = (event) => {
       sendButton.innerHTML = "Send";
       sendButton.disabled = false;
       messageForm.classList.remove("animate__shakeX");
-      messageForm.querySelector("input").style.borderColor = "";
+      messageForm.querySelector("#messageInput").style.borderColor = "";
     }, 2000);
     return;
   }
@@ -278,9 +282,7 @@ const saveFile = (blob) => {
 
 // send file with datachannel
 
-const handleSendFile = (event) => {
-  event.preventDefault();
-  const file = document.getElementById("fileInput").files[0];
+const handleSendFile = (file) => {
   console.log(
     `File is ${[file.name, file.size, file.type, file.lastModified].join(" ")}`
   );
@@ -331,6 +333,3 @@ const handleSendFile = (event) => {
   };
   readSlice(0);
 };
-
-fileForm = document.querySelector("#fileForm");
-fileForm.addEventListener("submit", handleSendFile);

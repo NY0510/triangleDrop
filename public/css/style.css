@@ -107,3 +107,29 @@ hr {
     color: red;
     font-weight: 900;
 } */
+
+
+#fileInput {
+    display: none;
+}
+.fileInputLabel {
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-right: 10px;
+    background-color: #1095c1;
+    padding: 5px;
+    border-radius: 500px;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 0;
+    padding-top: 5px;
+
+}
+.inputDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    flex-wrap: nowrap;
+}
