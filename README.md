@@ -26,12 +26,12 @@ npm start
 
 ### Obtuse-triangle
 
-- [x] Send / receive progress bar hide / show
-- [x] In Room change Code
-- [ ] Send Button merge
+-   [x] Send / receive progress bar hide / show
+-   [x] In Room change Code
+-   [ ] Send Button merge
 
 ### NY64
 
-- [ ] Please wait label center algin
-- [ ] Message CSS
-- [ ] Drag and Drop
+-   [x] Please wait label center algin
+-   [ ] Message CSS
+-   [ ] Drag and Drop
