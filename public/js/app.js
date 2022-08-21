@@ -51,6 +51,9 @@ const initExit = () => {
   inRoom.hidden = true;
   code.innerHTML = `<span aria-busy="true" class="codeLoading">Please wait…</span>`;
   roomName = "";
+  code.classList.remove("InRoom");
+  code.dataset.tooltip = "Click To Copy Code";
+  document.querySelector(".codeLabel").hidden = false;
   createRoomName();
 };
 
@@ -59,7 +62,9 @@ const initRoom = () => {
   welcome.hidden = true;
   inRoom.hidden = false;
   code.innerHTML = roomName;
-  document.querySelector(".codeLabel").innerHTML = "Current Code is";
+  document.querySelector(".codeLabel").hidden = true;
+  code.classList.add("InRoom");
+  code.removeAttribute("data-tooltip");
 };
 
 const createRoomName = (result = false) => {
@@ -241,6 +246,7 @@ const handleSendMessage = (event) => {
   const messageToSend = filter(message.value);
   myDataChannel.send(`{"type": "chat", "value": "${messageToSend}"}`);
   messageBlock.innerHTML += `<div>${messageToSend}</div>`;
+  messageBlock.scrollTop = messageBlock.scrollHeight;
   message.value = "";
 };
 

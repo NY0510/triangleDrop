@@ -44,7 +44,7 @@ body {
     align-items: center;
     width: 70%;
     text-align: center;
-    margin: 2rem auto;
+    margin: 1rem auto;
 }
 
 #inRoom, #welcome {
@@ -63,6 +63,14 @@ body {
     font-family: "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono", monospace;
     background-color: #162028;
     border-radius: 20px;
+}
+
+div.code.InRoom {
+    font-size: 1.3rem;
+    background-color: #11191f;
+    border: none !important;
+    padding: 0;
+    margin: 0;
 }
 
 .code span {
@@ -130,6 +138,9 @@ hr {
     flex-direction: row;
     align-items: baseline;
     flex-wrap: nowrap;
+    width: 90vw;
+    bottom: 20px;
+    position: fixed;
 }
 #messageInput, #messageSendButton {
     margin-bottom: 0;
@@ -139,3 +150,9 @@ hr {
     width: min-content;
     margin-left: 10px;
 }
+
+#messageBlock {
+    background-color: #18242c;
+    height: 80vh;
+    overflow-y: scroll;
+    }
