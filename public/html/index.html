@@ -1,50 +1,41 @@
 <!DOCTYPE html>
 <html data-theme="dark" lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="icon" type="image/x-icon" href="/img/favicon.png" />
+		<link rel="icon" type="image/x-icon" href="/img/favicon.png" />
 
-    <link rel="stylesheet" href="/css/style.css" />
-    <link
-      rel="stylesheet"
-      href="//unpkg.com/@picocss/pico@latest/css/pico.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+		<link rel="stylesheet" href="/css/style.css" />
+		<!-- <link rel="stylesheet" href="//unpkg.com/@picocss/pico@latest/css/pico.min.css" /> -->
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+		<!-- <script src="https://cdn.tailwindcss.com"></script> -->
 
-    <title>webRTC chat</title>
-  </head>
-  <body>
-    <div class="app">
-      <div class="codeLabel">Your Code is</div>
-      <div class="code" data-tooltip="Click To Copy Code">
-        <span aria-busy="true" class="codeLoading">Please wait…</span>
-      </div>
-      <!-- 첫화면 -->
-      <div id="welcome">
-        <div class="waitLabel" aria-busy="true" hidden>
-          Waiting for another user…
-        </div>
-        <hr />
-        <!-- <p class="animate__animated noRoom" hidden>Invalid code</p> -->
+		<title>Triangle Drop</title>
+	</head>
+	<body>
+		<div class="app">
+			<div class="codeLabel">Your Code Is</div>
+			<!-- <h1 align="center"><span href="#" class="code">underline</span></h1> -->
+			<div class="codeBox" data-tooltip="Click To Copy Code">
+				<span class="code"></span>
+			</div>
+			<!-- 첫화면 -->
+			<div id="welcome">
+				<div class="waitLabel" aria-busy="true" hidden><i class="fa-solid fa-circle-notch fa-fw fa-spin"></i> Waiting for another user…</div>
+				<!-- <hr /> -->
+				<form action="" id="enterRoom">
+					<input autocomplete="off" type="text" class="roomCodeInput" id="roomCodeInput" placeholder="Please input Code" />
+					<button class="animate__animated">Enter</button>
+				</form>
+			</div>
 
-        <form action="" id="enterRoom">
-          <input
-            autocomplete="off"
-            type="text"
-            id="roomCodeInput"
-            placeholder="Please input Code"
-          />
-          <button class="animate__animated">Enter</button>
-        </form>
-      </div>
+			<!-- 룸 입장후 -->
+			<div id="inRoom" hidden>
+				<div id="messageBlock"></div>
 
+<<<<<<< HEAD
       <!-- 룸 입장후 -->
       <div id="inRoom" hidden>
         <div class="progress">
@@ -58,39 +49,47 @@
           </div>
         </div>
         <div id="messageBlock"></div>
+=======
+				<div class="progress">
+					<div class="sendProgress" hidden>
+						<div class="label">Send progress:</div>
+						<progress id="sendProgress" max="0" value="0"></progress>
+					</div>
+					<div class="receiveProgress" hidden>
+						<div class="label">Receive progress:</div>
+						<progress id="receiveProgress" max="0" value="0"></progress>
+					</div>
+				</div>
 
-        <form action="" class="animate__animated" id="messageForm">
-          <div class="messageDiv">
-            <label for="fileInput" class="fileInputLabel">
-              <svg
-                height="50px"
-                id="Layer_1"
-                style="enable-background: new 0 0 512 512"
-                version="1.1"
-                viewBox="0 0 512 512"
-                width="30px"
-                xml:space="preserve"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-              >
-                <path
-                  d="M417.4,224H288V94.6c0-16.9-14.3-30.6-32-30.6c-17.7,0-32,13.7-32,30.6V224H94.6C77.7,224,64,238.3,64,256  c0,17.7,13.7,32,30.6,32H224v129.4c0,16.9,14.3,30.6,32,30.6c17.7,0,32-13.7,32-30.6V288h129.4c16.9,0,30.6-14.3,30.6-32  C448,238.3,434.3,224,417.4,224z"
-                /></svg
-            ></label>
-            <input type="file" placeholder="file select" id="fileInput" />
-            <input
-              autocomplete="off"
-              type="text"
-              id="messageInput"
-              placeholder="message"
-            />
-            <button id="messageSendButton">Send</button>
-          </div>
-        </form>
-      </div>
-    </div>
+				<form action="" class="animate__animated" id="messageForm">
+					<div class="messageDiv">
+						<label for="fileInput" class="fileInputLabel">
+							<svg
+								height="50px"
+								id="Layer_1"
+								style="enable-background: new 0 0 512 512"
+								version="1.1"
+								viewBox="0 0 512 512"
+								width="30px"
+								xml:space="preserve"
+								xmlns="http://www.w3.org/2000/svg"
+								xmlns:xlink="http://www.w3.org/1999/xlink"
+							>
+								<path
+									d="M417.4,224H288V94.6c0-16.9-14.3-30.6-32-30.6c-17.7,0-32,13.7-32,30.6V224H94.6C77.7,224,64,238.3,64,256  c0,17.7,13.7,32,30.6,32H224v129.4c0,16.9,14.3,30.6,32,30.6c17.7,0,32-13.7,32-30.6V288h129.4c16.9,0,30.6-14.3,30.6-32  C448,238.3,434.3,224,417.4,224z"
+								/></svg
+						></label>
+						<input type="file" placeholder="file select" id="fileInput" />
+						<input autocomplete="off" type="text" id="messageInput" placeholder="message" />
+						<button id="messageSendButton">Send</button>
+					</div>
+				</form>
+			</div>
+		</div>
+>>>>>>> c83ea7e (둔각멍청이)
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/js/app.js"></script>
-  </body>
+		<script src="//kit.fontawesome.com/2cc80d7123.js" crossorigin="anonymous"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/js/app.js"></script>
+	</body>
 </html>
