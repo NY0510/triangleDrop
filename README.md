@@ -32,6 +32,6 @@ npm start
 
 ### NY64
 
--   [x] Please wait label center algin
+-   [x] ~~Please wait label center algin~~
 -   [ ] Message CSS
 -   [ ] Drag and Drop
