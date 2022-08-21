@@ -194,6 +194,22 @@ const handleIceCandidate = (data) => {
   socket.emit("ice", data.candidate, roomName);
 };
 
+const filter = (message) => {
+  let result = message.replaceAll(/[\u0000-\u0019]+/g, "");
+  result = result.replaceAll("<", "&lt;");
+  result = result.replaceAll(">", "&gt;");
+  result = result.replaceAll("'", "&apos;");
+  result = result.replaceAll('"', "&quot;");
+  result = result.replaceAll("/", "&#x2F;");
+  result = result.replaceAll("\\", "&#x5C;");
+  result = result.replaceAll("\n", "<br>");
+  result = result.replaceAll("\r", "<br>");
+  result = result.replaceAll("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
+  result = result.replaceAll(" ", "&nbsp;");
+
+  return result;
+};
+
 // send message with datachannel
 
 const handleSendMessage = (event) => {
@@ -220,8 +236,9 @@ const handleSendMessage = (event) => {
     }, 2000);
     return;
   }
-  myDataChannel.send(`{"type": "chat", "value": "${message.value}"}`);
-  messageBlock.innerHTML += `<div>${message.value}</div>`;
+  const messageToSend = filter(message.value);
+  myDataChannel.send(`{"type": "chat", "value": "${messageToSend}"}`);
+  messageBlock.innerHTML += `<div>${messageToSend}</div>`;
   message.value = "";
 };
 
@@ -236,7 +253,7 @@ const handleReceiveMessage = (event) => {
   if (typeof event.data === "string") {
     const message = JSON.parse(event.data);
     if (message.type == "filesignal") {
-      rxFileName = message.fileName;
+      rxFileName = filter(message.fileName);
       rxFileSize = message.fileSize;
       timestampStart = Date.now();
       receiveProgress.max = rxFileSize;
@@ -246,7 +263,8 @@ const handleReceiveMessage = (event) => {
       receivedSize = 0;
       messageBlock.innerHTML += `<div>Receiving ${rxFileName}</div>`;
     } else {
-      messageBlock.innerHTML += `<div>${message.value}</div>`;
+      const messageToRead = filter(message.value);
+      messageBlock.innerHTML += `<div>${messageToRead}</div>`;
     }
   } else if (typeof event.data === "object") {
     receiveBuffer.push(event.data);
@@ -286,11 +304,11 @@ const handleSendFile = (file) => {
   console.log(
     `File is ${[file.name, file.size, file.type, file.lastModified].join(" ")}`
   );
-
+  const fileNameToSend = filter(file.name);
   myDataChannel.send(
-    `{"type": "filesignal", "fileName": "${file.name}", "fileSize": ${file.size}, "fileType": "${file.type}", "fileLastModified": ${file.lastModified}}`
+    `{"type": "filesignal", "fileName": "${fileNameToSend}", "fileSize": ${file.size}, "fileType": "${file.type}", "fileLastModified": ${file.lastModified}}`
   );
-  messageBlock.innerHTML += `<div>Sending ${file.name}</div>`;
+  messageBlock.innerHTML += `<div>Sending ${fileNameToSend}</div>`;
 
   if (file.size === 0) {
     alert("File is empty");
@@ -321,7 +339,7 @@ const handleSendFile = (file) => {
       // 아직 보낼 파일이 남았을때
       readSlice(offset); // 슬라이스해서 보내기
     } else {
-      messageBlock.innerHTML += `<div>${file.name} is sent</div>`; // 보내기 완료
+      messageBlock.innerHTML += `<div>${fileNameToSend} is sent</div>`; // 보내기 완료
       sendProgressDiv.hidden = true;
     }
   });
