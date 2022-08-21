@@ -155,4 +155,10 @@ hr {
     background-color: #18242c;
     height: 80vh;
     overflow-y: scroll;
-    }
+}
+
+.progress {
+    position: sticky;
+    top: 0;
+    background: #151f26;
+}
