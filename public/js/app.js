@@ -5,12 +5,13 @@ const socket = io();
 
 const welcome = document.querySelector("#welcome");
 const inRoom = document.querySelector("#inRoom");
-const sendProgress = document.querySelector("progress#sendProgress");
-const receiveProgress = document.querySelector("progress#receiveProgress");
+const sendProgress = document.querySelector("progress#sendProgressBar");
+const receiveProgress = document.querySelector("progress#receiveProgressBar");
 const code = document.querySelector(".code");
 const roomCodeInput = document.querySelector("#roomCodeInput");
-const sendProgressDiv = document.querySelector(".sendProgress");
-const receiveProgressDiv = document.querySelector(".receiveProgress");
+
+const sendProgressDiv = document.querySelector("div.sendProgress");
+const receiveProgressDiv = document.querySelector("div.receiveProgress");
 
 roomCodeInput.addEventListener("keydown", (event) => {
   roomCodeInput.value = roomCodeInput.value.toUpperCase();
@@ -255,8 +256,8 @@ messageForm.addEventListener("submit", handleSendMessage);
 const messageBlock = document.getElementById("messageBlock");
 
 const handleReceiveMessage = (event) => {
-  console.log(event.data);
-  console.log(typeof event.data);
+  // console.log(event.data);
+  // console.log(typeof event.data);
   // console.log(message);
   if (typeof event.data === "string") {
     const message = JSON.parse(event.data);
@@ -338,10 +339,10 @@ const handleSendFile = (file) => {
     alert("File reading aborted");
   });
   fileReader.addEventListener("load", (event) => {
-    console.log("FileRead.onload", event);
+    // console.log("FileRead.onload", event);
     myDataChannel.send(event.target.result);
     offset += event.target.result.byteLength;
-    console.log(`Sent ${offset} bytes`);
+    // console.log(`Sent ${offset} bytes`);
     sendProgress.value = offset;
     if (offset < file.size) {
       // 아직 보낼 파일이 남았을때

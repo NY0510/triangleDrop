@@ -47,18 +47,17 @@
 
       <!-- 룸 입장후 -->
       <div id="inRoom" hidden>
-        <div id="messageBlock">
-          <div class="progress">
-            <div class="sendProgress" hidden>
-              <div class="label">Send progress:</div>
-              <progress id="sendProgress" max="0" value="0"></progress>
-            </div>
-            <div class="receiveProgress" hidden>
-              <div class="label">Receive progress:</div>
-              <progress id="receiveProgress" max="0" value="0"></progress>
-            </div>
+        <div class="progress">
+          <div class="sendProgress" hidden>
+            <div class="label">Send progress:</div>
+            <progress id="sendProgressBar" max="0" value="0"></progress>
+          </div>
+          <div class="receiveProgress" hidden>
+            <div class="label">Receive progress:</div>
+            <progress id="receiveProgressBar" max="0" value="0"></progress>
           </div>
         </div>
+        <div id="messageBlock"></div>
 
         <form action="" class="animate__animated" id="messageForm">
           <div class="messageDiv">
