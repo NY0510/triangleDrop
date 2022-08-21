@@ -5,88 +5,92 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<link rel="icon" type="image/x-icon" href="/img/favicon.png" />
+		<!-- Meta Tag -->
+		<meta http-equiv="Title" content="Triangle Drop" />
+		<meta property="og:title" content="Triangle Drop" />
+		<meta property="og:locale" content="ko_KR" />
+		<!-- <meta name="description" content="웹사이트 설명 추후 추가" /> -->
+		<!-- <meta property="og:description" content="웹사이트 설명 추후 추가" /> -->
+		<!-- <link rel="canonical" href="웹사이트 도메인 추후 추가" /> -->
+		<!-- <meta property="og:url" content="웹사이트 도메인 추후 추가" /> -->
+		<meta property="og:site_name" content="Triangle Drop" />
+		<meta name="twitter:card" content="summary" />
+		<meta property="twitter:title" content="Triangle Drop" />
+		<meta property="og:type" content="website" />
+		<meta http-equiv="Publisher" content="Triangle Drop" />
+
+		<!-- <meta property="og:image" content="웹사이트 미리보기 카드 이미지 추후 추가 (1200x630)" /> -->
+		<!-- <meta name="twitter:card" content="웹사이트 미리보기 카드 이미지 추후 추가 (1200x630)" /> -->
+
+		<!-- Favicon -->
+		<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png" />
+		<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-icon-60x60.png" />
+		<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-icon-72x72.png" />
+		<link rel="apple-touch-icon" sizes="76x76" href="/img/favicon/apple-icon-76x76.png" />
+		<link rel="apple-touch-icon" sizes="114x114" href="/img/favicon/apple-icon-114x114.png" />
+		<link rel="apple-touch-icon" sizes="120x120" href="/img/favicon/apple-icon-120x120.png" />
+		<link rel="apple-touch-icon" sizes="144x144" href="/img/favicon/apple-icon-144x144.png" />
+		<link rel="apple-touch-icon" sizes="152x152" href="/img/favicon/apple-icon-152x152.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/img//faviconapple-icon-180x180.png" />
+		<link rel="icon" type="image/png" sizes="192x192" href="/img/favicon/android-icon-192x192.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="96x96" href="/img/favicon/favicon-96x96.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png" />
+		<link rel="manifest" href="/img/favicon/manifest.json" />
+		<meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
 
 		<link rel="stylesheet" href="/css/style.css" />
-		<!-- <link rel="stylesheet" href="//unpkg.com/@picocss/pico@latest/css/pico.min.css" /> -->
 		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+		<!-- <link rel="stylesheet" href="//unpkg.com/@picocss/pico@latest/css/pico.min.css" /> -->
 		<!-- <script src="https://cdn.tailwindcss.com"></script> -->
 
 		<title>Triangle Drop</title>
 	</head>
 	<body>
 		<div class="app">
-			<div class="codeLabel">Your Code Is</div>
-			<!-- <h1 align="center"><span href="#" class="code">underline</span></h1> -->
-			<div class="codeBox" data-tooltip="Click To Copy Code">
-				<span class="code"></span>
-			</div>
-			<!-- 첫화면 -->
-			<div id="welcome">
-				<div class="waitLabel" aria-busy="true" hidden><i class="fa-solid fa-circle-notch fa-fw fa-spin"></i> Waiting for another user…</div>
-				<!-- <hr /> -->
-				<form action="" id="enterRoom">
-					<input autocomplete="off" type="text" class="roomCodeInput" id="roomCodeInput" placeholder="Please input Code" />
-					<button class="animate__animated">Enter</button>
-				</form>
+			<div class="center">
+				<div class="codeLabel">Your Code is</div>
+				<!-- <h1 align="center"><span href="#" class="code">underline</span></h1> -->
+				<div class="codeBox" data-tooltip="Click To Copy Code">
+					<span class="code"></span>
+				</div>
+				<!-- 첫화면 -->
+				<div id="welcome">
+					<div class="waitLabel" aria-busy="true" hidden><i class="fa-solid fa-circle-notch fa-fw fa-spin"></i> Waiting for another user…</div>
+					<!-- <hr /> -->
+					<div class="enterRoomDiv animate__animated">
+						<form action="" id="enterRoom">
+							<input autocomplete="off" type="text" class="roomCodeInput" id="roomCodeInput" placeholder="Please Input Code" />
+							<button class="enterButton animate__animated">Enter!</button>
+						</form>
+					</div>
+				</div>
 			</div>
 
 			<!-- 룸 입장후 -->
 			<div id="inRoom" hidden>
-				<div id="messageBlock"></div>
-
-<<<<<<< HEAD
-      <!-- 룸 입장후 -->
-      <div id="inRoom" hidden>
-        <div class="progress">
-          <div class="sendProgress" hidden>
-            <div class="label">Send progress:</div>
-            <progress id="sendProgressBar" max="0" value="0"></progress>
-          </div>
-          <div class="receiveProgress" hidden>
-            <div class="label">Receive progress:</div>
-            <progress id="receiveProgressBar" max="0" value="0"></progress>
-          </div>
-        </div>
-        <div id="messageBlock"></div>
-=======
 				<div class="progress">
 					<div class="sendProgress" hidden>
-						<div class="label">Send progress:</div>
-						<progress id="sendProgress" max="0" value="0"></progress>
+						<div class="label">Sending...</div>
+						<progress id="sendProgressBar" max="0" value="0"></progress>
 					</div>
 					<div class="receiveProgress" hidden>
-						<div class="label">Receive progress:</div>
-						<progress id="receiveProgress" max="0" value="0"></progress>
+						<div class="label">Receiveing...</div>
+						<progress id="receiveProgressBar" max="0" value="0"></progress>
 					</div>
 				</div>
+				<div id="messageBlock"></div>
 
 				<form action="" class="animate__animated" id="messageForm">
 					<div class="messageDiv">
-						<label for="fileInput" class="fileInputLabel">
-							<svg
-								height="50px"
-								id="Layer_1"
-								style="enable-background: new 0 0 512 512"
-								version="1.1"
-								viewBox="0 0 512 512"
-								width="30px"
-								xml:space="preserve"
-								xmlns="http://www.w3.org/2000/svg"
-								xmlns:xlink="http://www.w3.org/1999/xlink"
-							>
-								<path
-									d="M417.4,224H288V94.6c0-16.9-14.3-30.6-32-30.6c-17.7,0-32,13.7-32,30.6V224H94.6C77.7,224,64,238.3,64,256  c0,17.7,13.7,32,30.6,32H224v129.4c0,16.9,14.3,30.6,32,30.6c17.7,0,32-13.7,32-30.6V288h129.4c16.9,0,30.6-14.3,30.6-32  C448,238.3,434.3,224,417.4,224z"
-								/></svg
-						></label>
-						<input type="file" placeholder="file select" id="fileInput" />
 						<input autocomplete="off" type="text" id="messageInput" placeholder="message" />
-						<button id="messageSendButton">Send</button>
+						<label for="fileInput" class="fileInputLabel"> <i class="fa-solid fa-paperclip fa-fw"></i></label>
+						<input type="file" placeholder="file select" id="fileInput" />
+						<button id="messageSendButton"><i class="fa-solid fa-paper-plane"></i></button>
 					</div>
 				</form>
 			</div>
 		</div>
->>>>>>> c83ea7e (둔각멍청이)
 
 		<script src="//kit.fontawesome.com/2cc80d7123.js" crossorigin="anonymous"></script>
 		<script src="/socket.io/socket.io.js"></script>
