@@ -26,8 +26,8 @@ npm start
 
 ### Obtuse-triangle
 
-- [ ] Send / receive progress bar hide / show
-- [ ] In Room change Code
+- [x] Send / receive progress bar hide / show
+- [x] In Room change Code
 - [ ] Send Button merge
 
 ### NY64
