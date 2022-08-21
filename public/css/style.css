@@ -82,6 +82,7 @@ button:hover {
 }
 
 .codeLabel {
+	font-family: "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono", monospace;
 	font-size: 2.6rem;
 	font-weight: 400;
 }
@@ -167,6 +168,7 @@ span.code:hover:after {
 	font-size: 1.5rem;
 	margin-bottom: 1rem;
 	width: max-content;
+	font-family: "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono", monospace;
 }
 
 input[type="text"] {
@@ -204,7 +206,7 @@ input[type="text"] {
 	outline: none;
 	padding: 1rem;
 	background-color: #222222;
-
+	font-family: "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono", monospace;
 	transition: box-shadow 0.4s;
 }
 
