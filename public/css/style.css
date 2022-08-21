@@ -98,6 +98,7 @@ button:hover {
 	font-family: "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono", monospace;
 	border-radius: 20px;
 
+	color: white;
 	text-decoration: none;
 	display: inline-block;
 	position: relative;
@@ -107,7 +108,6 @@ button:hover {
 	background-clip: text;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
-	color: transparent;
 }
 
 span.code:after {
@@ -241,26 +241,39 @@ input[type="text"] {
 	color: #fff;
 	font-size: 1.2rem;
 	border: 0;
-	border-radius: 9px;
+	border-radius: 10px;
 	outline: none;
 	padding: 0.5rem;
 	background-color: #222222;
-	margin-right: 0.3rem;
-
 	display: flex;
 	flex-direction: row;
-	align-items: baseline;
+	align-items: center;
 	flex-wrap: nowrap;
 	justify-content: space-between;
 	width: 90vw;
 	bottom: 2rem;
-	align-items: center;
 	margin: 0 auto;
-	left: 0;
-	right: 0;
 	position: fixed;
 	height: 2.5rem;
+	padding: 0.5rem;
 	/* height: 50px; */
+}
+.messageSendBlock{
+	margin: 0;
+	position:fixed;
+	width: 90vw;
+}
+.filesPreview {
+	padding: 0.5rem;
+	padding-bottom: 40px;
+	background-color: #222222;
+	border-radius: 10px;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	width: 90vw;
+	text-align: left;
+	position: relative;
+	bottom: 50px;
 }
 
 #messageInput {
@@ -322,4 +335,30 @@ div.receiveProgress > div.label {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
+}
+.prv {
+	margin-right: 0.2rem;
+	margin-left: 0.2rem;
+}
+.prv > i {
+	font-size: 1.5rem;
+	color: #8f8f8f;
+}
+.prv.fa-file{
+	font-size: 4rem;
+}
+.prv.prvFileBox {
+	display: inline-flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	vertical-align: top;
+}
+.prv.prvFileName {
+	font-size: 1.4rem;
+	font-weight: 900;
+}
+.prv.prvFileSizeAndType {
+	font-size: 1rem;
+	color: #e2e2e2;
 }
