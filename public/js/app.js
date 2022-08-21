@@ -194,7 +194,7 @@ const handleIceCandidate = (data) => {
   socket.emit("ice", data.candidate, roomName);
 };
 
-const filter = (message) => {
+const filter = (message, itFilename = false) => {
   let result = message.replaceAll(/[\u0000-\u0019]+/g, "");
   result = result.replaceAll("<", "&lt;");
   result = result.replaceAll(">", "&gt;");
@@ -205,7 +205,9 @@ const filter = (message) => {
   result = result.replaceAll("\n", "<br>");
   result = result.replaceAll("\r", "<br>");
   result = result.replaceAll("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
-  result = result.replaceAll(" ", "&nbsp;");
+  if (!itFilename) {
+    result = result.replaceAll(" ", "&nbsp;");
+  }
 
   return result;
 };
@@ -253,7 +255,7 @@ const handleReceiveMessage = (event) => {
   if (typeof event.data === "string") {
     const message = JSON.parse(event.data);
     if (message.type == "filesignal") {
-      rxFileName = filter(message.fileName);
+      rxFileName = filter(message.fileName, true);
       rxFileSize = message.fileSize;
       timestampStart = Date.now();
       receiveProgress.max = rxFileSize;
@@ -304,7 +306,7 @@ const handleSendFile = (file) => {
   console.log(
     `File is ${[file.name, file.size, file.type, file.lastModified].join(" ")}`
   );
-  const fileNameToSend = filter(file.name);
+  const fileNameToSend = filter(file.name, true);
   myDataChannel.send(
     `{"type": "filesignal", "fileName": "${fileNameToSend}", "fileSize": ${file.size}, "fileType": "${file.type}", "fileLastModified": ${file.lastModified}}`
   );
