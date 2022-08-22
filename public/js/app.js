@@ -271,16 +271,23 @@ const handleReceiveMessage = (event) => {
       receiveBuffer = [];
       receivedSize = 0;
       messageBlock.innerHTML += `<div>Receiving ${rxFileName}</div>`;
+      document.querySelector(".rxProgressBarFileName").innerHTML = rxFileName;
+      document.querySelector(
+        ".rxProgressBarFileSize"
+      ).innerHTML = `0/${Math.round(file.size / 1024 / 1024)}MB`;
     } else {
       const messageToRead = filter(message.value);
       messageBlock.innerHTML += `<div>${messageToRead}</div>`;
     }
   } else if (typeof event.data === "object") {
     receiveBuffer.push(event.data);
-    console.log(event.data.byteLength);
+    // console.log(event.data.byteLength);
     receivedSize += event.data.byteLength;
-    console.log(receivedSize);
-    // $receiveProgress.value = Math.round(receivedSize); 파폭에서 작동 안함.
+    // console.log(receivedSize);
+    $receiveProgress.value = Math.round(receivedSize); //파폭에서 작동 안함.
+    document.querySelector(".rxProgressBarFileSize").innerHTML = `${Math.round(
+      receivedSize / 1024 / 1024
+    )}/${Math.round(rxFileSize / 1024 / 1024)}MB`;
 
     // const file = fileInput.files[0];
 
@@ -312,6 +319,7 @@ const saveFile = (blob) => {
 };
 
 function handleChangeFile(event) {
+  $filePrv.innerHTML = "";
   $filePrv.hidden = false;
   const file = event.target.files[0];
   const fileName = filter(file.name);
@@ -349,6 +357,10 @@ const handleSendFile = (file) => {
     `{"type": "filesignal", "fileName": "${fileNameToSend}", "fileSize": ${file.size}, "fileType": "${file.type}", "fileLastModified": ${file.lastModified}}`
   );
   messageBlock.innerHTML += `<div>Sending ${fileNameToSend}</div>`;
+  document.querySelector(".txProgressBarFileName").innerHTML = fileNameToSend;
+  document.querySelector(".txProgressBarFileSize").innerHTML = `0/${Math.round(
+    file.size / 1024 / 1024
+  )}MB`;
 
   if (file.size === 0) {
     alert("File is empty");
@@ -371,6 +383,9 @@ const handleSendFile = (file) => {
   });
   fileReader.addEventListener("load", async (event) => {
     myDataChannel.send(event.target.result);
+    document.querySelector(".txProgressBarFileSize").innerHTML = `${Math.round(
+      offset / 1024 / 1024
+    )}/${Math.round(file.size / 1024 / 1024)}MB`;
     offset += event.target.result.byteLength;
     console.log(`Sent ${offset} bytes`);
     console.log(myDataChannel.bufferedAmount);
