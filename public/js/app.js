@@ -277,8 +277,10 @@ const handleReceiveMessage = (event) => {
     }
   } else if (typeof event.data === "object") {
     receiveBuffer.push(event.data);
+    console.log(event.data.byteLength);
     receivedSize += event.data.byteLength;
-    $receiveProgress.value = receivedSize;
+    console.log(receivedSize);
+    // $receiveProgress.value = Math.round(receivedSize); 파폭에서 작동 안함.
 
     // const file = fileInput.files[0];
 
@@ -356,7 +358,7 @@ const handleSendFile = (file) => {
   $sendProgress.max = file.size;
   $sendProgress.value = 0;
   $sendProgressDiv.hidden = false;
-  const chunkSize = 50000;
+  const chunkSize = 262144;
 
   fileReader = new FileReader();
   let offset = 0;
@@ -377,10 +379,11 @@ const handleSendFile = (file) => {
     if (offset < file.size) {
       // 아직 보낼 파일이 남았을때
 
-      for (; 14500000 - myDataChannel.bufferedAmount < chunkSize; ) {
+      for (; 16777216 - myDataChannel.bufferedAmount < chunkSize; ) {
         // 버퍼에 남은 공간이 작을때
+        // 버퍼 공간 16Mb를 넘지 않도록 계속 버퍼에 데이터를 넣는다.
         console.log("wait");
-        await new Promise((resolve) => setTimeout(resolve, 3000));
+        await new Promise((resolve) => setTimeout(resolve, 100));
       }
 
       readSlice(offset); // 슬라이스해서 보내기
