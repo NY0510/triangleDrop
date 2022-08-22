@@ -135,6 +135,9 @@ const enterRoomCallback = (result) => {
 
 const handleEnterRoom = async (event) => {
   event.preventDefault();
+  if (enterRoomForm.querySelector("input").value.length !== 5) {
+    enterRoomCallback(false);
+  }
   socket.emit(
     "join_room",
     enterRoomForm.querySelector("input").value,
