@@ -356,7 +356,7 @@ const handleSendFile = (file) => {
   $sendProgress.max = file.size;
   $sendProgress.value = 0;
   $sendProgressDiv.hidden = false;
-  const chunkSize = 30000;
+  const chunkSize = 50000;
 
   fileReader = new FileReader();
   let offset = 0;
@@ -377,10 +377,10 @@ const handleSendFile = (file) => {
     if (offset < file.size) {
       // 아직 보낼 파일이 남았을때
 
-      for (; 16760000 - myDataChannel.bufferedAmount < chunkSize; ) {
+      for (; 14500000 - myDataChannel.bufferedAmount < chunkSize; ) {
         // 버퍼에 남은 공간이 작을때
-        await new Promise((resolve) => setTimeout(resolve, 1000));
         console.log("wait");
+        await new Promise((resolve) => setTimeout(resolve, 3000));
       }
 
       readSlice(offset); // 슬라이스해서 보내기

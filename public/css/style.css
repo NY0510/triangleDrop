@@ -43,6 +43,28 @@ button:hover {
 	transition: filter 0.5s;
 } */
 
+@media (max-width: 340px) {
+	input[type="text"] {
+		font-size: 0.8rem !important;
+	}
+	.waitLabel{
+		font-size: 1rem !important;
+	}
+	.code{
+		font-size: 3rem !important;
+		padding-bottom: 0 !important;
+		margin-bottom: 0 !important;
+	}
+	.codeLabel{
+		font-size: 1rem !important;
+	}
+	.fa-solid.fa-circle-notch{
+		width: 15px !important;
+		height: 15px!important;
+		font-size: 15px!important;
+	}
+}
+
 @media (max-width: 1500px) {
 	.app {
 		width: 100vw !important;
@@ -52,10 +74,18 @@ button:hover {
 		margin: 1rem;
 	}
 	#welcome {
-		width: 90% !important;
+		width: 90vw !important;
 		margin: 1rem;
+		margin-left: 0;
+		margin-right: 0;
 	}
 	.messageDiv, .messageSendBlock, .filesPreview{
+		width: 90vw !important;
+	}
+	hr{
+		width: 90vw !important;
+	}
+	#enterRoom {
 		width: 90vw !important;
 	}
 }
@@ -67,6 +97,7 @@ button:hover {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+	width: fit-content;
 }
 
 .app {
@@ -170,8 +201,9 @@ span.code:hover:after {
 .waitLabel {
 	font-size: 1.5rem;
 	margin-bottom: 1rem;
-	width: max-content;
+	width: fit-content;
 	font-family: "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono", monospace;
+	display: inline;
 }
 
 input[type="text"] {
@@ -190,7 +222,6 @@ input[type="text"] {
 	flex-basis: 100%;
 	font-family: "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono", monospace;
 	text-transform: uppercase;
-	font-size: 1.5rem!important;
 }
 
 .roomCodeInput:hover,
