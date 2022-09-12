@@ -157,7 +157,7 @@
     </noscript>
     <div class="app" ondragenter="handleDragAndDropEnter(event)">
       <div class="center">
-        <h2 class="codeLabel">Share this code with others to share a file</h2>
+        <h2 class="codeLabel label"><%= __('codeLabel')%></h2>
         <!-- <h1 align="center"><span href="#" class="code">underline</span></h1> -->
         <div class="codeBox" data-tooltip="Click To Copy Code">
           <span class="code"></span>
@@ -165,11 +165,11 @@
         <!-- 첫화면 -->
         <div id="welcome">
           <div class="waitLabel" aria-busy="true" hidden>
-            <i class="fa-solid fa-circle-notch fa- spin"></i> Waiting for
-            another user to enter the code…
+            <i class="fa-solid fa-circle-notch fa- spin"></i> <%=
+            __('waitCodeInputLabel')%>
           </div>
-          <hr />
-
+          <hr class="hr-text" data-content="OR" />
+          <h2 class="label codeInputLabel"><%= __('codeInputLabel')%></h2>
           <div class="enterRoomDiv animate__animated">
             <form action="" id="enterRoom">
               <input
@@ -177,10 +177,12 @@
                 type="text"
                 class="roomCodeInput"
                 id="roomCodeInput"
-                placeholder="another user's code"
+                placeholder="<%= __('codeInputPlaceholder')%>"
                 maxlength="5"
               />
-              <button class="enterButton animate__animated">Enter</button>
+              <button class="enterButton animate__animated">
+                <%= __('enterButton')%>
+              </button>
             </form>
           </div>
         </div>

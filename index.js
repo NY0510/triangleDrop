@@ -14,11 +14,24 @@ app.use(i18nF);
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.render(res.__(path.join(__dirname, "public", "html", "index.ejs")));
+  res.render(res.__(path.join(__dirname, "public", "ejs", "index.ejs")));
+});
+app.get("/unsupported", (req, res) => {
+  res.render(res.__(path.join(__dirname, "public", "ejs", "unsupported.ejs")));
+});
+
+app.get("/en", (req, res) => {
+  res.cookie("lang", "en");
+  res.redirect("/");
+});
+app.get("/ko", (req, res) => {
+  res.cookie("lang", "ko");
+  res.redirect("/");
 });
 
 io.on("connection", (socket) => {
   console.log("a user connected");
+  // console.log(io.sockets.adapter.rooms);
 
   socket.on("create_room", (roomName, callback) => {
     if (io.sockets.adapter.rooms.get(roomName) === undefined) {

@@ -1,5 +1,10 @@
 {
+	"E:\\onedrive\\OneDrive - 부산광역시교육청\\ReactP\\triangleDrop\\public\\ejs\\index.ejs": "E:\\onedrive\\OneDrive - 부산광역시교육청\\ReactP\\triangleDrop\\public\\ejs\\index.ejs",
 	"SiteDescriptions": "Triangle Drop is a file transfer application using WebRTC. No signup, no file size limit, works on any device, bidirectional transfer",
 	"noJavascript": "javascript is not enabled. please enable javascript to use this site",
-	"E:\\onedrive\\OneDrive - 부산광역시교육청\\ReactP\\triangleDrop\\public\\html\\index.ejs": "E:\\onedrive\\OneDrive - 부산광역시교육청\\ReactP\\triangleDrop\\public\\html\\index.ejs"
+	"codeLabel": "Share this code with others to share a file",
+	"waitCodeInputLabel": "Waiting for another user to enter the code…",
+	"codeInputLabel": "Did you receive the code? Please enter here!",
+	"codeInputPlaceholder": "AAA00",
+	"enterButton": "Enter"
 }

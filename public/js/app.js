@@ -75,6 +75,7 @@ const initRoom = () => {
 const createRoomName = (result = false) => {
   if (!result) {
     roomName = Math.random().toString(36).substring(2, 7).toUpperCase();
+    roomName = roomName.replaceAll("O", "0");
     socket.emit("create_room", roomName, createRoomName);
   } else {
     $code.innerHTML = roomName;
