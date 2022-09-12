@@ -12,8 +12,18 @@
     <meta http-equiv="Title" content="Triangle Drop" />
     <meta property="og:title" content="Triangle Drop" />
     <meta property="og:locale" content="ko_KR" />
-    <!-- <meta name="description" content="웹사이트 설명 추후 추가" /> -->
-    <!-- <meta property="og:description" content="웹사이트 설명 추후 추가" /> -->
+    <meta name="description" content="<%= __('SiteDescriptions')%>" />
+    <meta property="og:description" content="<%= __('SiteDescriptions')%>" />
+
+    <!-- 현지화 -->
+    <link
+      rel="alternate"
+      href="https://triangledrop.obtuse.cf"
+      hreflang="x-default"
+    />
+    <link rel="alternate" hreflang="ko" href="/ko" />
+    <link rel="alternate" hreflang="ko" href="/en" />
+
     <!-- <link rel="canonical" href="웹사이트 도메인 추후 추가" /> -->
     <!-- <meta property="og:url" content="웹사이트 도메인 추후 추가" /> -->
     <meta property="og:site_name" content="Triangle Drop" />
@@ -143,11 +153,11 @@
           display: none;
         }
       </style>
-      javascript is not enabled. please enable javascript to use this site
+      <%= __('noJavascript')%>
     </noscript>
     <div class="app" ondragenter="handleDragAndDropEnter(event)">
       <div class="center">
-        <div class="codeLabel">Your Code is</div>
+        <h2 class="codeLabel">Share this code with others to share a file</h2>
         <!-- <h1 align="center"><span href="#" class="code">underline</span></h1> -->
         <div class="codeBox" data-tooltip="Click To Copy Code">
           <span class="code"></span>

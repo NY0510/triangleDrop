@@ -1,15 +1,20 @@
 const express = require("express");
-const app = express();
 const http = require("http");
+const app = express();
 const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 const path = require("path");
+const i18nF = require("./i18n");
+const cookieParser = require("cookie-parser");
 
 app.use(express.static("public"));
+app.use(cookieParser());
+app.use(i18nF);
+app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "html", "index.html"));
+  res.render(res.__(path.join(__dirname, "public", "html", "index.ejs")));
 });
 
 io.on("connection", (socket) => {
