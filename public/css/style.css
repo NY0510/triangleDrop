@@ -63,6 +63,10 @@ button:hover {
 		height: 15px!important;
 		font-size: 15px!important;
 	}
+	.enterButton{
+		font-size: 0.8rem !important;
+		padding: 0.7rem !important;
+	}
 }
 
 @media (max-width: 1500px) {
@@ -97,7 +101,7 @@ button:hover {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: fit-content;
+	/* width: fit-content; */
 }
 
 .app {
@@ -117,7 +121,7 @@ button:hover {
 
 .label {
 	font-family: "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono", monospace;
-	font-size: 1.5rem;
+	font-size: 2rem;
 	font-weight: 400;
 }
 
@@ -236,7 +240,7 @@ span.code:hover:after {
 }
 
 .waitLabel {
-	font-size: 1.2rem;
+	font-size: 1.5rem;
 	margin-bottom: 1rem;
 	width: fit-content;
 	font-family: "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono", monospace;
@@ -485,4 +489,16 @@ div.receiveProgress > div.label {
 	display: block;
 	opacity: 0.8;
 	pointer-events: all;
+}
+footer{
+	height: 30px;
+	position : relative;
+	top:100vh;
+	transform : translateY(-50px);
+	display: block;
+
+  }
+a{
+	color: #63b4ff;
+	text-decoration: none;
 }
