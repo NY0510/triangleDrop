@@ -65,6 +65,7 @@ const initExit = () => {
 const initRoom = () => {
   $welcome.hidden = true;
   $inRoom.hidden = false;
+  document.querySelector("footer").hidden = "true";
   $code.innerHTML = roomName;
   document.querySelector(".codeLabel").hidden = true;
   $code.classList.add("InRoom");
