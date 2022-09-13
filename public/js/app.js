@@ -11,13 +11,13 @@ const $receiveProgressDiv = document.querySelector(".receiveProgress");
 const $filePrv = document.querySelector(".filesPreview");
 const $dropZone = document.querySelector(".dragAndDrop");
 
-$roomCodeInput.addEventListener("keydown", (event) => {
-  $roomCodeInput.value = $roomCodeInput.value.toUpperCase();
-});
+// $roomCodeInput.addEventListener("keydown", (event) => {
+//   $roomCodeInput.value = $roomCodeInput.value.toUpperCase();
+// });
 
-$roomCodeInput.addEventListener("keyup", (event) => {
-  $roomCodeInput.value = $roomCodeInput.value.toUpperCase();
-});
+// $roomCodeInput.addEventListener("keyup", (event) => {
+//   $roomCodeInput.value = $roomCodeInput.value.toUpperCase();
+// });
 
 $code.addEventListener("click", () => {
   var tempElem = document.createElement("textarea");

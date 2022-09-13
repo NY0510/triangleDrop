@@ -1,0 +1,60 @@
+@media (max-width: 430px) {
+	input[type="text"] {
+		font-size: 0.8rem !important;
+	}
+	.waitLabel{
+		font-size: 1rem !important;
+	}
+	.code{
+		font-size: 3rem !important;
+		padding-bottom: 0 !important;
+		margin-bottom: 0 !important;
+	}
+	.label{
+		font-size: 1rem !important;
+	}
+	.fa-solid.fa-circle-notch{
+		width: 15px !important;
+		height: 15px!important;
+		font-size: 15px!important;
+	}
+	.enterButton{
+		font-size: 0.8rem !important;
+		padding: 0.7rem !important;
+	}
+    .developerLogo{
+        font-size: 1rem !important;
+    }
+    .footerDiv{
+        font-size: 0.8rem !important;
+        flex-direction: column !important;
+    }
+    .newTabIcon{
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 1500px) {
+	.app {
+		width: 100vw !important;
+	}
+	#inRoom {
+		width: 90vw !important;
+		margin: 1rem;
+	}
+	#welcome {
+		width: 90vw !important;
+		margin: 0.7rem;
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.messageDiv, .messageSendBlock, .filesPreview{
+		width: 90vw !important;
+	}
+	hr{
+		width: 90vw !important;
+	}
+	#enterRoom {
+		width: 90vw !important;
+	}
+}

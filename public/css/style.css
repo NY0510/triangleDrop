@@ -43,62 +43,13 @@ button:hover {
 	transition: filter 0.5s;
 } */
 
-@media (max-width: 340px) {
-	input[type="text"] {
-		font-size: 0.8rem !important;
-	}
-	.waitLabel{
-		font-size: 1rem !important;
-	}
-	.code{
-		font-size: 3rem !important;
-		padding-bottom: 0 !important;
-		margin-bottom: 0 !important;
-	}
-	.label{
-		font-size: 1rem !important;
-	}
-	.fa-solid.fa-circle-notch{
-		width: 15px !important;
-		height: 15px!important;
-		font-size: 15px!important;
-	}
-	.enterButton{
-		font-size: 0.8rem !important;
-		padding: 0.7rem !important;
-	}
-}
 
-@media (max-width: 1500px) {
-	.app {
-		width: 100vw !important;
-	}
-	#inRoom {
-		width: 90vw !important;
-		margin: 1rem;
-	}
-	#welcome {
-		width: 90vw !important;
-		margin: 1rem;
-		margin-left: 0;
-		margin-right: 0;
-	}
-	.messageDiv, .messageSendBlock, .filesPreview{
-		width: 90vw !important;
-	}
-	hr{
-		width: 90vw !important;
-	}
-	#enterRoom {
-		width: 90vw !important;
-	}
-}
 
 /* to bottom, #f5f5f5, #e6e6e6 */
 
 .center {
 	position: absolute;
-	top: 50%;
+	top: 40%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	/* width: fit-content; */
@@ -173,27 +124,27 @@ hr {
 }
 
 .code {
-	display: flex;
+	/* display: flex; */
 	align-items: center;
 	justify-content: center;
-	height: 5rem;
-	width: 14rem;
+	/* height: 5rem;
+	width: 14rem; */
 	padding: 0.3rem;
 
 	cursor: pointer;
 
 	font-weight: 300;
-	font-size: 4rem;
+	font-size: 9rem;
 	font-family: "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono", monospace;
-	border-radius: 20px;
+	/* border-radius: 20px; */
 
 	color: white;
 	text-decoration: none;
 	display: inline-block;
 	position: relative;
 
-	margin-bottom: 0.5rem;
-	background: linear-gradient(45deg, red, #33b4ff, #1c4fbd);
+	/* margin-bottom: 0.5rem; */
+	background: linear-gradient(45deg, #9857ff, #5af6ff);
 	background-clip: text;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
@@ -490,13 +441,54 @@ div.receiveProgress > div.label {
 	opacity: 0.8;
 	pointer-events: all;
 }
+
 footer{
-	height: 30px;
+	height: 8rem;
+	width: 100vw;
 	position : relative;
 	top:100vh;
-	transform : translateY(-50px);
+	transform : translateY(-9rem);
+	background-color: #404040;
 
-  }
+}
+div.footerDiv{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+}
+
+div.footerLeft{
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: flex-start;
+	justify-content: space-around;
+	margin: 0.8rem;
+}
+div.developerLogos{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	font-size: 2.3rem;
+}
+.developerLogo:hover{
+	color: #63b4ff;
+}
+.developerLogo{
+	margin-left: 1rem;
+	padding-bottom: 7px;
+	font-weight: 100;
+	color: white;
+}
+.newTabIcon{
+	font-size: 1.5rem;
+}
+
 a{
 	color: #63b4ff;
 	text-decoration: none;
