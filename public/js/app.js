@@ -143,7 +143,7 @@ const handleEnterRoom = async (event) => {
   }
   socket.emit(
     "join_room",
-    $enterRoomForm.querySelector("input").value,
+    $enterRoomForm.querySelector("input").value.toUpperCase(),
     enterRoomCallback
   );
 };
