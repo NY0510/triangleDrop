@@ -111,7 +111,6 @@
       sizes="16x16"
       href="/img/favicon/favicon-16x16.png"
     />
-    <link rel="manifest" href="/img/favicon/manifest.json" />
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
 
     <link rel="stylesheet" href="/css/style.css" />
@@ -138,8 +137,31 @@
 
       gtag("config", "G-XJE4KG3NSB");
     </script>
+    <!-- PWA -->
+    <script src="/js/PWA.js" defer></script>
+    <link rel="manifest" href="/manifest.json" />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#B4D5FF"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#B4D5FF"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Triangle Drop" />
   </head>
   <body>
+    <!-- Install button, hidden by default -->
+    <!-- <div id="installContainer" class="hidden">
+      <button id="butInstall" type="button">Install</button>
+    </div> -->
     <noscript>
       <style>
         noscript {
