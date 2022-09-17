@@ -394,6 +394,9 @@ div.receiveProgress > div.label {
 	flex-direction: row;
 	flex-wrap: nowrap;
 }
+.enterRoomDiv{
+	transition: border 0.5s;
+}
 .prv {
 	margin-right: 0.2rem;
 	margin-left: 0.2rem;

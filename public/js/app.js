@@ -126,12 +126,14 @@ const enterRoomCallback = (result) => {
     $roomCodeInput.value = "";
     $roomCodeInput.placeholder = "Invalid Code OR Room is Full";
     $enterRoomDiv.classList.add("animate__shakeX");
+    $enterRoomDiv.style = "border: 5px solid red;";
     $button.disabled = true;
     setTimeout(() => {
       $roomCodeInput.placeholder = "AAA00";
       $button.disabled = false;
       $enterRoomDiv.classList.remove("errorCode");
       $enterRoomDiv.classList.remove("animate__shakeX");
+      $enterRoomDiv.style = "border: unset;";
     }, 2000);
   }
 };
