@@ -10,6 +10,7 @@ const $sendProgressDiv = document.querySelector(".sendProgress");
 const $receiveProgressDiv = document.querySelector(".receiveProgress");
 const $filePrv = document.querySelector(".filesPreview");
 const $dropZone = document.querySelector(".dragAndDrop");
+const $enterRoomDiv = document.querySelector(".enterRoomDiv");
 
 // $roomCodeInput.addEventListener("keydown", (event) => {
 //   $roomCodeInput.value = $roomCodeInput.value.toUpperCase();
@@ -136,7 +137,7 @@ const enterRoomCallback = (result) => {
     $enterRoomForm.querySelector("input").value = "";
   } else {
     const $button = $enterRoomForm.querySelector("button");
-    const $enterRoomDiv = document.querySelector(".enterRoomDiv");
+
     const $roomCodeInput = document.querySelector("#roomCodeInput");
 
     $roomCodeInput.value = "";
