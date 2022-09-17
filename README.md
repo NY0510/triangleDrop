@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 <h1 dir="auto" style="font-size: 5rem; display: flex;"> <img src="https://triangledrop.obtuse.cf/img/favicon/apple-icon-precomposed.png" width="100px" /> Triangle Drop
 </h1>
+=======
+<img src="https://triangledrop.obtuse.cf/img/favicon/apple-icon-precomposed.png" width="100px" />
+<br/>
+
+# Triangle Drop
+>>>>>>> 006958e (README 수정)
 
 ## 소개
 
