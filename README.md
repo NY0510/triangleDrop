@@ -36,18 +36,3 @@ npm install
 ```bash
 npm start
 ```
-
-<details>
-<summary>TODO</summary>
-
-### Obtuse-triangle
-
-- [x] Send / receive progress bar hide / show
-- [x] In Room change Code
-- [x] Send Button merge
-
-### NY64
-
-- [x] ~~Please wait label center algin~~
-- [ ] Message CSS
-- [ ] Drag and Drop
