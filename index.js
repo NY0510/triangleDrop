@@ -49,7 +49,10 @@ io.on("connection", (socket) => {
     }
   });
   socket.on("join_room", (roomName, callback) => {
-    if (io.sockets.adapter.rooms.get(roomName) === undefined) {
+    if (
+      io.sockets.adapter.rooms.get(roomName) === undefined ||
+      io.sockets.adapter.rooms.get(roomName).size > 1
+    ) {
       callback(false);
     } else {
       socket.join(roomName);

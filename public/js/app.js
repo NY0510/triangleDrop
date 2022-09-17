@@ -124,7 +124,7 @@ const enterRoomCallback = (result) => {
     const $roomCodeInput = document.querySelector("#roomCodeInput");
 
     $roomCodeInput.value = "";
-    $roomCodeInput.placeholder = "Invalid Code";
+    $roomCodeInput.placeholder = "Invalid Code OR Room is Full";
     $enterRoomDiv.classList.add("animate__shakeX");
     $button.disabled = true;
     setTimeout(() => {
