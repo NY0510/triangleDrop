@@ -1,4 +1,4 @@
-const CACHE_NAME = "triangleDrop-cache-v1.6";
+const CACHE_NAME = "triangleDrop-cache-v2";
 
 const FILES_TO_CACHE = [
   "/", // index.html
@@ -6,8 +6,25 @@ const FILES_TO_CACHE = [
   "/css/style.css",
   "/css/mediaQuery.css",
   "/js/PWA.js",
-  "/js/service-worker.js",
+  "/service-worker.js",
   "/js/app.js",
+  "/img/favicon/favicon-32x32.png",
+  "/img/favicon/favicon-16x16.png",
+  "/manifest.json",
+  "/img/favicon/android-icon-192x192.png",
+  "/img/favicon/android-icon-144x144.png",
+  "/img/favicon/android-icon-96x96.png",
+  "/img/favicon/android-icon-72x72.png",
+  "/img/favicon/android-icon-48x48.png",
+  "/img/favicon/android-icon-36x36.png",
+  "/img/favicon/apple-icon-180x180.png",
+  "/img/favicon/apple-icon-152x152.png",
+  "/img/favicon/apple-icon-144x144.png",
+  "/img/favicon/apple-icon-114x114.png",
+  "/img/favicon/ms-icon-310x310.png",
+  "/img/favicon/ms-icon-144x144.png",
+  "/img/favicon/ms-icon-70x70.png",
+  "/img/favicon/ms-icon-150x150.png",
 ];
 
 self.addEventListener("install", (event) => {
