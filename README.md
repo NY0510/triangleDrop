@@ -1,4 +1,4 @@
-# 📡 Triangle Drop
+# <img src="https://triangledrop.obtuse.cf/img/favicon/apple-icon-precomposed.png" width="50px" /> Triangle Drop
 
 ## 소개
 
