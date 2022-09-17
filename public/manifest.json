@@ -45,7 +45,7 @@
       }
      ],
     "start_url": "/",
-    "background_color": "#3367D6",
+    "background_color": "#e0e0e0",
     "display": "standalone",
     "scope":"https://triangledrop.obtuse.cf/",
     "theme_color": "#e0e0e0",
