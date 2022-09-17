@@ -158,18 +158,22 @@
     </noscript>
     <div class="app" ondragenter="handleDragAndDropEnter(event)">
       <div class="center">
-        <h2 class="codeLabel label"><%= __('codeLabel')%></h2>
-        <!-- <h1 align="center"><span href="#" class="code">underline</span></h1> -->
-        <div class="codeBox" data-tooltip="Click To Copy Code">
-          <span class="code"></span>
-        </div>
-        <!-- 첫화면 -->
-        <div id="welcome">
-          <div class="waitLabel" aria-busy="true" hidden>
-            <i class="fa-solid fa-circle-notch fa- spin"></i> <%=
-            __('waitCodeInputLabel')%>
+        <div id="sector1">
+          <h2 class="codeLabel label"><%= __('codeLabel')%></h2>
+          <!-- <h1 align="center"><span href="#" class="code">underline</span></h1> -->
+          <div class="codeBox" data-tooltip="Click To Copy Code">
+            <span class="code"></span>
           </div>
-          <hr class="hr-text" data-content="OR" />
+          <!-- 첫화면 -->
+          <div id="welcome">
+            <div class="waitLabel" aria-busy="true" hidden>
+              <i class="fa-solid fa-circle-notch fa- spin"></i> <%=
+              __('waitCodeInputLabel')%>
+            </div>
+          </div>
+        </div>
+        <!-- <hr class="hr-text" data-content="OR" /> -->
+        <div id="sector2">
           <h2 class="label codeInputLabel"><%= __('codeInputLabel')%></h2>
           <div class="enterRoomDiv animate__animated">
             <form action="" id="enterRoom">
@@ -185,6 +189,42 @@
                 <%= __('enterButton')%>
               </button>
             </form>
+          </div>
+        </div>
+        <!-- footer -->
+        <div class="footerDiv">
+          <div class="footerLeft">
+            <div class="developerLogos">
+              <span class="developerLogo">Developers:</span>
+              <a
+                class="developerLogo"
+                href="https://github.com/obtuse-triangle"
+                target="_blank"
+                >Obtuse-Triangle<i
+                  class="fa-solid fa-caret-up triangleLogo"
+                ></i>
+                <span class="newTabIcon"
+                  ><i class="fa-solid fa-up-right-from-square"></i></span
+              ></a>
+              <a
+                class="developerLogo"
+                href="https://github.com/NY0510"
+                target="_blank"
+                >NY64
+                <i class="fa-solid fa-moon"></i>
+                <span class="newTabIcon"
+                  ><i class="fa-solid fa-up-right-from-square"></i
+                ></span>
+              </a>
+            </div>
+            <div class="viewOnGithub">
+              <a
+                class="viewOnGithubLink"
+                target="_blank"
+                href="https://github.com/NY0510/triangleDrop"
+                ><i class="fa-brands fa-github"></i> View Source on Github</a
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -239,35 +279,6 @@
           <i class="fa-solid fa-inbox-full"></i>
         </div>
       </div>
-      <footer>
-        <div class="footerDiv">
-          <div class="footerLeft">
-            <div class="developerLogos">
-              <a class="developerLogo" href="https://obtuse.cf" target="_blank"
-                >OBTUSE
-                <span class="newTabIcon"
-                  ><i class="fa-solid fa-up-right-from-square"></i></span
-              ></a>
-              <a
-                class="developerLogo"
-                href="https://github.com/NY0510"
-                target="_blank"
-                >NY64
-                <i class="fa-solid fa-moon"></i>
-                <span class="newTabIcon"
-                  ><i class="fa-solid fa-up-right-from-square"></i
-                ></span>
-              </a>
-            </div>
-            <div class="developers">
-              Developers: Obtuse triangle#5343
-              <a href="mailto:me@obtuse.cf">me@obtuse.cf</a>, NY64#4340
-              <a href="mailto:me@ny64.kr">me@ny64.kr</a>
-            </div>
-          </div>
-        </div>
-        <div class="footerRight"></div>
-      </footer>
     </div>
 
     <script

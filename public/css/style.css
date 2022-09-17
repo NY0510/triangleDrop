@@ -13,8 +13,8 @@
 body {
 	font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
 		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-	background-color: #1a1a1a;
-	color: var(--color-light-blue);
+	background-color: #e0e0e0;
+	color: black;
 }
 
 ::-webkit-scrollbar,
@@ -33,6 +33,29 @@ body ::-webkit-scrollbar-track {
 	border-radius: 20px;
 }
 
+input[type="text"] {
+	color: #000;
+	font-size: 1.2rem;
+	border: 0;
+	border-radius: 10px;
+	outline: none;
+	padding: 0.5rem;
+	background: linear-gradient(145deg, #f0f0f0, #cacaca);
+	box-shadow:  21px 21px 42px #989898,
+				 -21px -21px 42px #ffffff;
+	z-index: -1;
+}
+
+button {
+	border-radius: 10px;
+	color: #000;
+	background: linear-gradient(145deg, #f0f0f0, #cacaca);
+	box-shadow:  21px 21px 42px #989898,
+				 -21px -21px 42px #ffffff;
+	z-index: -1;
+	
+}
+
 /* button {
 	transition: filter 0.5s !important;
 	background: linear-gradient(45deg, #3eb8ff, #2651ad);
@@ -48,11 +71,11 @@ button:hover {
 /* to bottom, #f5f5f5, #e6e6e6 */
 
 .center {
-	position: absolute;
+	/* position: absolute;
 	top: 40%;
 	left: 50%;
-	transform: translate(-50%, -50%);
-	/* width: fit-content; */
+	transform: translate(-50%, -50%); */
+	width: 95vw;
 }
 
 .app {
@@ -119,8 +142,8 @@ hr {
 	color: black;
 	padding: 0 .5em;
 	line-height: 1.5em;
-	color: #e5f3fc;
-	background-color: #1a1a1a;
+	color: black;
+	background-color: #e0e0e0;
 }
 
 .code {
@@ -198,16 +221,7 @@ span.code:hover:after {
 	display: inline;
 }
 
-input[type="text"] {
-	color: #fff;
-	font-size: 1.2rem;
-	border: 0;
-	border-radius: 10px;
-	outline: none;
-	padding: 0.5rem;
-	background-color: #222222;
-	transition: box-shadow 0.4s;
-}
+
 
 .roomCodeInput {
 	margin-right: 0.5rem;
@@ -221,17 +235,19 @@ input[type="text"] {
 .enterButton:hover,
 .enterButton:focus {
 	/* box-shadow: 0 0 1px 1px #fff, 3px -3px 5px #a9ffec, -3px 3px 5px #7360a1; */
-	box-shadow: inset 0 1px 0px 0px rgb(233 212 255 / 52%), 0 0 8px 0.5px rgb(193 185 244 / 70%);
+	/* box-shadow: inset 0 1px 0px 0px rgb(233 212 255 / 52%), 0 0 8px 0.5px rgb(193 185 244 / 70%); */
 }
 
 .enterButton {
 	border: none;
-	color: #fff;
+	color: #000;
 	font-size: 1.2rem;
 	border-radius: 10px;
 	outline: none;
 	padding: 1rem;
-	background-color: #222222;
+	background: #e0e0e0;
+	box-shadow:  21px 21px 42px #989898,
+             -21px -21px 42px #ffffff;
 	font-family: "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono", monospace;
 	transition: box-shadow 0.4s;
 }
@@ -442,23 +458,21 @@ div.receiveProgress > div.label {
 	pointer-events: all;
 }
 
-footer{
-	height: 8rem;
-	width: 100vw;
-	position : relative;
-	top:100vh;
-	transform : translateY(-9rem);
-	background-color: #404040;
-
-}
-div.footerDiv{
+.footerDiv{
+	margin-top: 3rem;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: space-between;
 	align-items: center;
 	height: 100%;
-	width: 100%;
+	width: 95vw;
+	box-shadow:  21px 21px 42px #989898,
+				 -21px -21px 42px #ffffff;
+	z-index: -1;
+	border-radius: 20px;
+	padding: 10px;
+
 }
 
 div.footerLeft{
@@ -476,14 +490,23 @@ div.developerLogos{
 	align-items: center;
 	font-size: 2.3rem;
 }
-.developerLogo:hover{
+/* .developerLogo:hover{
 	color: #63b4ff;
-}
+} */
 .developerLogo{
-	margin-left: 1rem;
+	margin-right: 1rem;
 	padding-bottom: 7px;
 	font-weight: 100;
-	color: white;
+	color: rgb(24, 24, 24);
+}
+.triangleLogo{
+	font-size: 2.9rem;
+}
+.viewOnGithub{
+	color: rgb(24, 24, 24);
+}
+.viewOnGithubLink{
+	color: rgb(24, 24, 24);
 }
 .newTabIcon{
 	font-size: 1.5rem;
@@ -492,4 +515,17 @@ div.developerLogos{
 a{
 	color: #63b4ff;
 	text-decoration: none;
+}
+a:hover{
+	color: #63b4ff;
+	text-decoration: none;
+}
+#sector1, #sector2{
+	border-radius: 20px;
+box-shadow:  21px 21px 42px #989898,
+             -21px -21px 42px #ffffff;
+			 padding: 20px;
+}
+#sector2{
+	margin-top: 3rem;
 }
