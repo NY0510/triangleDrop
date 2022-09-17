@@ -74,6 +74,7 @@ button:hover {
 	transform: translate(-50%, -50%); */
 	margin-top: 2rem;
 	width: 88vw;
+	max-width: 1600px;
 }
 
 .app {
