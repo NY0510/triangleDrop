@@ -35,7 +35,7 @@ body ::-webkit-scrollbar-track {
 
 input[type="text"] {
 	color: #000;
-	font-size: 1.2rem;
+	font-size: 1.8rem;
 	border: 0;
 	border-radius: 10px;
 	outline: none;
@@ -73,7 +73,7 @@ button:hover {
 	left: 50%;
 	transform: translate(-50%, -50%); */
 	margin-top: 2rem;
-	width: 95vw;
+	width: 88vw;
 }
 
 .app {
@@ -292,13 +292,11 @@ span.code:hover:after {
 }
 
 .messageDiv {
-	color: #fff;
 	font-size: 1.2rem;
 	border: 0;
 	border-radius: 10px;
 	outline: none;
 	padding: 0.5rem;
-	background-color: #222222;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -308,9 +306,12 @@ span.code:hover:after {
 	bottom: 2rem;
 	margin: 0 auto;
 	position: fixed;
-	height: 2.5rem;
+	height: 3rem;
 	padding: 0.5rem;
 	/* height: 50px; */
+	/* box-shadow: 15px 15px 30px #989898; */
+	z-index: 0;
+	background-color: #e0e0e0;
 }
 .messageSendBlock{
 	margin: 0;
@@ -320,7 +321,6 @@ span.code:hover:after {
 .filesPreview {
 	padding: 0.5rem;
 	padding-bottom: 40px;
-	background-color: #222222;
 	border-radius: 10px;
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
@@ -328,6 +328,8 @@ span.code:hover:after {
 	text-align: left;
 	position: fixed;
 	bottom: 50px;
+	box-shadow: 15px 15px 30px #989898;
+	z-index: -1;
 }
 
 #messageInput {
@@ -365,17 +367,18 @@ span.code:hover:after {
 .progress {
 	position: sticky;
 	top: 0;
-	background: #222222;
+	background: #e0e0e0;
 	width: 80vw;
 	margin: auto;
 	border-radius: 50px;
+	box-shadow:  15px 15px 30px #989898,
+				 -15px -15px 30px #ffffff;
 }
 
 div.sendProgress > div.label,
 div.receiveProgress > div.label {
 	font-weight: 700;
 	font-size: 1.2rem;
-	color: #fff;
 	text-align: center;
 	margin: 0px;
 	padding-top: 15px;
@@ -414,7 +417,6 @@ div.receiveProgress > div.label {
 }
 .prv.prvFileSizeAndType {
 	font-size: 1rem;
-	color: #e2e2e2;
 }
 
 @keyframes spin {
@@ -460,7 +462,6 @@ div.receiveProgress > div.label {
 	justify-content: space-between;
 	align-items: center;
 	height: 100%;
-	width: 95vw;
 	box-shadow:  15px 15px 30px #989898,
              -15px -15px 30px #ffffff;
 	z-index: -1;
@@ -515,10 +516,10 @@ a:hover{
 	text-decoration: none;
 }
 #sector1, #sector2{
-	border-radius: 20px;
+	border-radius: 30px;
 box-shadow:  15px 15px 30px #989898,
              -15px -15px 30px #ffffff;
-			 padding: 20px;
+			 padding: 15px;
 			 z-index: -1;
 }
 #sector2{

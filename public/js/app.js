@@ -65,7 +65,8 @@ const initExit = () => {
 const initRoom = () => {
   $welcome.hidden = true;
   $inRoom.hidden = false;
-  document.querySelector("footer").hidden = "true";
+  document.querySelector(".footerDiv").style = "display: none;";
+  document.querySelector("#sector2").style = "display: none;";
   $code.innerHTML = roomName;
   document.querySelector(".codeLabel").hidden = true;
   $code.classList.add("InRoom");
@@ -114,11 +115,11 @@ const enterRoomCallback = (result) => {
   // };
 
   if (result) {
-    roomName = enterRoomForm.querySelector("input").value;
+    roomName = $enterRoomForm.querySelector("input").value;
     initRoom();
-    enterRoomForm.querySelector("input").value = "";
+    $enterRoomForm.querySelector("input").value = "";
   } else {
-    const $button = enterRoomForm.querySelector("button");
+    const $button = $enterRoomForm.querySelector("button");
     const $enterRoomDiv = document.querySelector(".enterRoomDiv");
     const $roomCodeInput = document.querySelector("#roomCodeInput");
 
@@ -127,7 +128,7 @@ const enterRoomCallback = (result) => {
     $enterRoomDiv.classList.add("animate__shakeX");
     $button.disabled = true;
     setTimeout(() => {
-      $roomCodeInput.placeholder = "Please Input Code";
+      $roomCodeInput.placeholder = "AAA00";
       $button.disabled = false;
       $enterRoomDiv.classList.remove("errorCode");
       $enterRoomDiv.classList.remove("animate__shakeX");
@@ -137,12 +138,12 @@ const enterRoomCallback = (result) => {
 
 const handleEnterRoom = async (event) => {
   event.preventDefault();
-  if (enterRoomForm.querySelector("input").value.length !== 5) {
+  if ($enterRoomForm.querySelector("input").value.length !== 5) {
     enterRoomCallback(false);
   }
   socket.emit(
     "join_room",
-    enterRoomForm.querySelector("input").value,
+    $enterRoomForm.querySelector("input").value,
     enterRoomCallback
   );
 };
@@ -150,8 +151,8 @@ const handleEnterRoom = async (event) => {
 // var makeRoomForm = welcome.querySelector("#makeRoom");
 // makeRoomForm.addEventListener("submit", handleMakeRoom);
 
-var enterRoomForm = $welcome.querySelector("#enterRoom");
-enterRoomForm.addEventListener("submit", handleEnterRoom);
+var $enterRoomForm = document.querySelector("#enterRoom");
+$enterRoomForm.addEventListener("submit", handleEnterRoom);
 
 //RTC code
 
@@ -253,6 +254,7 @@ const handleSendMessage = (event) => {
   const messageToSend = filter(message.value);
   myDataChannel.send(`{"type": "chat", "value": "${messageToSend}"}`);
   messageBlock.innerHTML += `<div>${messageToSend}</div>`;
+  messageBlock.scrollTop = messageBlock.scrollHeight;
   message.value = "";
 };
 
@@ -276,6 +278,7 @@ const handleReceiveMessage = (event) => {
       receiveBuffer = [];
       receivedSize = 0;
       messageBlock.innerHTML += `<div>Receiving ${rxFileName}</div>`;
+      messageBlock.scrollTop = messageBlock.scrollHeight;
       document.querySelector(".rxProgressBarFileName").innerHTML = rxFileName;
       document.querySelector(
         ".rxProgressBarFileSize"
@@ -283,6 +286,7 @@ const handleReceiveMessage = (event) => {
     } else {
       const messageToRead = filter(message.value);
       messageBlock.innerHTML += `<div>${messageToRead}</div>`;
+      messageBlock.scrollTop = messageBlock.scrollHeight;
     }
   } else if (typeof event.data === "object") {
     receiveBuffer.push(event.data);
@@ -362,6 +366,7 @@ const handleSendFile = (file) => {
     `{"type": "filesignal", "fileName": "${fileNameToSend}", "fileSize": ${file.size}, "fileType": "${file.type}", "fileLastModified": ${file.lastModified}}`
   );
   messageBlock.innerHTML += `<div>Sending ${fileNameToSend}</div>`;
+  messageBlock.scrollTop = messageBlock.scrollHeight;
   document.querySelector(".txProgressBarFileName").innerHTML = fileNameToSend;
   document.querySelector(".txProgressBarFileSize").innerHTML = `0/${Math.round(
     file.size / 1024 / 1024
@@ -409,6 +414,7 @@ const handleSendFile = (file) => {
       readSlice(offset); // 슬라이스해서 보내기
     } else {
       messageBlock.innerHTML += `<div>${fileNameToSend} is sent</div>`; // 보내기 완료
+      messageBlock.scrollTop = messageBlock.scrollHeight;
       $sendProgressDiv.hidden = true;
     }
   });
