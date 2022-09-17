@@ -115,6 +115,22 @@ const enterRoomCallback = (result) => {
   // };
 
   if (result) {
+    if (
+      roomName === $enterRoomForm.querySelector("input").value.toUpperCase()
+    ) {
+      $roomCodeInput.value = "";
+      $roomCodeInput.placeholder = "Invalid Code OR Room is Full";
+      $enterRoomDiv.classList.add("animate__shakeX");
+      $enterRoomDiv.style = "border: 5px solid red;";
+      $button.disabled = true;
+      setTimeout(() => {
+        $roomCodeInput.placeholder = "AAA00";
+        $button.disabled = false;
+        $enterRoomDiv.classList.remove("errorCode");
+        $enterRoomDiv.classList.remove("animate__shakeX");
+        $enterRoomDiv.style = "border: unset;";
+      }, 2000);
+    }
     roomName = $enterRoomForm.querySelector("input").value.toUpperCase();
     initRoom();
     $enterRoomForm.querySelector("input").value = "";
