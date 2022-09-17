@@ -40,10 +40,9 @@ input[type="text"] {
 	border-radius: 10px;
 	outline: none;
 	padding: 0.5rem;
-	background: linear-gradient(145deg, #f0f0f0, #cacaca);
-	box-shadow:  15px 15px 30px #989898,
-				 -15px -15px 30px #ffffff;
-	z-index: -1;
+	background: #e0e0e0;
+	box-shadow: inset 15px 15px 30px #cccccc,
+            inset -15px -15px 30px #f6f6f6;
 }
 
 button {
@@ -52,8 +51,6 @@ button {
 	background: linear-gradient(145deg, #f0f0f0, #cacaca);
 	box-shadow:  15px 15px 30px #989898,
 				 -15px -15px 30px #ffffff;
-	z-index: -1;
-	
 }
 
 /* button {
