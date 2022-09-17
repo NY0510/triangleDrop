@@ -48,7 +48,7 @@
     "background_color": "#3367D6",
     "display": "standalone",
     "scope":"http://localhost:3000/",
-    "theme_color": "#B4D5FF",
+    "theme_color": "#e0e0e0",
     "description": "Triangle Drop is a free, open source, and secure way to transfer files over the web. No account required.",
     "prefer_related_applications":true
   }

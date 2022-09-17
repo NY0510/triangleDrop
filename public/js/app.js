@@ -115,7 +115,7 @@ const enterRoomCallback = (result) => {
   // };
 
   if (result) {
-    roomName = $enterRoomForm.querySelector("input").value;
+    roomName = $enterRoomForm.querySelector("input").value.toUpperCase();
     initRoom();
     $enterRoomForm.querySelector("input").value = "";
   } else {
