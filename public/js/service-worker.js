@@ -1,6 +1,7 @@
-const CACHE_NAME = "triangleDrop-cache-v1.5";
+const CACHE_NAME = "triangleDrop-cache-v1.6";
 
 const FILES_TO_CACHE = [
+  "/", // index.html
   "/offline.html",
   "/css/style.css",
   "/css/mediaQuery.css",
