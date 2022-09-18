@@ -35,7 +35,7 @@ body ::-webkit-scrollbar-track {
 
 input[type="text"] {
 	color: #000;
-	font-size: 1.8rem;
+	font-size: 1rem;
 	border: 0;
 	border-radius: 10px;
 	outline: none;
@@ -394,6 +394,7 @@ div.receiveProgress > div.label {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
+	justify-content: space-around;
 }
 .enterRoomDiv{
 	transition: border 0.5s;

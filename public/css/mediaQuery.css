@@ -32,6 +32,12 @@
     .newTabIcon{
         font-size: 0.8rem;
     }
+	.roomCodeInput{
+		flex-basis: 60%;
+	}
+	#enterRoom{
+		width: 75vw !important;
+	}
 }
 
 @media (max-width: 1500px) {
@@ -55,6 +61,6 @@
 		width: 90vw !important;
 	}
 	#enterRoom {
-		width: 85vw !important;
+		width: 85vw;
 	}
 }
