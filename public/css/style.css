@@ -93,7 +93,8 @@ button:hover {
 }
 
 .label {
-	font-family: "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono", monospace;
+	font-family: "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono", monospace, Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic",
+	"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 	font-size: 2rem;
 	font-weight: 400;
 }
@@ -497,9 +498,6 @@ div.developerLogos{
 	padding-bottom: 7px;
 	font-weight: 100;
 	color: rgb(24, 24, 24);
-}
-.triangleLogo{
-	font-size: 2.9rem;
 }
 .viewOnGithub{
 	color: rgb(24, 24, 24);

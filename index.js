@@ -71,6 +71,12 @@ io.on("connection", (socket) => {
   });
 });
 
+app.use((req, res) => {
+  res
+    .status(404)
+    .render(res.__(path.join(__dirname, "public", "ejs", "404.ejs")));
+});
+
 server.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
