@@ -67,6 +67,7 @@ const initRoom = () => {
   $welcome.hidden = true;
   $inRoom.hidden = false;
   document.querySelector(".footerDiv").style = "display: none;";
+  document.querySelector(".languageSelect").style = "display: none;";
   document.querySelector("#sector2").style = "display: none;";
   $code.innerHTML = roomName;
   document.querySelector(".codeLabel").hidden = true;
