@@ -3,6 +3,8 @@
 :root {
 	--color-light-blue: rgb(229, 243, 252);
 	--color-light-green: rgb(195, 247, 229);
+	--box-shadow-flat: 15px 15px 30px #989898,
+	-15px -15px 30px #ffffff;
 }
 
 * {
@@ -527,4 +529,33 @@ box-shadow:  15px 15px 30px #989898,
 }
 #sector2{
 	margin-top: 2rem;
+}
+.languageDropDown{
+	display: none;
+	background-color: e0e0e0;
+	max-width: 160px;
+	z-index: 1;
+	margin-top: 1rem;
+}
+.languageDropDown > a{
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+.languageDropDown > a:hover{
+	background-color: #f1f1f1;
+}
+.languageSelect:hover .languageDropDown{
+	display: block;
+	
+}
+.languageSelect{
+	position: relative;
+	display: inline-block;
+	box-shadow: var(--box-shadow-flat);
+	margin: 2rem;
+	padding: 1rem;
+	border-radius: 20px;
+
 }
