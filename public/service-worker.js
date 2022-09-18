@@ -1,9 +1,7 @@
-const CACHE_NAME = "triangleDrop-cache-v3";
+const CACHE_NAME = "triangleDrop-cache-v4";
 
 const FILES_TO_CACHE = [
   "/offline.html",
-  "/css/style.css",
-  "/css/mediaQuery.css",
   "/js/PWA.js",
   "/service-worker.js",
   "/img/favicon/favicon-32x32.png",

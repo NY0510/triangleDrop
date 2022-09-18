@@ -4,9 +4,6 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/mediaQuery.css" />
     <script src="/js/PWA.js" defer></script>
     <link rel="manifest" href="/manifest.json" />
     <meta
@@ -20,10 +17,7 @@
       content="#e0e0e0"
     />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="default"
-    />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Triangle Drop - offline" />
 
     <link
@@ -191,9 +185,18 @@
 
     <!-- Inline the page's stylesheet. -->
     <style>
+      :root {
+        --box-shadow-flat: 15px 15px 30px #989898, -15px -15px 30px #ffffff;
+      }
       body {
         font-family: helvetica, arial, sans-serif;
         margin: 2em;
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+        align-content: center;
+        align-items: center;
+        background-color: #e0e0e0;
       }
 
       h1 {
@@ -201,20 +204,40 @@
         color: #373fff;
       }
 
-      p {
-        margin-block: 1rem;
-      }
-
       button {
         display: block;
+        padding: 1rem;
+        margin: 1rem auto;
+        border: none;
+        border-radius: 0.5rem;
+        background: linear-gradient(145deg, #f0f0f0, #cacaca);
+        box-shadow: 15px 15px 30px #989898, -15px -15px 30px #ffffff;
+        cursor: pointer;
+      }
+      .offline {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        box-shadow: var(--box-shadow-flat);
+        padding: 2rem;
+        border-radius: 1rem;
+        max-width: 600px;
       }
     </style>
   </head>
   <body>
-    <h1>You are offline</h1>
+    <div class="offline">
+      <h1>You are offline</h1>
 
-    <p>Click the button below to try reloading.</p>
-    <button type="button">⤾ Reload</button>
+      <p>Click the button below to try reloading.</p>
+      <button type="button">⤾ Reload</button>
+    </div>
+    <script>
+      document.querySelector("button").addEventListener("click", () => {
+        window.location.reload();
+      });
+    </script>
     <!-- <script>
       // Manual reload feature.
       document.querySelector("button").addEventListener("click", () => {

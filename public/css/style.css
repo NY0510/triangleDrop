@@ -53,6 +53,7 @@ button {
 	background: linear-gradient(145deg, #f0f0f0, #cacaca);
 	box-shadow:  15px 15px 30px #989898,
 				 -15px -15px 30px #ffffff;
+				 cursor: pointer;
 }
 
 /* button {
