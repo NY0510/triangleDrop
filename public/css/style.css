@@ -548,7 +548,9 @@ box-shadow:  15px 15px 30px #989898,
 }
 .languageSelect:hover .languageDropDown{
 	display: block;
-	
+}
+.languageSelect:focus .languageDropDown{
+	display: block;
 }
 .languageSelect{
 	position: relative;
