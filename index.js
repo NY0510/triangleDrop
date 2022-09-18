@@ -25,6 +25,11 @@ app.get("/unsupported", (req, res) => {
 app.get("/offline.html", (req, res) => {
   res.render(res.__(path.join(__dirname, "public", "ejs", "offline.ejs")));
 });
+app.get("/privacy-policy", (req, res) => {
+  res.render(
+    res.__(path.join(__dirname, "public", "ejs", "privacy-policy.ejs"))
+  );
+});
 
 app.get("/en", (req, res) => {
   res.cookie("lang", "en");
