@@ -16,6 +16,10 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => {
   res.render(res.__(path.join(__dirname, "public", "ejs", "index.ejs")));
 });
+app.post("/", (req, res) => {
+  console.log(req.query);
+  res.render(res.__(path.join(__dirname, "public", "ejs", "index.ejs")));
+});
 app.get("/index.html", (req, res) => {
   res.render(res.__(path.join(__dirname, "public", "ejs", "index.ejs")));
 });
