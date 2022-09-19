@@ -11,6 +11,7 @@ const $receiveProgressDiv = document.querySelector(".receiveProgress");
 const $filePrv = document.querySelector(".filesPreview");
 const $dropZone = document.querySelector(".dragAndDrop");
 const $enterRoomDiv = document.querySelector(".enterRoomDiv");
+const $messageForm = document.querySelector("#messageForm");
 
 let sendState = false;
 
@@ -181,8 +182,11 @@ $enterRoomForm.addEventListener("submit", handleEnterRoom);
 
 const handleDataChannelOpen = (event) => {
   console.log("Data channel is open and ready to be used.");
-  if (fileList.length > 0) {
-    sendFile(fileList[0]);
+  if (fileList.length !== 0) {
+    //form submit
+    setTimeout(() => {
+      document.querySelector("#messageSendButton").click();
+    }, 500);
   }
 };
 
@@ -201,6 +205,7 @@ socket.on("offer", async (offer) => {
   myPeerConnection.addEventListener("datachannel", (event) => {
     myDataChannel = event.channel;
     myDataChannel.addEventListener("message", handleReceiveMessage);
+    myDataChannel.addEventListener("open", handleDataChannelOpen);
   });
 
   myPeerConnection.setRemoteDescription(offer);
@@ -305,7 +310,6 @@ const handleSendMessage = async (event) => {
   message.value = "";
 };
 
-$messageForm = document.querySelector("#messageForm");
 $messageForm.addEventListener("submit", handleSendMessage);
 const messageBlock = document.getElementById("messageBlock");
 
