@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <!-- 브라우저 감지 -->
     <script src="/js/IEDetect.js"></script>
 
@@ -147,7 +146,7 @@
     </script>
     <!-- PWA -->
     <script src="/js/PWA.js" defer></script>
-    <script src="/js/fileShare.js"></script>
+
     <link rel="manifest" href="/manifest.json" />
     <meta
       name="theme-color"
@@ -368,6 +367,10 @@
         (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
       <div class="center">
+        <div id="sector0" hidden>
+          <div><%= __('fileListLabel')%></div>
+          <div class="fileList"></div>
+        </div>
         <div id="sector1">
           <h2 class="codeLabel label"><%= __('codeLabel')%></h2>
           <!-- <h1 align="center"><span href="#" class="code">underline</span></h1> -->
@@ -477,6 +480,7 @@
                 type="file"
                 placeholder="file select"
                 id="fileInput"
+                multiple="multiple"
                 onchange="handleChangeFile(event)"
               />
               <button id="messageSendButton">

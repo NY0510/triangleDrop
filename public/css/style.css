@@ -335,6 +335,11 @@ span.code:hover:after {
 	bottom: 50px;
 	box-shadow: 15px 15px 30px #989898;
 	z-index: -1;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-content: flex-start;
 }
 
 #messageInput {
@@ -521,12 +526,15 @@ a:hover{
 	color: #63b4ff;
 	text-decoration: none;
 }
-#sector1, #sector2{
+#sector0 ,#sector1, #sector2{
 	border-radius: 30px;
 box-shadow:  15px 15px 30px #989898,
              -15px -15px 30px #ffffff;
 			 padding: 15px;
 			 z-index: -1;
+}
+#sector0{
+	margin-bottom: 2rem;
 }
 #sector2{
 	margin-top: 2rem;

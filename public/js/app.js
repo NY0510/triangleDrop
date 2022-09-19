@@ -12,6 +12,8 @@ const $filePrv = document.querySelector(".filesPreview");
 const $dropZone = document.querySelector(".dragAndDrop");
 const $enterRoomDiv = document.querySelector(".enterRoomDiv");
 
+let sendState = false;
+
 // $roomCodeInput.addEventListener("keydown", (event) => {
 //   $roomCodeInput.value = $roomCodeInput.value.toUpperCase();
 // });
@@ -69,6 +71,7 @@ const initRoom = () => {
   document.querySelector(".footerDiv").style = "display: none;";
   document.querySelector(".languageSelect").style = "display: none;";
   document.querySelector("#sector2").style = "display: none;";
+  document.querySelector("#sector0").hidden = true;
   $code.innerHTML = roomName;
   document.querySelector(".codeLabel").hidden = true;
   $code.classList.add("InRoom");
@@ -176,8 +179,16 @@ $enterRoomForm.addEventListener("submit", handleEnterRoom);
 
 //RTC code
 
+const handleDataChannelOpen = (event) => {
+  console.log("Data channel is open and ready to be used.");
+  if (fileList.length > 0) {
+    sendFile(fileList[0]);
+  }
+};
+
 socket.on("welcome", async () => {
   myDataChannel = myPeerConnection.createDataChannel("DataChannel");
+  myDataChannel.addEventListener("open", handleDataChannelOpen);
   myDataChannel.addEventListener("message", handleReceiveMessage);
   initRoom();
   console.log("made data channel / send offer");
@@ -246,13 +257,29 @@ const filter = (message, itFile = false) => {
 
 // send message with datachannel
 
-const handleSendMessage = (event) => {
+const handleSendMessage = async (event) => {
   event.preventDefault();
   const message = document.getElementById("messageInput");
   const file = document.querySelector("#fileInput");
-  if (file.files[0] !== undefined) {
-    handleSendFile(file.files[0]);
-    file.value = "";
+  if (file.files[0] !== undefined || fileList.length !== 0) {
+    let i = 0;
+    if (file.files[0] !== undefined) {
+      fileList = fileList.concat(Array.from(file.files));
+    }
+    console.log(fileList);
+    async function sendFileLoop() {
+      if (sendState === false) {
+        handleSendFile(fileList[i]);
+        i++;
+      }
+      if (i < fileList.length) {
+        setTimeout(sendFileLoop, 500);
+      } else {
+        file.value = "";
+        fileList = [];
+      }
+    }
+    await sendFileLoop();
   }
   if (message.value.length == 0) {
     return;
@@ -260,14 +287,14 @@ const handleSendMessage = (event) => {
   if (message.value.length > 20000) {
     const sendButton = document.querySelector("#messageSendButton");
     sendButton.innerHTML = "Message too long";
-    messageForm.classList.add("animate__shakeX");
-    messageForm.querySelector("input").style.borderColor = "red";
+    $messageForm.classList.add("animate__shakeX");
+    $messageForm.querySelector("input").style.borderColor = "red";
     sendButton.disabled = true;
     setTimeout(() => {
       sendButton.innerHTML = "Send";
       sendButton.disabled = false;
-      messageForm.classList.remove("animate__shakeX");
-      messageForm.querySelector("#messageInput").style.borderColor = "";
+      $messageForm.classList.remove("animate__shakeX");
+      $messageForm.querySelector("#messageInput").style.borderColor = "";
     }, 2000);
     return;
   }
@@ -278,8 +305,8 @@ const handleSendMessage = (event) => {
   message.value = "";
 };
 
-messageForm = document.querySelector("#messageForm");
-messageForm.addEventListener("submit", handleSendMessage);
+$messageForm = document.querySelector("#messageForm");
+$messageForm.addEventListener("submit", handleSendMessage);
 const messageBlock = document.getElementById("messageBlock");
 
 const handleReceiveMessage = (event) => {
@@ -302,7 +329,7 @@ const handleReceiveMessage = (event) => {
       document.querySelector(".rxProgressBarFileName").innerHTML = rxFileName;
       document.querySelector(
         ".rxProgressBarFileSize"
-      ).innerHTML = `0/${Math.round(file.size / 1024 / 1024)}MB`;
+      ).innerHTML = `0/${Math.round(rxFileSize / 1024 / 1024)}MB`;
     } else {
       const messageToRead = filter(message.value);
       messageBlock.innerHTML += `<div>${messageToRead}</div>`;
@@ -349,37 +376,41 @@ const saveFile = (blob) => {
 
 function handleChangeFile(event) {
   $filePrv.innerHTML = "";
-  $filePrv.hidden = false;
-  const file = event.target.files[0];
-  const fileName = filter(file.name);
-  const div = document.createElement("div");
-  const i = document.createElement("i");
-  const Box = document.createElement("div");
-  const spanFileName = document.createElement("span");
-  const spanFileSizeAndType = document.createElement("span");
-  spanFileName.classList.add("prv", "prvFileName");
-  spanFileSizeAndType.classList.add("prv", "prvFileSizeAndType");
-  Box.classList.add("prv", "prvFileBox");
-  i.classList.add("prv", "fa-regular", "fa-file");
+  $filePrv.style.display = "flex";
+  console.log(event.target.files);
+  Array.from(event.target.files).forEach((file) => {
+    // const file = event.target.files[0];
+    const fileName = filter(file.name);
+    const div = document.createElement("div");
+    const i = document.createElement("i");
+    const Box = document.createElement("div");
+    const spanFileName = document.createElement("span");
+    const spanFileSizeAndType = document.createElement("span");
+    spanFileName.classList.add("prv", "prvFileName");
+    spanFileSizeAndType.classList.add("prv", "prvFileSizeAndType");
+    Box.classList.add("prv", "prvFileBox");
+    i.classList.add("prv", "fa-regular", "fa-file");
 
-  spanFileName.innerHTML = fileName;
-  spanFileSizeAndType.innerHTML = `${Math.round(file.size / 1024 / 1024)}MB ${
-    file.type
-  }`;
-  div.appendChild(i);
-  Box.appendChild(spanFileName);
-  Box.appendChild(spanFileSizeAndType);
-  div.appendChild(Box);
-  document.querySelector(".filesPreview").appendChild(div);
+    spanFileName.innerHTML = fileName;
+    spanFileSizeAndType.innerHTML = `${Math.round(file.size / 1024 / 1024)}MB ${
+      file.type
+    }`;
+    div.appendChild(i);
+    Box.appendChild(spanFileName);
+    Box.appendChild(spanFileSizeAndType);
+    div.appendChild(Box);
+    document.querySelector(".filesPreview").appendChild(div);
+  });
 }
 
 // send file with datachannel
 
 const handleSendFile = (file) => {
+  sendState = true;
   console.log(
     `File is ${[file.name, file.size, file.type, file.lastModified].join(" ")}`
   );
-  $filePrv.hidden = true;
+  $filePrv.style.display = "none";
 
   const fileNameToSend = filter(file.name, true);
   myDataChannel.send(
@@ -434,8 +465,10 @@ const handleSendFile = (file) => {
       readSlice(offset); // 슬라이스해서 보내기
     } else {
       messageBlock.innerHTML += `<div>${fileNameToSend} is sent</div>`; // 보내기 완료
+      filesignalS = false;
       messageBlock.scrollTop = messageBlock.scrollHeight;
       $sendProgressDiv.hidden = true;
+      sendState = false;
     }
   });
 

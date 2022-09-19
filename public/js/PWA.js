@@ -1,7 +1,50 @@
+let fileList = [];
+
+function getParameter(name) {
+  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+  var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+    results = regex.exec(location.search);
+  return results === null
+    ? ""
+    : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/service-worker.js").then((reg) => {
-      console.log("Service worker registered.", reg);
+    navigator.serviceWorker.register("/service-worker.js");
+
+    console.log("window.onload");
+
+    navigator.serviceWorker.addEventListener("message", function (event) {
+      console.log("Received message from service worker: ", event.data);
+      //if have url parameter "receiving-file-share"
+      console.log(getParameter("receiving-file-share"));
+      if (getParameter("receiving-file-share")) {
+        const files = event.data.files;
+        console.log("Received files:", files);
+        let fileName = "";
+        fileList = fileList.concat(files);
+        files.forEach((i) => {
+          fileName += `${i.name} `;
+        });
+        const sector0 = document.querySelector("#sector0");
+        document.querySelector(".fileList").innerHTML = fileName;
+        sector0.hidden = false;
+      }
+
+      // if (searchParams.has("receiving-file-share")) {
+      //   // CODELAB: Add message event handler here.
+      //   // Handle file share.
+
+      //   // ...
+      // }
+    });
+
+    navigator.serviceWorker.ready.then((reg) => {
+      console.log("Service worker ready.", reg);
+      // post massage to service worker
+      reg.active.postMessage({ msg: "Hi from index.js" });
+      // reg.active.postMessage("Hello from the main page");
     });
   });
 }

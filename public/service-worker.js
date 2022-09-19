@@ -1,9 +1,7 @@
-const CACHE_NAME = "triangleDrop-cache-v4";
+const CACHE_NAME = "triangleDrop-cache-v7";
 
 const FILES_TO_CACHE = [
   "/offline.html",
-  "/js/PWA.js",
-  "/service-worker.js",
   "/img/favicon/favicon-32x32.png",
   "/img/favicon/favicon-16x16.png",
   "/manifest.json",
@@ -66,33 +64,41 @@ self.addEventListener("activate", (evt) => {
 // });
 
 self.addEventListener("fetch", (evt) => {
-  console.log("[ServiceWorker] Fetch", evt.request.url);
+  // console.log("[ServiceWorker] Fetch", evt.request.url);
   const url = new URL(evt.request.url);
   if (
     evt.request.method === "POST" &&
     url.pathname === "/" &&
-    url.searchParams.has("share-target")
+    url.searchParams.has("share_target")
   ) {
+    console.log("[ServiceWorker] Fetch (data)", evt.request);
+    // evt.respondWith(async () => {
+    //   const formData = await evt.request.formData();
+    //   const link = formData.get("link") || "";
+    //   const responseUrl = await saveBookmark(link);
+    //   return Response.redirect("/?receiving-file-share=1", 303);
+    // });
     evt.respondWith(Response.redirect("/?receiving-file-share=1"));
 
-    evt.waitUntil(async function () {
-      // const formData = await evt.request.formData();
-      // const file = formData.get("files[]");
-      const data = await evt.request.formData();
-      const files = data.getAll("file");
-      const client = await self.clients.get(evt.resultingClientId);
-      client.postMessage({ files });
-    });
-  }
-  if (evt.request.mode !== "navigate") {
+    evt.waitUntil(
+      (async function () {
+        const client = await self.clients.get(evt.resultingClientId);
+        const data = await evt.request.formData();
+        const files = data.getAll("file");
+        client.postMessage({ files });
+      })()
+    );
+    return;
+  } else if (evt.request.mode !== "navigate") {
     // CODELAB: Add fetch event handler here.
     // Not a page navigation, bail.
     return;
+  } else {
+    evt.respondWith(
+      fetch(evt.request).catch(async () => {
+        const cache = await caches.open(CACHE_NAME);
+        return await cache.match("offline.html");
+      })
+    );
   }
-  evt.respondWith(
-    fetch(evt.request).catch(async () => {
-      const cache = await caches.open(CACHE_NAME);
-      return await cache.match("offline.html");
-    })
-  );
 });
