@@ -374,9 +374,16 @@
         <div id="sector1">
           <h2 class="codeLabel label"><%= __('codeLabel')%></h2>
           <!-- <h1 align="center"><span href="#" class="code">underline</span></h1> -->
-          <div class="codeBox" data-tooltip="Click To Copy Code">
-            <span class="code"></span>
-          </div>
+          <span class="codeBox">
+            <div class="codeTooltip">Click to copy</div>
+            <p class="copyArea">
+              <span class="code"></span> <i class="fa-solid fa-copy"></i>
+            </p>
+            <br />
+            <span class="copyArea">
+              <span class="codeLink"></span> <i class="fa-solid fa-copy"></i
+            ></span>
+          </span>
           <!-- 첫화면 -->
           <div id="welcome">
             <div class="waitLabel" aria-busy="true" hidden>

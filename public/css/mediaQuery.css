@@ -38,6 +38,9 @@
 	#enterRoom{
 		width: 75vw !important;
 	}
+	.codeLink{
+		font-size: 1rem;
+	}
 }
 
 @media (max-width: 1500px) {
@@ -49,7 +52,6 @@
 		margin: 1rem;
 	}
 	#welcome {
-		width: 90vw !important;
 		margin: 0.7rem;
 		margin-left: 0;
 		margin-right: 0;

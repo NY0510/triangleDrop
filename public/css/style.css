@@ -569,3 +569,39 @@ box-shadow:  15px 15px 30px #989898,
 	padding: 1rem;
 	border-radius: 20px;
 }
+
+.codeBox:hover .codeTooltip{
+	opacity: 90% !important;
+}
+.codeBox:focus .codeTooltip{
+	opacity: 90% !important;
+}
+
+.codeTooltip{
+	display: inline-block;
+	position: absolute;
+	background-color: #2b2b2b;
+	color: #fff;
+	border-radius: 0.6rem;
+	padding: 0.4rem 0.8rem;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	margin-top: 5rem;
+	z-index: 1;
+	max-width: max-content;
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+.copyArea{
+	box-shadow: inset 5px 5px 15px #cccccc,
+            inset -5px -5px 15px #f4f4f4;
+	padding: 0.3rem 1.6rem;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	display: inline-block;
+}
+.codeLink{
+	font-size: 1.3rem;
+}

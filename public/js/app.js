@@ -5,6 +5,8 @@ const $inRoom = document.querySelector("#inRoom");
 const $sendProgress = document.querySelector("progress#sendProgressBar");
 const $receiveProgress = document.querySelector("progress#receiveProgressBar");
 const $code = document.querySelector(".code");
+const $codeLink = document.querySelector(".codeLink");
+const $codeTooltip = document.querySelector(".codeTooltip");
 const $roomCodeInput = document.querySelector("#roomCodeInput");
 const $sendProgressDiv = document.querySelector(".sendProgress");
 const $receiveProgressDiv = document.querySelector(".receiveProgress");
@@ -31,6 +33,27 @@ $code.addEventListener("click", () => {
   tempElem.select();
   document.execCommand("copy");
   document.body.removeChild(tempElem);
+  $codeTooltip.innerHTML = "Copied!";
+  $codeTooltip.style = "color: #2bcc2b; font-weight: bold;";
+  setTimeout(() => {
+    $codeTooltip.innerHTML = "Click to copy";
+    $codeTooltip.style = " ";
+  }, 1000);
+});
+$codeLink.addEventListener("click", () => {
+  var tempElem = document.createElement("textarea");
+  tempElem.value = $codeLink.innerHTML;
+  document.body.appendChild(tempElem);
+
+  tempElem.select();
+  document.execCommand("copy");
+  document.body.removeChild(tempElem);
+  $codeTooltip.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+  $codeTooltip.style = "color: #2bcc2b; font-weight: bold;";
+  setTimeout(() => {
+    $codeTooltip.innerHTML = "Click to copy";
+    $codeTooltip.style = " ";
+  }, 1000);
 });
 function getCookie(name) {
   let matches = document.cookie.match(
@@ -135,6 +158,7 @@ const createRoomName = (result = false) => {
     socket.emit("create_room", roomName, createRoomName);
   } else {
     $code.innerHTML = roomName;
+    $codeLink.innerHTML = `https://triangledrop.obtuse.cf/?code=${roomName}`;
     document.querySelector(".waitLabel").hidden = false;
     makeConnection();
   }
