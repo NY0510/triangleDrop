@@ -598,7 +598,7 @@ box-shadow:  15px 15px 30px #989898,
 	box-shadow: inset 5px 5px 15px #cccccc,
             inset -5px -5px 15px #f4f4f4;
 	padding: 0.3rem 1.6rem;
-	border-radius: 10px;
+	border-radius: 20px;
 	margin-bottom: 10px;
 	display: inline-block;
 }

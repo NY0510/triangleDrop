@@ -145,6 +145,8 @@ const initRoom = () => {
   document.querySelector("#sector0").hidden = true;
   $code.innerHTML = roomName;
   document.querySelector(".codeLabel").hidden = true;
+  document.querySelector(".copyAreaLink").style = "display: none;";
+  document.querySelector("p.copyArea").style = "margin: 0 auto;";
   $code.classList.add("InRoom");
   document.querySelector(".center").classList.remove("center");
   history.pushState(null, null, `?code=${roomName}`);
