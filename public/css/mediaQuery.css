@@ -25,6 +25,9 @@
     .developerLogo{
         font-size: 1rem !important;
     }
+	.contactUs{
+		font-size: 1rem !important;
+	}
     .footerDiv{
         font-size: 0.8rem !important;
         flex-direction: column !important;

@@ -51,6 +51,7 @@ button {
 	border-radius: 10px;
 	color: #000;
 	background: linear-gradient(145deg, #f0f0f0, #cacaca);
+	border: none;
 	box-shadow:  15px 15px 30px #989898,
 				 -15px -15px 30px #ffffff;
 				 cursor: pointer;
@@ -470,11 +471,6 @@ div.receiveProgress > div.label {
 
 .footerDiv{
 	margin-top: 2rem;
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: space-between;
-	align-items: center;
 	height: 100%;
 	box-shadow:  15px 15px 30px #989898,
              -15px -15px 30px #ffffff;
@@ -495,7 +491,7 @@ div.footerLeft{
 div.developerLogos{
 	display: flex;
 	flex-direction: row;
-	flex-wrap: nowrap;
+	flex-wrap: wrap;
 	align-items: center;
 	font-size: 2.3rem;
 }
@@ -604,4 +600,11 @@ box-shadow:  15px 15px 30px #989898,
 }
 .codeLink{
 	font-size: 1.3rem;
+}
+.contactUs{
+	display: inline-block;
+	color: #000;
+	padding-bottom: 7px;
+	font-weight: 100;
+	margin-left: 1rem;
 }
