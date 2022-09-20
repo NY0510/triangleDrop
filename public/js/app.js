@@ -32,6 +32,40 @@ $code.addEventListener("click", () => {
   document.execCommand("copy");
   document.body.removeChild(tempElem);
 });
+function getCookie(name) {
+  let matches = document.cookie.match(
+    new RegExp(
+      "(?:^|; )" +
+        name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
+        "=([^;]*)"
+    )
+  );
+  return matches ? decodeURIComponent(matches[1]) : undefined;
+}
+function setCookie(name, value, options = {}) {
+  options = {
+    path: "/",
+    // 필요한 경우, 옵션 기본값을 설정할 수도 있습니다.
+    ...options,
+  };
+
+  if (options.expires instanceof Date) {
+    options.expires = options.expires.toUTCString();
+  }
+
+  let updatedCookie =
+    encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+  for (let optionKey in options) {
+    updatedCookie += "; " + optionKey;
+    let optionValue = options[optionKey];
+    if (optionValue !== true) {
+      updatedCookie += "=" + optionValue;
+    }
+  }
+
+  document.cookie = updatedCookie;
+}
 
 let roomName;
 let myPeerConnection;
@@ -53,7 +87,20 @@ let bitrateMax = 0;
 let statsInterval = null;
 
 $inRoom.hidden = true;
-history.pushState(null, null, " ");
+
+window.addEventListener("load", () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const myParam = urlParams.get("code");
+  if (myParam) {
+    if (getCookie("code") !== myParam) {
+      setCookie("code", myParam);
+      $roomCodeInput.value = myParam;
+      $enterRoomForm.querySelector("button").click();
+    } else {
+      window.history.replaceState({}, document.title, "/");
+    }
+  }
+});
 
 // 나갈때
 const initExit = () => {
@@ -77,7 +124,8 @@ const initRoom = () => {
   document.querySelector(".codeLabel").hidden = true;
   $code.classList.add("InRoom");
   document.querySelector(".center").classList.remove("center");
-  history.pushState(null, null, `#${roomName}`);
+  history.pushState(null, null, `?code=${roomName}`);
+  setCookie("code", roomName);
 };
 
 const createRoomName = (result = false) => {

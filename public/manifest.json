@@ -54,7 +54,7 @@
     "display": "standalone",
     "scope":"https://triangledrop.obtuse.cf/",
     "theme_color": "#e0e0e0",
-    "description": "Triangle Drop is a free, open source, and secure way to transfer files over the web. No account required.",
+    "description": "Triangle Drop is a free, and secure way to transfer files over the web. No account required.",
     "prefer_related_applications":true,
     "screenshots": [
       {

@@ -34,6 +34,9 @@ app.get("/privacy-policy", (req, res) => {
     res.__(path.join(__dirname, "public", "ejs", "privacy-policy.ejs"))
   );
 });
+app.get("/tou", (req, res) => {
+  res.render(res.__(path.join(__dirname, "public", "ejs", "tou.ejs")));
+});
 
 app.get("/en", (req, res) => {
   res.cookie("lang", "en");
