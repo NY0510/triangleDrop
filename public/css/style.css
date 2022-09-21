@@ -608,3 +608,33 @@ box-shadow:  15px 15px 30px #989898,
 	font-weight: 100;
 	margin-left: 1rem;
 }
+.TriangleDropTitle{
+	display: inline-block;
+	color: #000;
+	padding-bottom: 7px;
+	font-weight: 600;
+	padding-bottom: 1rem;
+	font-size: 2.5rem;
+}
+nav{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	justify-content: space-between;
+}
+.title{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+}
+nav>ul>li{
+	display: inline-block;
+	margin: 0 1rem;
+	font-size: 1.5rem;
+	font-weight: 100;
+}
+nav>ul>li>a {
+	color: #000;
+}

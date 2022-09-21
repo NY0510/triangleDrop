@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-theme="dark" lang="<%= __('SiteLang')%>">
+<html data-theme="dark" lang="<%= t('SiteLang')%>">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -10,9 +10,9 @@
     <!-- Meta Tag -->
     <meta http-equiv="Title" content="Triangle Drop" />
     <meta property="og:title" content="Triangle Drop" />
-    <meta property="og:locale" content="<%= __('SiteLang')%>" />
-    <meta name="description" content="<%= __('SiteDescriptions')%>" />
-    <meta property="og:description" content="<%= __('SiteDescriptions')%>" />
+    <meta property="og:locale" content="<%= t('SiteLang')%>" />
+    <meta name="description" content="<%= t('SiteDescriptions')%>" />
+    <meta property="og:description" content="<%= t('SiteDescriptions')%>" />
 
     <!-- 현지화 -->
     <link
@@ -346,7 +346,7 @@
           display: none;
         }
       </style>
-      <%= __('noJavascript')%>
+      <%= t('noJavascript')%>
     </noscript>
     <div class="app" ondragenter="handleDragAndDropEnter(event)">
       <script
@@ -367,12 +367,27 @@
         (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
       <div class="center">
+        <nav>
+          <a class="title" href="/">
+            <img
+              src="/img/favicon/favicon.png"
+              alt="Triangle Drop Logo"
+              width="50px"
+            />
+            <h1 class="TriangleDropTitle">Triangle Drop</h1>
+          </a>
+          <ul class="navMenu">
+            <!-- 개발중 -->
+            <li><a href="/about" hidden>about</a></li>
+            <li><a href=""></a></li>
+          </ul>
+        </nav>
         <div id="sector0" hidden>
-          <div><%= __('fileListLabel')%></div>
+          <div><%= t('fileListLabel')%></div>
           <div class="fileList"></div>
         </div>
         <div id="sector1">
-          <h2 class="codeLabel label"><%= __('codeLabel')%></h2>
+          <h2 class="codeLabel label"><%= t('codeLabel')%></h2>
           <!-- <h1 align="center"><span href="#" class="code">underline</span></h1> -->
           <span class="codeBox">
             <div class="codeTooltip">Click to copy</div>
@@ -388,13 +403,13 @@
           <div id="welcome">
             <div class="waitLabel" aria-busy="true" hidden>
               <i class="fa-solid fa-circle-notch fa- spin"></i> <%=
-              __('waitCodeInputLabel')%>
+              t('waitCodeInputLabel')%>
             </div>
           </div>
         </div>
         <!-- <hr class="hr-text" data-content="OR" /> -->
         <div id="sector2">
-          <h2 class="label codeInputLabel"><%= __('codeInputLabel')%></h2>
+          <h2 class="label codeInputLabel"><%= t('codeInputLabel')%></h2>
           <div class="enterRoomDiv animate__animated">
             <form action="" id="enterRoom">
               <input
@@ -402,11 +417,11 @@
                 type="text"
                 class="roomCodeInput"
                 id="roomCodeInput"
-                placeholder="<%= __('codeInputPlaceholder')%>"
+                placeholder="<%= t('codeInputPlaceholder')%>"
                 maxlength="5"
               />
               <button class="enterButton animate__animated">
-                <%= __('enterButton')%>
+                <%= t('enterButton')%>
               </button>
             </form>
           </div>

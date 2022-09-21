@@ -21,7 +21,12 @@
 		"cookie-parser": "^1.4.6",
 		"ejs": "^3.1.8",
 		"express": "^4.18.1",
-		"i18n": "^0.15.0",
+		"i18next": "^21.9.2",
+		"i18next-chained-backend": "^3.1.0",
+		"i18next-express-middleware": "^2.0.0",
+		"i18next-fs-backend": "^1.1.5",
+		"i18next-http-backend": "^1.4.4",
+		"i18next-http-middleware": "^3.2.1",
 		"socket.io": "^4.5.1"
 	}
 }

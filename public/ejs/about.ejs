@@ -4,8 +4,49 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <!-- 브라우저 감지 -->
     <script src="/js/IEDetect.js"></script>
+
+    <!-- Meta Tag -->
+    <meta http-equiv="Title" content="Introduction Triangle Drop" />
+    <meta property="og:title" content="Introduction Triangle Drop" />
+    <meta property="og:locale" content="<%= t('SiteLang')%>" />
+
+    <!-- 현지화 -->
+    <link
+      rel="alternate"
+      href="https://triangledrop.obtuse.cf/en"
+      hreflang="x-default"
+    />
+    <link
+      rel="alternate"
+      hreflang="ko"
+      href="https://triangledrop.obtuse.cf/ko"
+    />
+    <link
+      rel="alternate"
+      hreflang="en"
+      href="https://triangledrop.obtuse.cf/en"
+    />
+
+    <!-- <link rel="canonical" href="웹사이트 도메인 추후 추가" /> -->
+    <!-- <meta property="og:url" content="웹사이트 도메인 추후 추가" /> -->
+    <meta property="og:site_name" content="Introduction Triangle Drop" />
+    <meta name="twitter:card" content="summary" />
+    <meta property="twitter:title" content="Introduction Triangle Drop" />
+    <meta property="og:type" content="website" />
+    <meta http-equiv="Publisher" content="Introduction Triangle Drop" />
+
+    <meta
+      property="og:image"
+      content="https://triangledrop.obtuse.cf/img/favicon/favicon.png"
+    />
+    <meta
+      name="twitter:card"
+      content="https://triangledrop.obtuse.cf/img/favicon/favicon.png"
+    />
+
     <!-- Favicon -->
     <link
       rel="apple-touch-icon"
@@ -80,6 +121,9 @@
 
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/mediaQuery.css" />
+    <!-- PWA -->
+    <script src="/js/PWA.js" defer></script>
+    <link rel="manifest" href="/manifest.json" />
     <meta
       name="theme-color"
       media="(prefers-color-scheme: light)"
@@ -90,9 +134,7 @@
       media="(prefers-color-scheme: dark)"
       content="#e0e0e0"
     />
-    <!-- PWA -->
-    <script src="/js/PWA.js" defer></script>
-    <link rel="manifest" href="/manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Triangle Drop" />
     <link
@@ -255,35 +297,9 @@
       media="screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
       href="splash_screens/4__iPhone_SE__iPod_touch_5th_generation_and_later_portrait.png"
     />
-    <title>404 Not found</title>
-    <style>
-      h1 {
-        text-align: center;
-      }
-      button {
-        display: block;
-        margin: 2rem auto;
-        padding: 1rem;
-        font-size: 1.5rem;
-        border: none;
-      }
-      #sector1 {
-        margin: 0 auto;
-        margin-top: 30vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        max-width: 500px;
-        padding: 3rem;
-      }
-    </style>
+    <title><%= t('AboutTitle')%></title>
   </head>
   <body>
-    <div id="sector1">
-      <h1>404 Not Found</h1>
-      <!-- index return button -->
-      <button onclick="window.location.href = '/'">Return to Home</button>
-    </div>
+    <h1><%= t('AboutTitle')%></h1>
   </body>
 </html>

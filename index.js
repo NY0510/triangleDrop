@@ -5,44 +5,88 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 const path = require("path");
-const i18nF = require("./i18n");
+const i18next = require("i18next");
+const middleware = require("i18next-http-middleware");
+const Backend = require("i18next-fs-backend");
 const cookieParser = require("cookie-parser");
+const { KeyObject } = require("crypto");
 
+i18next
+  .use(middleware.LanguageDetector)
+  .use(Backend)
+  .init({
+    preload: ["en", "ko"],
+    supportedLngs: ["en", "ko"],
+    lng: ["en", "ko"],
+    nonExplicitSupportedLngs: true,
+    fallbackLng: "en",
+    load: "languageOnly",
+    cleanCode: true,
+    backend: {
+      loadPath: __dirname + "/locales/{{lng}}/translation.json",
+      addPath: __dirname + "/locales/{{lng}}/translation.json",
+    },
+    detection: {
+      order: ["querystring", "cookie", "header"],
+      caches: ["cookie"],
+      lookupCookie: "lang",
+      lookupQuerystring: "lang",
+      lookupHeader: "accept-language",
+    },
+  });
+
+app.post(
+  __dirname + "/locales/add/:lng/:ns",
+  middleware.missingKeyHandler(i18next)
+);
+app.get(
+  __dirname + "/locales/resources.json",
+  middleware.getResourcesHandler(i18next)
+);
+
+app.use(
+  middleware.handle(i18next, {
+    ignoreRoutes: ["/foo"],
+    removeLngFromUrl: false,
+  })
+);
 app.use(express.static("public"));
 app.use(cookieParser());
-app.use(i18nF);
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  res.render(res.__(path.join(__dirname, "public", "ejs", "index.ejs")));
+  res.render(path.join(__dirname, "public", "ejs", "index.ejs"));
 });
 app.post("/", (req, res) => {
   console.log(req.query);
-  res.render(res.__(path.join(__dirname, "public", "ejs", "index.ejs")));
+  res.render(path.join(__dirname, "public", "ejs", "index.ejs"));
 });
 app.get("/index.html", (req, res) => {
-  res.render(res.__(path.join(__dirname, "public", "ejs", "index.ejs")));
+  res.render(path.join(__dirname, "public", "ejs", "index.ejs"));
 });
 app.get("/unsupported", (req, res) => {
-  res.render(res.__(path.join(__dirname, "public", "ejs", "unsupported.ejs")));
+  res.render(path.join(__dirname, "public", "ejs", "unsupported.ejs"));
 });
 app.get("/offline.html", (req, res) => {
-  res.render(res.__(path.join(__dirname, "public", "ejs", "offline.ejs")));
+  res.render(path.join(__dirname, "public", "ejs", "offline.ejs"));
 });
 app.get("/privacy-policy", (req, res) => {
-  res.render(
-    res.__(path.join(__dirname, "public", "ejs", "privacy-policy.ejs"))
-  );
+  res.render(path.join(__dirname, "public", "ejs", "privacy-policy.ejs"));
 });
 app.get("/tou", (req, res) => {
-  res.render(res.__(path.join(__dirname, "public", "ejs", "tou.ejs")));
+  res.render(path.join(__dirname, "public", "ejs", "tou.ejs"));
+});
+app.get("/about", (req, res) => {
+  res.render(path.join(__dirname, "public", "ejs", "about.ejs"));
 });
 
 app.get("/en", (req, res) => {
+  // req.i18n.changeLanguage("en");
   res.cookie("lang", "en");
   res.redirect("/");
 });
 app.get("/ko", (req, res) => {
+  // req.i18n.changeLanguage("ko");
   res.cookie("lang", "ko");
   res.redirect("/");
 });
@@ -84,9 +128,7 @@ io.on("connection", (socket) => {
 });
 
 app.use((req, res) => {
-  res
-    .status(404)
-    .render(res.__(path.join(__dirname, "public", "ejs", "404.ejs")));
+  res.status(404).render(path.join(__dirname, "public", "ejs", "404.ejs"));
 });
 
 server.listen(3000, () => {
