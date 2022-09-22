@@ -151,6 +151,8 @@ const initRoom = () => {
   $code.classList.add("InRoom");
   document.querySelector(".codeQRcode").style = "display: none;";
   document.querySelector("#wrapper").style = "display: none;";
+  document.querySelector(".flexBlink").style = "display: none;";
+  document.querySelector("nav").style = "display: none;";
   document.querySelector(".center").classList.remove("center");
   history.pushState(null, null, `?code=${roomName}`);
   setCookie("code", roomName);
