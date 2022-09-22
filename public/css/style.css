@@ -468,12 +468,18 @@ div.receiveProgress > div.label {
 	opacity: 0.8;
 	pointer-events: all;
 }
+#wrapper{
+	height: auto;
+	min-height: 100%;
+	padding-bottom:156.6px;
+  }
 
 .footerDiv{
-	margin-top: 2rem;
-	height: 100%;
-	box-shadow:  15px 15px 30px #989898,
-             -15px -15px 30px #ffffff;
+	height: 156.6px;
+	transform: translateY(-100%);
+	position: absolute;
+	/* box-shadow:  15px 15px 30px #989898,
+             -15px -15px 30px #ffffff; */
 	z-index: -1;
 	border-radius: 20px;
 	padding: 10px;
@@ -593,7 +599,7 @@ box-shadow:  15px 15px 30px #989898,
 .copyArea{
 	box-shadow: inset 5px 5px 15px #cccccc,
             inset -5px -5px 15px #f4f4f4;
-	padding: 0.3rem 1.6rem;
+	padding: 0.3rem 1rem;
 	border-radius: 20px;
 	margin-bottom: 10px;
 	display: inline-block;
@@ -637,4 +643,25 @@ nav>ul>li{
 }
 nav>ul>li>a {
 	color: #000;
+}
+.codeSector{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+.flexBlink{
+	flex-basis: 150px;
+	flex-shrink: 1;
+}
+.codeQRcode{
+	padding: 10px;
+	margin: 1rem;
+	border-radius: 10px;
+	box-shadow: inset 5px 5px 15px #cccccc,
+			inset -5px -5px 15px #f4f4f4;
+
+}
+.codeQRcode>img{
+	width: 150px;
 }

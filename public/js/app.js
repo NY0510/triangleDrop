@@ -14,6 +14,7 @@ const $filePrv = document.querySelector(".filesPreview");
 const $dropZone = document.querySelector(".dragAndDrop");
 const $enterRoomDiv = document.querySelector(".enterRoomDiv");
 const $messageForm = document.querySelector("#messageForm");
+const $codeQRcode = document.querySelector(".codeQRcode");
 
 let sendState = false;
 
@@ -161,6 +162,14 @@ const createRoomName = (result = false) => {
   } else {
     $code.innerHTML = roomName;
     $codeLink.innerHTML = `https://triangledrop.obtuse.cf/?code=${roomName}`;
+    const qrCode = new QRCode($codeQRcode, {
+      text: `https://triangledrop.obtuse.cf/?code=${roomName}`,
+      width: 512,
+      height: 512,
+      colorDark: "#000000",
+      colorLight: "#e0e0e0",
+      correctLevel: QRCode.CorrectLevel.Q,
+    });
     document.querySelector(".waitLabel").hidden = false;
     makeConnection();
   }

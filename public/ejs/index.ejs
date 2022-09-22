@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- 브라우저 감지 -->
     <script src="/js/IEDetect.js"></script>
-
+    <script src="/js/qrcode.min.js"></script>
     <!-- Meta Tag -->
     <meta http-equiv="Title" content="Triangle Drop" />
     <meta property="og:title" content="Triangle Drop" />
@@ -379,7 +379,11 @@
           <ul class="navMenu">
             <!-- 개발중 -->
             <li><a href="/about" hidden>about</a></li>
-            <li><a href=""></a></li>
+            <li>
+              <a class="contactUs" href="mailto:support@obtuse.cf"
+                >Contact Us</a
+              >
+            </li>
           </ul>
         </nav>
         <div id="sector0" hidden>
@@ -389,16 +393,20 @@
         <div id="sector1">
           <h2 class="codeLabel label"><%= t('codeLabel')%></h2>
           <!-- <h1 align="center"><span href="#" class="code">underline</span></h1> -->
-          <span class="codeBox">
-            <div class="codeTooltip">Click to copy</div>
-            <p class="copyArea">
-              <span class="code"></span> <i class="fa-solid fa-copy"></i>
-            </p>
-            <br />
-            <span class="copyArea copyAreaLink">
-              <span class="codeLink"></span> <i class="fa-solid fa-copy"></i
-            ></span>
-          </span>
+          <div class="codeSector">
+            <div class="flexBlink"></div>
+            <span class="codeBox">
+              <div class="codeTooltip">Click to copy</div>
+              <p class="copyArea">
+                <span class="code"></span> <i class="fa-solid fa-copy"></i>
+              </p>
+              <br />
+              <span class="copyArea copyAreaLink">
+                <span class="codeLink"></span> <i class="fa-solid fa-copy"></i
+              ></span>
+            </span>
+            <div class="codeQRcode"></div>
+          </div>
           <!-- 첫화면 -->
           <div id="welcome">
             <div class="waitLabel" aria-busy="true" hidden>
@@ -426,6 +434,14 @@
             </form>
           </div>
         </div>
+        <div class="languageSelect">
+          <i class="fa-solid fa-globe"></i> Language | 언어
+          <div class="languageDropDown">
+            <a href="/ko">Korean | 한국어</a>
+            <a href="/en">English</a>
+          </div>
+        </div>
+        <div id="wrapper"></div>
         <!-- footer -->
         <div class="footerDiv">
           <div class="footerLeft">
@@ -447,8 +463,8 @@
                 <i class="fa-solid fa-moon"></i>
                 <span class="newTabIcon"
                   ><i class="fa-solid fa-up-right-from-square"></i
-                ></span> </a
-              >|
+                ></span>
+              </a>
               <a class="contactUs" href="mailto:support@obtuse.cf"
                 >Contact Us
                 <span class="newTabIcon"
@@ -468,13 +484,6 @@
               <a href="/tou">Terms of Use</a>
             </div>
             Copyright© 2022 TriangleDrop All Rights reserved.
-          </div>
-        </div>
-        <div class="languageSelect">
-          <i class="fa-solid fa-globe"></i> Language | 언어
-          <div class="languageDropDown">
-            <a href="/ko">Korean | 한국어</a>
-            <a href="/en">English</a>
           </div>
         </div>
       </div>

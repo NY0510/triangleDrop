@@ -1,4 +1,4 @@
-@media (max-width: 470px) {
+@media (max-width: 600px) {
 	input[type="text"] {
 		font-size: 0.8rem !important;
 	}
@@ -49,6 +49,34 @@
 	}
 	.title>img {
 		width: 40px !important;
+	}
+	.codeQRcode>img{
+		width: 80px !important;
+	}
+	.flexBlink{
+		flex-basis: 0px !important;
+	}
+}
+
+@media (max-width: 500px){
+	.codeSector{
+		flex-wrap: wrap !important;
+	}
+	.codeQRcode>img{
+		width: 150px !important;
+	}
+	.codeQRcode{
+		margin: 0px auto;
+	}
+}
+
+/* qrcode */
+@media (max-width: 900px) {
+	.codeQRcode>img{
+		width: 100px;
+	}
+	.flexBlink{
+		flex-basis: 100px;
 	}
 }
 
