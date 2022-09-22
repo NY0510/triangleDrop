@@ -149,6 +149,8 @@ const initRoom = () => {
   document.querySelector(".copyAreaLink").style = "display: none;";
   document.querySelector("p.copyArea").style = "margin: 0 auto;";
   $code.classList.add("InRoom");
+  document.querySelector(".codeQRcode").style = "display: none;";
+  document.querySelector("#wrapper").style = "display: none;";
   document.querySelector(".center").classList.remove("center");
   history.pushState(null, null, `?code=${roomName}`);
   setCookie("code", roomName);
