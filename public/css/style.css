@@ -480,7 +480,7 @@ div.receiveProgress > div.label {
 	position: absolute;
 	/* box-shadow:  15px 15px 30px #989898,
              -15px -15px 30px #ffffff; */
-	z-index: -1;
+	z-index: 1;
 	border-radius: 20px;
 	padding: 10px;
 
