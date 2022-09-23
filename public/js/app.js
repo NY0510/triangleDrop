@@ -138,24 +138,7 @@ const initExit = () => {
 
 // 들어갈때
 const initRoom = () => {
-  $welcome.hidden = true;
-  $inRoom.hidden = false;
-  document.querySelector(".footerDiv").style = "display: none;";
-  document.querySelector(".languageSelect").style = "display: none;";
-  document.querySelector("#sector2").style = "display: none;";
-  document.querySelector("#sector0").hidden = true;
-  $code.innerHTML = roomName;
-  document.querySelector(".codeLabel").hidden = true;
-  document.querySelector(".copyAreaLink").style = "display: none;";
-  document.querySelector("p.copyArea").style = "margin: 0 auto;";
-  $code.classList.add("InRoom");
-  document.querySelector(".codeQRcode").style = "display: none;";
-  document.querySelector("#wrapper").style = "display: none;";
-  document.querySelector(".flexBlink").style = "display: none;";
-  document.querySelector("nav").style = "display: none;";
-  document.querySelector(".center").classList.remove("center");
-  history.pushState(null, null, `?code=${roomName}`);
-  setCookie("code", roomName);
+  //pass
 };
 
 const createRoomName = (result = false) => {
@@ -269,6 +252,24 @@ $enterRoomForm.addEventListener("submit", handleEnterRoom);
 
 const handleDataChannelOpen = (event) => {
   console.log("Data channel is open and ready to be used.");
+  $welcome.hidden = true;
+  $inRoom.hidden = false;
+  document.querySelector(".footerDiv").style = "display: none;";
+  document.querySelector(".languageSelect").style = "display: none;";
+  document.querySelector("#sector2").style = "display: none;";
+  document.querySelector("#sector0").hidden = true;
+  $code.innerHTML = roomName;
+  document.querySelector(".codeLabel").hidden = true;
+  document.querySelector(".copyAreaLink").style = "display: none;";
+  document.querySelector("p.copyArea").style = "margin: 0 auto;";
+  $code.classList.add("InRoom");
+  document.querySelector(".codeQRcode").style = "display: none;";
+  document.querySelector("#wrapper").style = "display: none;";
+  document.querySelector(".flexBlink").style = "display: none;";
+  document.querySelector("nav").style = "display: none;";
+  document.querySelector(".center").classList.remove("center");
+  history.pushState(null, null, `?code=${roomName}`);
+  setCookie("code", roomName);
   if (fileList.length !== 0) {
     //form submit
     setTimeout(() => {
@@ -276,6 +277,17 @@ const handleDataChannelOpen = (event) => {
     }, 500);
   }
 };
+
+function waitToCompleteIceGathering(pc) {
+  return new Promise((resolve) => {
+    pc.addEventListener(
+      "icegatheringstatechange",
+      (e) =>
+        e.target.iceGatheringState === "complete" &&
+        resolve(pc.localDescription)
+    );
+  });
+}
 
 socket.on("welcome", async () => {
   myDataChannel = myPeerConnection.createDataChannel("DataChannel");
@@ -295,9 +307,10 @@ socket.on("offer", async (offer) => {
     myDataChannel.addEventListener("open", handleDataChannelOpen);
   });
 
-  myPeerConnection.setRemoteDescription(offer);
-  const answer = await myPeerConnection.createAnswer();
-  myPeerConnection.setLocalDescription(answer);
+  await myPeerConnection.setRemoteDescription(offer);
+  const offer1 = await myPeerConnection.createAnswer();
+  await myPeerConnection.setLocalDescription(offer1);
+  const answer = await waitToCompleteIceGathering(myPeerConnection);
   socket.emit("answer", answer, roomName);
   console.log("received the offer / send answer");
 });
