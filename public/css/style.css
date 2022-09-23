@@ -234,14 +234,6 @@ span.code:hover:after {
 	text-transform: uppercase;
 }
 
-.roomCodeInput:hover,
-.roomCodeInput:focus,
-.enterButton:hover,
-.enterButton:focus {
-	/* box-shadow: 0 0 1px 1px #fff, 3px -3px 5px #a9ffec, -3px 3px 5px #7360a1; */
-	/* box-shadow: inset 0 1px 0px 0px rgb(233 212 255 / 52%), 0 0 8px 0.5px rgb(193 185 244 / 70%); */
-}
-
 .enterButton {
 	border: none;
 	color: #000;
@@ -379,7 +371,7 @@ span.code:hover:after {
 	position: sticky;
 	top: 0;
 	background: #e0e0e0;
-	width: 80vw;
+	width: 70vw;
 	margin: auto;
 	border-radius: 50px;
 	box-shadow:  15px 15px 30px #989898,
@@ -396,7 +388,7 @@ div.receiveProgress > div.label {
 }
 #sendProgressBar,
 #receiveProgressBar {
-	width: 70vw;
+	width: 60vw;
 	margin: 20px;
 }
 #enterRoom {

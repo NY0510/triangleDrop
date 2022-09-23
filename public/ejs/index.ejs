@@ -355,17 +355,34 @@
         crossorigin="anonymous"
       ></script>
       <!-- 상단광고 -->
-      <ins
-        class="adsbygoogle"
-        style="display: block"
-        data-ad-client="ca-pub-5639066827211612"
-        data-ad-slot="1548665323"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      ></ins>
+
       <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
+          if (window.matchMedia("( min-width: 1024px )").matches == true) {
+            document.querySelector(".adFit").innerHTML = `<ins
+          class="kakao_ad_area"
+          style="display: none"
+          data-ad-unit="DAN-btNY2xMFWDQ92WJm"
+          data-ad-width="728"
+          data-ad-height="90"
+        ></ins>
+        <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async>
       </script>
+      `; } else if (window.matchMedia("( max-width: 768px )").matches == true) {
+      document.querySelector( ".adFit" ).innerHTML = `<ins
+        class="kakao_ad_area"
+        style="display: none"
+        data-ad-unit="DAN-6n6YH4frXfMelGdV"
+        data-ad-width="320"
+        data-ad-height="100"
+      ></ins>
+      <script
+        type="text/javascript"
+        src="//t1.daumcdn.net/kas/static/ba.min.js"
+        async
+      ></script>
+      `; }
+
+      <div class="adFit"></div>
       <div class="center">
         <nav>
           <a class="title" href="/">
