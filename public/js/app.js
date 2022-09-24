@@ -302,6 +302,7 @@ socket.on("welcome", async () => {
 
 socket.on("offer", async (offer) => {
   myPeerConnection.addEventListener("datachannel", (event) => {
+    console.log(event.channel);
     myDataChannel = event.channel;
     myDataChannel.addEventListener("message", handleReceiveMessage);
     myDataChannel.addEventListener("open", handleDataChannelOpen);
@@ -309,12 +310,13 @@ socket.on("offer", async (offer) => {
 
   myPeerConnection.setRemoteDescription(offer);
   let answer = await myPeerConnection.createAnswer();
-  myPeerConnection.setLocalDescription(answer);
-  if (!myPeerConnection.canTrickleIceCandidates) {
-    answer = await waitToCompleteIceGathering(myPeerConnection);
-  }
+
+  // if (!myPeerConnection.canTrickleIceCandidates) {
+  //   answer = await waitToCompleteIceGathering(myPeerConnection);
+  // }
 
   socket.emit("answer", answer, roomName);
+  myPeerConnection.setLocalDescription(answer);
   console.log("received the offer / send answer");
 });
 
@@ -325,9 +327,10 @@ socket.on("answer", (answer) => {
 
 socket.on("ice", (ice) => {
   if (ice) {
-    console.log("received ice candidate");
     myPeerConnection.addIceCandidate(ice);
+    console.log("received ice candidate");
   } else {
+    myPeerConnection.addIceCandidate(ice);
     console.log("received null ice candidate");
   }
 });
@@ -345,13 +348,8 @@ const makeConnection = () => {
 };
 
 const handleIceCandidate = (data) => {
-  if (myPeerConnection.canTrickleIceCandidates) {
-    console.log("sent candidate");
-    socket.emit("ice", data.candidate, roomName);
-  } else {
-    console.log("sent null candidate");
-    socket.emit("ice", null, roomName);
-  }
+  console.log("sent candidate");
+  socket.emit("ice", data.candidate, roomName);
 };
 
 const filter = (message, itFile = false) => {
