@@ -329,7 +329,6 @@ socket.on("ice", (ice) => {
     myPeerConnection.addIceCandidate(ice);
   } else {
     console.log("received null ice candidate");
-    myPeerConnection.addIceCandidate(ice);
   }
 });
 
@@ -349,6 +348,9 @@ const handleIceCandidate = (data) => {
   if (myPeerConnection.canTrickleIceCandidates) {
     console.log("sent candidate");
     socket.emit("ice", data.candidate, roomName);
+  } else {
+    console.log("sent null candidate");
+    socket.emit("ice", null, roomName);
   }
 };
 
