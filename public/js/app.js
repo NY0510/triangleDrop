@@ -310,9 +310,9 @@ socket.on("offer", async (offer) => {
   myPeerConnection.setRemoteDescription(offer);
   let answer = await myPeerConnection.createAnswer();
   myPeerConnection.setLocalDescription(answer);
-  if (!myPeerConnection.canTrickleIceCandidates) {
-    answer = await waitToCompleteIceGathering(myPeerConnection);
-  }
+  // if (!myPeerConnection.canTrickleIceCandidates) {
+  answer = await waitToCompleteIceGathering(myPeerConnection);
+  // }
 
   socket.emit("answer", answer, roomName);
   console.log("received the offer / send answer");
