@@ -307,10 +307,13 @@ socket.on("offer", async (offer) => {
     myDataChannel.addEventListener("open", handleDataChannelOpen);
   });
 
-  await myPeerConnection.setRemoteDescription(offer);
-  const offer1 = await myPeerConnection.createAnswer();
-  await myPeerConnection.setLocalDescription(offer1);
-  const answer = await waitToCompleteIceGathering(myPeerConnection);
+  myPeerConnection.setRemoteDescription(offer);
+  let answer = await myPeerConnection.createAnswer();
+  myPeerConnection.setLocalDescription(answer);
+  if (!myPeerConnection.canTrickleIceCandidates) {
+    answer = await waitToCompleteIceGathering(myPeerConnection);
+  }
+
   socket.emit("answer", answer, roomName);
   console.log("received the offer / send answer");
 });
@@ -321,8 +324,13 @@ socket.on("answer", (answer) => {
 });
 
 socket.on("ice", (ice) => {
-  myPeerConnection.addIceCandidate(ice);
-  console.log("received ice candidate");
+  if (ice) {
+    console.log("received ice candidate");
+    myPeerConnection.addIceCandidate(ice);
+  } else {
+    console.log("received null ice candidate");
+    myPeerConnection.addIceCandidate(ice);
+  }
 });
 
 const makeConnection = () => {
@@ -338,8 +346,10 @@ const makeConnection = () => {
 };
 
 const handleIceCandidate = (data) => {
-  console.log("sent candidate");
-  socket.emit("ice", data.candidate, roomName);
+  if (myPeerConnection.canTrickleIceCandidates) {
+    console.log("sent candidate");
+    socket.emit("ice", data.candidate, roomName);
+  }
 };
 
 const filter = (message, itFile = false) => {
@@ -414,8 +424,7 @@ $messageForm.addEventListener("submit", handleSendMessage);
 const messageBlock = document.getElementById("messageBlock");
 
 const handleReceiveMessage = (event) => {
-  console.log(event.data);
-  console.log(typeof event.data);
+  // console.log(event.data);
   // console.log(message);
   if (typeof event.data === "string") {
     const message = JSON.parse(event.data);
@@ -552,8 +561,7 @@ const handleSendFile = (file) => {
       offset / 1024 / 1024
     )}/${Math.round(file.size / 1024 / 1024)}MB`;
     offset += event.target.result.byteLength;
-    console.log(`Sent ${offset} bytes`);
-    console.log(myDataChannel.bufferedAmount);
+    // console.log(`Sent ${offset} bytes`);
     $sendProgress.value = offset;
     // displayStats(); // 개발중
     if (offset < file.size) {
@@ -562,7 +570,7 @@ const handleSendFile = (file) => {
       for (; 16777216 - myDataChannel.bufferedAmount < chunkSize; ) {
         // 버퍼에 남은 공간이 작을때
         // 버퍼 공간 16Mb를 넘지 않도록 계속 버퍼에 데이터를 넣는다.
-        console.log("wait");
+        // console.log("wait");
         await new Promise((resolve) => setTimeout(resolve, 100));
       }
 
@@ -577,7 +585,6 @@ const handleSendFile = (file) => {
   });
 
   const readSlice = (o) => {
-    console.log("readSlice", o);
     const slice = file.slice(offset, o + chunkSize);
     fileReader.readAsArrayBuffer(slice); //fileReader 일해라
   };
