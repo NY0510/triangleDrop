@@ -1,4 +1,5 @@
-{
+{	
+	"shortSiteLang":"en",
 	"SiteLang": "en_US",
 	"SiteDescriptions": "Triangle Drop is a file transfer application using WebRTC. No signup, no file size limit, works on any device, bidirectional transfer",
 	"noJavascript": "javascript is not enabled. please enable javascript to use this site",
