@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+
+<url>
+  <loc>https://triangledrop.obtuse.cf/</loc>
+  <xhtml:link rel="alternate" hreflang="x-default" href="https://triangledrop.obtuse.cf/"/>
+  <xhtml:link rel="alternate" hreflang="en" href="https://triangledrop.obtuse.cf/en"/>
+  <xhtml:link rel="alternate" hreflang="ko" href="https://triangledrop.obtuse.cf/ko"/>
+</url>
+<!-- <url>
+  <loc>https://triangledrop.obtuse.cf/about</loc>
+  <lastmod>2022-09-25T07:27:04+00:00</lastmod>
+  <priority>0.80</priority>
+</url> -->
+<url>
+  <loc>https://triangledrop.obtuse.cf/privacy-policy</loc>
+  <!-- <lastmod>2022-09-25T07:27:04+00:00</lastmod>
+  <priority>0.80</priority> -->
+</url>
+<url>
+  <loc>https://triangledrop.obtuse.cf/tou</loc>
+  <!-- <lastmod>2022-09-25T07:27:04+00:00</lastmod>
+  <priority>0.80</priority> -->
+</url>
+
+
+</urlset>
