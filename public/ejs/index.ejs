@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-theme="dark" lang="<%= t('shortSiteLang')%>">
+<html lang="<%= t('shortSiteLang')%>">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -33,13 +33,12 @@
       href="https://triangledrop.obtuse.cf/en"
     />
 
-    <!-- <link rel="canonical" href="웹사이트 도메인 추후 추가" /> -->
-    <!-- <meta property="og:url" content="웹사이트 도메인 추후 추가" /> -->
-    <meta property="og:site_name" content="Triangle Drop" />
+    <meta property="og:url" content="https://triangledrop.obtuse.cf/" />
+    <meta property="og:site_name" content="<%= t('SiteTitle')%>" />
     <meta name="twitter:card" content="summary" />
-    <meta property="twitter:title" content="Triangle Drop" />
+    <meta property="twitter:title" content="<%= t('SiteTitle')%>" />
     <meta property="og:type" content="website" />
-    <meta http-equiv="Publisher" content="Triangle Drop" />
+    <meta http-equiv="Publisher" content="<%= t('SiteTitle')%>" />
 
     <meta
       property="og:image"
@@ -131,7 +130,7 @@
     <!-- <link rel="stylesheet" href="//unpkg.com/@picocss/pico@latest/css/pico.min.css" /> -->
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 
-    <title>Triangle Drop</title>
+    <title><%= t('SiteTitle')%></title>
     <!-- Google tag (gtag.js) -->
     <script
       async

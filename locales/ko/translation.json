@@ -1,6 +1,7 @@
 {
 	"shortSiteLang":"ko",
 	"SiteLang":"ko_KR",
+	"SiteTitle": "Triangle Drop - webRTC 양방향 파일전송",
 	"SiteDescriptions": "Triangle Drop 은 WebRTC를 사용한 파일 전송 애플리케이션입니다. 귀찮은 회원가입이나 파일용량 제한이 없으며, 쌍방향 파일공유가 가능합니다.",
 	"noJavascript": "자바스크립트가 활성화되지 않았어요 🥲 빠르고 간편한 Triangle Drop을 사용하시려면 자바스크립트를 활성화해주세요.",
 	"codeLabel": "파일 공유를 위해 상대에게 이 코드를 공유해주세요!",
