@@ -4,7 +4,8 @@ const $welcome = document.querySelector("#welcome");
 const $inRoom = document.querySelector("#inRoom");
 const $sendProgress = document.querySelector("progress#sendProgressBar");
 const $receiveProgress = document.querySelector("progress#receiveProgressBar");
-const $code = document.querySelector(".code");
+const $code = document.querySelector(".copyArea > .code");
+const $inRoomCode = $inRoom.querySelector(".code");
 const $codeLink = document.querySelector(".codeLink");
 const $codeTooltip = document.querySelector(".codeTooltip");
 const $roomCodeInput = document.querySelector("#roomCodeInput");
@@ -148,11 +149,12 @@ const createRoomName = (result = false) => {
     socket.emit("create_room", roomName, createRoomName);
   } else {
     $code.innerHTML = roomName;
+    $inRoomCode.innerHTML = roomName;
     $codeLink.innerHTML = `https://triangledrop.obtuse.cf/?code=${roomName}`;
     const qrCode = new QRCode($codeQRcode, {
       text: `https://triangledrop.obtuse.cf/?code=${roomName}`,
-      width: 512,
-      height: 512,
+      width: 150,
+      height: 150,
       colorDark: "#000000",
       colorLight: "#e0e0e0",
       correctLevel: QRCode.CorrectLevel.Q,
@@ -258,11 +260,9 @@ const handleDataChannelOpen = (event) => {
   document.querySelector(".languageSelect").style = "display: none;";
   document.querySelector("#sector2").style = "display: none;";
   document.querySelector("#sector0").hidden = true;
+  document.querySelector("#sector1").hidden = true;
   $code.innerHTML = roomName;
-  document.querySelector(".codeLabel").hidden = true;
-  document.querySelector(".copyAreaLink").style = "display: none;";
-  document.querySelector("p.copyArea").style = "margin: 0 auto;";
-  $code.classList.add("InRoom");
+  $inRoomCode.innerHTML = roomName;
   document.querySelector(".codeQRcode").style = "display: none;";
   document.querySelector("#wrapper").style = "display: none;";
   document.querySelector(".flexBlink").style = "display: none;";

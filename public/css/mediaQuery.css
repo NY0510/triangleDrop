@@ -1,6 +1,6 @@
 @media (max-width: 600px) {
 	input[type="text"] {
-		font-size: 0.8rem !important;
+		font-size: 16px !important;
 	}
 	.waitLabel{
 		font-size: 1rem !important;
@@ -35,12 +35,9 @@
     .newTabIcon{
         font-size: 0.8rem;
     }
-	.roomCodeInput{
-		flex-basis: 60%;
-	}
-	#enterRoom{
+	/* #enterRoom{
 		width: 75vw !important;
-	}
+	} */
 	.codeLink{
 		font-size: 1rem;
 	}
@@ -86,20 +83,18 @@
 	}
 	#inRoom {
 		width: 90vw !important;
-		margin: 1rem;
 	}
 	#welcome {
-		margin: 0.7rem;
 		margin-left: 0;
 		margin-right: 0;
 	}
-	.messageDiv, .messageSendBlock, .filesPreview{
+	.messageSendBlock{
 		width: 90vw !important;
 	}
 	hr{
 		width: 90vw !important;
 	}
-	#enterRoom {
+	/* #enterRoom {
 		width: 85vw;
-	}
+	} */
 }

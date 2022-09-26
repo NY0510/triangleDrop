@@ -486,46 +486,53 @@
 
       <!-- 룸 입장후 -->
       <div id="inRoom" hidden>
-        <div class="progress">
-          <div class="sendProgress" hidden>
-            <div class="label">
-              <span class="sendProgressSending">Sending...</span>
-              <span class="txProgressBarFileName"></span>
-              <span class="txProgressBarFileSize"></span>
-            </div>
-            <progress id="sendProgressBar" max="0" value="0"></progress>
+        <div class="flexBox">
+          <div class="inRoomTopBar">
+            <span class="code InRoom"></span>
           </div>
-          <div class="receiveProgress" hidden>
-            <div class="label">
-              <span class="receiveProgressReceiving">Receiveing... </span>
-              <span class="rxProgressBarFileName"></span>
-              <span class="rxProgressBarFileSize"></span>
+          <div class="progress">
+            <div class="sendProgress" hidden>
+              <div class="label">
+                <span class="sendProgressSending">Sending...</span>
+                <span class="txProgressBarFileName"></span>
+                <span class="txProgressBarFileSize"></span>
+              </div>
+              <progress id="sendProgressBar" max="0" value="0"></progress>
             </div>
-            <progress id="receiveProgressBar" max="0" value="0"></progress>
+            <div class="receiveProgress" hidden>
+              <div class="label">
+                <span class="receiveProgressReceiving">Receiveing... </span>
+                <span class="rxProgressBarFileName"></span>
+                <span class="rxProgressBarFileSize"></span>
+              </div>
+              <progress id="receiveProgressBar" max="0" value="0"></progress>
+            </div>
+          </div>
+          <div class="message">
+            <div id="messageBlock"></div>
+            <form action="" class="animate__animated" id="messageForm">
+              <div class="messageSendBlock">
+                <div class="filesPreview" hidden></div>
+                <div class="messageDiv">
+                  <input autocomplete="off" type="text" id="messageInput" />
+                  <label for="fileInput" class="fileInputLabel">
+                    <i class="fa-solid fa-paperclip fa-fw"></i
+                  ></label>
+                  <input
+                    type="file"
+                    placeholder="file select"
+                    id="fileInput"
+                    multiple="multiple"
+                    onchange="handleChangeFile(event)"
+                  />
+                  <button id="messageSendButton">
+                    <i class="fa-solid fa-paper-plane"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
-        <div id="messageBlock"></div>
-        <form action="" class="animate__animated" id="messageForm">
-          <div class="messageSendBlock">
-            <div class="filesPreview" hidden></div>
-            <div class="messageDiv">
-              <input autocomplete="off" type="text" id="messageInput" />
-              <label for="fileInput" class="fileInputLabel">
-                <i class="fa-solid fa-paperclip fa-fw"></i
-              ></label>
-              <input
-                type="file"
-                placeholder="file select"
-                id="fileInput"
-                multiple="multiple"
-                onchange="handleChangeFile(event)"
-              />
-              <button id="messageSendButton">
-                <i class="fa-solid fa-paper-plane"></i>
-              </button>
-            </div>
-          </div>
-        </form>
         <div class="dragAndDrop">
           <i class="fa-solid fa-inbox-full"></i>
         </div>

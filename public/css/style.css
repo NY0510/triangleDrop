@@ -17,6 +17,7 @@ body {
 		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 	background-color: #e0e0e0;
 	color: black;
+	height: 100vh;
 }
 
 ::-webkit-scrollbar,
@@ -86,8 +87,9 @@ button:hover {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%); */
-	margin-top: 1rem;
-	margin-bottom: 1rem;
+	/* margin-top: 1rem; */
+	/* margin-bottom: 1rem; */
+	height: 100%;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
@@ -204,8 +206,8 @@ span.code:hover:after {
 	color: #1095c1;
 }
 
-.code.InRoom {
-	font-size: 1.5rem;
+.InRoom {
+	font-size: 1.5rem !important;
 	height: 1.5rem;
 	margin: 0;
 	padding: 0;
@@ -229,7 +231,8 @@ span.code:hover:after {
 
 .roomCodeInput {
 	margin-right: 0.5rem;
-	flex-basis: 100%;
+	flex-grow: 1;
+	flex-shrink: 1;
 	font-family: "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono", monospace;
 	text-transform: uppercase;
 }
@@ -241,6 +244,7 @@ span.code:hover:after {
 	border-radius: 10px;
 	outline: none;
 	padding: 1rem;
+	flex-shrink: 1;
 	font-family: "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono", monospace;
 }
 
@@ -261,6 +265,7 @@ span.code:hover:after {
 
 #inRoom {
 	width: 70%;
+	height: 100%;
 }
 #fileInput {
 	display: none;
@@ -300,11 +305,11 @@ span.code:hover:after {
 	align-items: center;
 	flex-wrap: nowrap;
 	justify-content: space-between;
-	width: 70vw;
-	bottom: 2rem;
-	margin: 0 auto;
-	position: fixed;
-	height: 3rem;
+	width: 100%;
+	/* bottom: 2rem; */
+	/* margin: 0 1rem; */
+	/* position: fixed;
+	height: 3rem; */
 	padding: 0.5rem;
 	/* height: 50px; */
 	/* box-shadow: 15px 15px 30px #989898; */
@@ -313,19 +318,20 @@ span.code:hover:after {
 }
 .messageSendBlock{
 	margin: 0;
-	position:fixed;
-	width: 70vw;
+	/* position:fixed; */
 }
 .filesPreview {
 	padding: 0.5rem;
-	padding-bottom: 40px;
+	/* padding-bottom: 40px; */
 	border-radius: 10px;
 	border-bottom-left-radius: 0;
 	border-bottom-right-radius: 0;
-	width: 70vw;
+	width: 100%;
 	text-align: left;
-	position: fixed;
-	bottom: 50px;
+	/* position: fixed; */
+	/* bottom: 50px; */
+	position: relative;
+	top: 40px;
 	box-shadow: 15px 15px 30px #989898;
 	z-index: -1;
 	display: flex;
@@ -363,7 +369,7 @@ span.code:hover:after {
 
 #messageBlock {
 	/* background-color: #18242c; */
-	height: 75vh;
+	/* height: 75vh; */
 	overflow-y: scroll;
 }
 
@@ -371,8 +377,8 @@ span.code:hover:after {
 	position: sticky;
 	top: 0;
 	background: #e0e0e0;
-	width: 70vw;
-	margin: auto;
+	width: 100%;
+	/* margin: auto; */
 	border-radius: 50px;
 	box-shadow:  15px 15px 30px #989898,
 				 -15px -15px 30px #ffffff;
@@ -394,7 +400,7 @@ div.receiveProgress > div.label {
 #enterRoom {
 	display: flex;
 	flex-direction: row;
-	flex-wrap: nowrap;
+	flex-wrap: wrap;
 	justify-content: space-around;
 }
 .enterRoomDiv{
@@ -656,4 +662,20 @@ nav>ul>li>a {
 }
 .codeQRcode>img{
 	width: 150px;
+}
+.flexBox{
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	height: 100%;
+}
+.message{
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	flex-grow: 1;
+}
+.inRoomTopBar{
+	padding: 10px;
 }
