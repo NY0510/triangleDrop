@@ -79,6 +79,9 @@ app.get("/tou", (req, res) => {
 app.get("/about", (req, res) => {
   res.render(path.join(__dirname, "public", "ejs", "about.ejs"));
 });
+app.get("/sitemap.xml", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "sitemap.xml"));
+});
 
 app.get("/en", (req, res) => {
   // req.i18n.changeLanguage("en");
