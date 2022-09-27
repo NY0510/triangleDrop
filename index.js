@@ -84,14 +84,14 @@ app.get("/sitemap.xml", (req, res) => {
 });
 
 app.get("/en", (req, res) => {
-  // req.i18n.changeLanguage("en");
-  res.cookie("lang", "en");
-  res.redirect("/");
+  req.i18n.changeLanguage("en");
+  // res.cookie("lang", "en");
+  res.render(path.join(__dirname, "public", "ejs", "index.ejs"));
 });
 app.get("/ko", (req, res) => {
-  // req.i18n.changeLanguage("ko");
-  res.cookie("lang", "ko");
-  res.redirect("/");
+  req.i18n.changeLanguage("ko");
+  // res.cookie("lang", "ko");
+  res.render(path.join(__dirname, "public", "ejs", "index.ejs"));
 });
 
 io.on("connection", (socket) => {
