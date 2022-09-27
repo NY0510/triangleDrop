@@ -1,3 +1,5 @@
 User-agent: *
 Allow:/
 Sitemap: https://triangledrop.obtuse.cf/sitemap.xml
+
+#DaumWebMasterTool:aa213cfec63fedecfb86b4f50eb0e1bcb7ebf5e9abb3aa909a6cb2524b394f8e:6F9qWN4nQPkda8+cKos4ug==
