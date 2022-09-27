@@ -591,7 +591,9 @@ const handleSendFile = (file) => {
       filesignalS = false;
       messageBlock.scrollTop = messageBlock.scrollHeight;
       $sendProgressDiv.hidden = true;
-      sendState = false;
+      setTimeout(() => {
+        sendState = false;
+      }, 400);
     }
   });
 
