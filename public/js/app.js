@@ -505,9 +505,20 @@ function handleChangeFile(event) {
     i.classList.add("prv", "fa-regular", "fa-file");
 
     spanFileName.innerHTML = fileName;
-    spanFileSizeAndType.innerHTML = `${Math.round(file.size / 1024 / 1024)}MB ${
-      file.type
-    }`;
+    if (file.size > 1024 * 1024) {
+      spanFileSizeAndType.innerHTML = `${Math.round(
+        file.size / 1024 / 1024
+      )}MB  ${file.type}`;
+    } else if (file.size > 1024) {
+      spanFileSizeAndType.innerHTML = `${Math.round(file.size / 1024)}KB  ${
+        file.type
+      }`;
+    } else {
+      spanFileSizeAndType.innerHTML = `${file.size}B  ${file.type}`;
+    }
+    // spanFileSizeAndType.innerHTML = `${Math.round(file.size / 1024 / 1024)}MB ${
+    //   file.type
+    // }`;
     div.appendChild(i);
     Box.appendChild(spanFileName);
     Box.appendChild(spanFileSizeAndType);
