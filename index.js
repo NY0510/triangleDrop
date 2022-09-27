@@ -17,7 +17,6 @@ i18next
   .init({
     preload: ["en", "ko"],
     supportedLngs: ["en", "ko"],
-    lng: ["en", "ko"],
     nonExplicitSupportedLngs: true,
     fallbackLng: "en",
     load: "languageOnly",
@@ -27,12 +26,16 @@ i18next
       addPath: __dirname + "/locales/{{lng}}/translation.json",
     },
     detection: {
-      order: ["querystring", "cookie", "header"],
+      order: ["path", "querystring", "cookie", "header"],
       caches: ["cookie"],
-      lookupCookie: "lang",
-      lookupQuerystring: "lang",
+      lookupCookie: "lng",
+      lookupQuerystring: "lng",
       lookupHeader: "accept-language",
+      lookupPath: "lng",
+      lookupFromPathIndex: 0,
+      ignoreCase: false,
     },
+    interpolation: {},
   });
 
 app.post(
@@ -84,12 +87,12 @@ app.get("/sitemap.xml", (req, res) => {
 });
 
 app.get("/en", (req, res) => {
-  req.i18n.changeLanguage("en");
+  // req.i18n.changeLanguage("en");
   // res.cookie("lang", "en");
   res.render(path.join(__dirname, "public", "ejs", "index.ejs"));
 });
 app.get("/ko", (req, res) => {
-  req.i18n.changeLanguage("ko");
+  // req.i18n.changeLanguage("ko");
   // res.cookie("lang", "ko");
   res.render(path.join(__dirname, "public", "ejs", "index.ejs"));
 });
