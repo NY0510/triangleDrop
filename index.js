@@ -137,6 +137,6 @@ app.use((req, res) => {
   res.status(404).render(path.join(__dirname, "public", "ejs", "404.ejs"));
 });
 
-server.listen(5500, () => {
-  console.log("Server is running on port 5500");
+server.listen(3000, () => {
+  console.log("Server is running on port 3000");
 });
