@@ -678,3 +678,20 @@ nav>ul>li>a {
 .inRoomTopBar{
 	padding: 10px;
 }
+.loading{
+	width: 100vw;
+	height: 100vh;
+	background: RGBA(0,0,0,0.5);
+	position: fixed;
+	z-index: 999;
+	display: none;
+	flex-direction: column;
+	justify-content: center;
+}
+.loadingMessage{
+	margin: 0 auto;
+	color: white;
+	opacity: 100%;
+	font-weight: 600;
+	font-size: 1.5rem;
+}

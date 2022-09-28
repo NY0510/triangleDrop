@@ -16,6 +16,7 @@ const $dropZone = document.querySelector(".dragAndDrop");
 const $enterRoomDiv = document.querySelector(".enterRoomDiv");
 const $messageForm = document.querySelector("#messageForm");
 const $codeQRcode = document.querySelector(".codeQRcode");
+const $loadingScreen = document.querySelector(".loading")
 
 let sendState = false;
 
@@ -139,6 +140,7 @@ const initExit = () => {
 
 // 들어갈때
 const initRoom = () => {
+  $loadingScreen.style = "display: flex;";
   //pass
 };
 
@@ -270,6 +272,7 @@ const handleDataChannelOpen = (event) => {
   document.querySelector(".center").classList.remove("center");
   history.pushState(null, null, `?code=${roomName}`);
   setCookie("code", roomName);
+  $loadingScreen.style = "display: none;"
   if (fileList.length !== 0) {
     //form submit
     setTimeout(() => {
