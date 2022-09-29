@@ -683,7 +683,7 @@ nav>ul>li>a {
 	height: 100vh;
 	background: RGBA(0,0,0,0.5);
 	position: fixed;
-	z-index: 999;
+	z-index: 10;
 	display: none;
 	flex-direction: column;
 	justify-content: center;
@@ -694,4 +694,7 @@ nav>ul>li>a {
 	opacity: 100%;
 	font-weight: 600;
 	font-size: 1.5rem;
+}
+.kkakao_ad_area{
+	z-index: 50;
 }
