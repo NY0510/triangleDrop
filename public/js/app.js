@@ -152,9 +152,9 @@ const createRoomName = (result = false) => {
   } else {
     $code.innerHTML = roomName;
     $inRoomCode.innerHTML = roomName;
-    $codeLink.innerHTML = `https://triangledrop.obtuse.cf/?code=${roomName}`;
+    $codeLink.innerHTML = `https://triangledrop.obtuse.kr/?code=${roomName}`;
     const qrCode = new QRCode($codeQRcode, {
-      text: `https://triangledrop.obtuse.cf/?code=${roomName}`,
+      text: `https://triangledrop.obtuse.kr/?code=${roomName}`,
       width: 150,
       height: 150,
       colorDark: "#000000",
@@ -342,15 +342,15 @@ const makeConnection = () => {
   myPeerConnection = new RTCPeerConnection({
     iceServers: [
       {
-        urls: ["stun:stun.obtuse.cf:5349"],
+        urls: ["stun:stun.obtuse.kr:5349"],
       },
       {
         urls: ["stun:stun.l.google.com:19302"],
       },
       {
         urls: [
-          "turn:turn.obtuse.cf:5349",
-          "turn:turn.obtuse.cf:5349?transport=tcp",
+          "turn:turn.obtuse.kr:5349",
+          "turn:turn.obtuse.kr:5349?transport=tcp",
         ],
         username: "turnserver",
         credential: "*Obtuse_turnServer",

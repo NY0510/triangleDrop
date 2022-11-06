@@ -52,7 +52,7 @@
     "start_url": "/",
     "background_color": "#e0e0e0",
     "display": "standalone",
-    "scope":"https://triangledrop.obtuse.cf/",
+    "scope":"https://triangledrop.obtuse.kr/",
     "theme_color": "#e0e0e0",
     "description": "Triangle Drop is a free, and secure way to transfer files over the web. No account required.",
     "prefer_related_applications":true,
