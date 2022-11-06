@@ -16,7 +16,7 @@ const $dropZone = document.querySelector(".dragAndDrop");
 const $enterRoomDiv = document.querySelector(".enterRoomDiv");
 const $messageForm = document.querySelector("#messageForm");
 const $codeQRcode = document.querySelector(".codeQRcode");
-const $loadingScreen = document.querySelector(".loading")
+const $loadingScreen = document.querySelector(".loading");
 
 let sendState = false;
 
@@ -272,7 +272,7 @@ const handleDataChannelOpen = (event) => {
   document.querySelector(".center").classList.remove("center");
   history.pushState(null, null, `?code=${roomName}`);
   setCookie("code", roomName);
-  $loadingScreen.style = "display: none;"
+  $loadingScreen.style = "display: none;";
   if (fileList.length !== 0) {
     //form submit
     setTimeout(() => {
@@ -342,8 +342,24 @@ const makeConnection = () => {
   myPeerConnection = new RTCPeerConnection({
     iceServers: [
       {
+        urls: ["stun:stun.obtuse.cf:5349"],
+      },
+      {
         urls: ["stun:stun.l.google.com:19302"],
       },
+      {
+        urls: [
+          "turn:turn.obtuse.cf:5349",
+          "turn:turn.obtuse.cf:5349?transport=tcp",
+        ],
+        username: "turnserver",
+        credential: "*Obtuse_turnServer",
+      },
+      // {
+      //   urls: "turn:openrelay.metered.ca:443?transport=tcp",
+      //   username: "openrelayproject",
+      //   credential: "openrelayproject",
+      // },
     ],
   });
 
