@@ -10,7 +10,7 @@ TriangleDrop이란 WebRTC의 Datachannel 을 이용한 간단한 파일 공유 �
 
 ## 사용방법
 
-1. [triangledrop.obtuse.cf](https://triangledrop.obtuse.kr) 로 접속합니다.
+1. [triangledrop.obtuse.kr](https://triangledrop.obtuse.kr) 로 접속합니다.
 
 2. 화면에 표시된 코드를 상대방에게 공유하거나, 상대방이 나에게 코드를 공유해 줍니다.
 
