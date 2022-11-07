@@ -130,12 +130,49 @@ window.addEventListener("load", () => {
 
 // 나갈때
 const initExit = () => {
+  console.log("Back Action");
+  if (myPeerConnection) {
+    myPeerConnection.close();
+    myPeerConnection = null;
+  }
+
+  if (myDataChannel) {
+    myDataChannel.close();
+    myDataChannel = null;
+  }
+
+  createRoomName();
+  $loadingScreen.style = "display: none;";
   $welcome.hidden = false;
   $inRoom.hidden = true;
-  $code.innerHTML = `<span aria-busy="true" class="codeLoading">Please wait…</span>`;
-  roomName = "";
-  document.querySelector(".codeLabel").hidden = false;
-  createRoomName();
+  document.querySelector(".footerDiv").style = "";
+  document.querySelector(".languageSelect").style = "";
+  document.querySelector("#sector2").style = "";
+  document.querySelector("#sector0").hidden = true;
+  document.querySelector("#sector1").hidden = false;
+  $code.innerHTML = roomName;
+  $inRoomCode.innerHTML = roomName;
+  document.querySelector(".codeQRcode").style = "";
+  document.querySelector(".codeQRcode").innerHTML = "";
+  document.querySelector("#wrapper").style = "";
+  document.querySelector(".flexBlink").style = "";
+  document.querySelector("nav").style = "";
+  document.querySelector(".centerC").classList.add("center");
+  $loadingScreen.style = "";
+};
+
+// window.onpageshow = function (event) {
+//   if (
+//     event.persisted ||
+//     (window.performance && window.performance.navigation.type == 2)
+//   ) {
+//     initExit();
+//   }
+// };
+
+// when click on the history back button
+window.onpopstate = function (event) {
+  initExit();
 };
 
 // 들어갈때
@@ -269,7 +306,7 @@ const handleDataChannelOpen = (event) => {
   document.querySelector("#wrapper").style = "display: none;";
   document.querySelector(".flexBlink").style = "display: none;";
   document.querySelector("nav").style = "display: none;";
-  document.querySelector(".center").classList.remove("center");
+  document.querySelector(".centerC").classList.remove("center");
   history.pushState(null, null, `?code=${roomName}`);
   setCookie("code", roomName);
   $loadingScreen.style = "display: none;";
