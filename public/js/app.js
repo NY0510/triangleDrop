@@ -131,6 +131,9 @@ window.addEventListener("load", () => {
 // 나갈때
 const initExit = () => {
   console.log("Back Action");
+  myDataChannel.onclose = null;
+
+  myDataChannel.onclose = null;
   if (myPeerConnection) {
     myPeerConnection.close();
     myPeerConnection = null;
@@ -150,6 +153,7 @@ const initExit = () => {
   document.querySelector("#sector2").style = "";
   document.querySelector("#sector0").hidden = true;
   document.querySelector("#sector1").hidden = false;
+  document.querySelector(".leftUserLable").hidden = true;
   $code.innerHTML = roomName;
   $inRoomCode.innerHTML = roomName;
   document.querySelector(".codeQRcode").style = "";
@@ -178,6 +182,7 @@ window.onpopstate = function (event) {
 // 들어갈때
 const initRoom = () => {
   $loadingScreen.style = "display: flex;";
+  document.querySelector(".leftUserLable").hidden = true;
   //pass
 };
 
@@ -307,6 +312,8 @@ const handleDataChannelOpen = (event) => {
   document.querySelector(".flexBlink").style = "display: none;";
   document.querySelector("nav").style = "display: none;";
   document.querySelector(".centerC").classList.remove("center");
+  // if datachannel is closed
+  myDataChannel.addEventListener("close", handleDataChannelClose);
   history.pushState(null, null, `?code=${roomName}`);
   setCookie("code", roomName);
   $loadingScreen.style = "display: none;";
@@ -316,6 +323,11 @@ const handleDataChannelOpen = (event) => {
       document.querySelector("#messageSendButton").click();
     }, 500);
   }
+};
+
+const handleDataChannelClose = (event) => {
+  console.log("The Data Channel is Closed");
+  document.querySelector(".leftUserLable").hidden = false;
 };
 
 function waitToCompleteIceGathering(pc) {

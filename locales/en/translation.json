@@ -9,5 +9,6 @@
 	"codeInputLabel": "Did you receive the code? Please enter here!",
 	"codeInputPlaceholder": "AAA00",
 	"enterButton": "Enter",
-	"fileListLabel":"Send this file automatically."
+	"fileListLabel":"Send this file automatically.",
+	"leftUserLable": "Other user left the room"
 }

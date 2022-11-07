@@ -515,7 +515,15 @@
             </div>
           </div>
           <div class="message">
-            <div id="messageBlock"></div>
+            <div id="messageBlock">
+              <div
+                class="leftUserLable"
+                hidden
+                style="color: orangered; font-weight: bolder"
+              >
+                <%= t('leftUserLable')%>
+              </div>
+            </div>
             <form action="" class="animate__animated" id="messageForm">
               <div class="messageSendBlock">
                 <div class="filesPreview" hidden></div>

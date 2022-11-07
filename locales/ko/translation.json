@@ -10,5 +10,6 @@
 	"codeInputPlaceholder": "AAA00",
 	"enterButton": "Enter",
 	"fileListLabel": "연결되면 자동으로 해당 파일을 전송해요.",
-	"AboutTitle": "AboutTitle"
+	"AboutTitle": "AboutTitle",
+	"leftUserLable": "상대방이 퇴장했습니다"
 }
