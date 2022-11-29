@@ -497,6 +497,7 @@ const handleSendMessage = async (event) => {
 $messageForm.addEventListener("submit", handleSendMessage);
 const messageBlock = document.getElementById("messageBlock");
 
+// on message
 const handleReceiveMessage = (event) => {
   // console.log(event.data);
   // console.log(message);
@@ -520,10 +521,13 @@ const handleReceiveMessage = (event) => {
         ".rxProgressBarFileSize"
       ).innerHTML = `0/${Math.round(rxFileSize / 1024 / 1024)}MB`;
     } else if (message.type == "rxdfilesize"){
+      // progress2
       console.log(message.value / 1024);
       $receiveProgress2.value = message.value;
     } else {
+      // message
       const messageToRead = filter(message.value);
+      if(messageToRead){}
       messageBlock.innerHTML += `<div>${messageToRead}</div>`;
       messageBlock.scrollTop = messageBlock.scrollHeight;
     }
