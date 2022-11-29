@@ -4,6 +4,7 @@ const $welcome = document.querySelector("#welcome");
 const $inRoom = document.querySelector("#inRoom");
 const $sendProgress = document.querySelector("progress#sendProgressBar");
 const $receiveProgress = document.querySelector("progress#receiveProgressBar");
+const $receiveProgress2 = document.querySelector("progress#receiveProgressBar2")
 const $code = document.querySelector(".copyArea > .code");
 const $inRoomCode = $inRoom.querySelector(".code");
 const $codeLink = document.querySelector(".codeLink");
@@ -341,6 +342,7 @@ function waitToCompleteIceGathering(pc) {
   });
 }
 
+// peerA
 socket.on("welcome", async () => {
   myDataChannel = myPeerConnection.createDataChannel("DataChannel");
   myDataChannel.addEventListener("open", handleDataChannelOpen);
@@ -352,6 +354,7 @@ socket.on("welcome", async () => {
   socket.emit("offer", offer, roomName);
 });
 
+// peerB
 socket.on("offer", async (offer) => {
   myPeerConnection.addEventListener("datachannel", (event) => {
     console.log(event.channel);
@@ -372,11 +375,13 @@ socket.on("offer", async (offer) => {
   console.log("received the offer / send answer");
 });
 
+// peerA
 socket.on("answer", (answer) => {
   console.log("received the answer");
   myPeerConnection.setRemoteDescription(answer);
 });
 
+// peer A and B 
 socket.on("ice", (ice) => {
   if (ice) {
     myPeerConnection.addIceCandidate(ice);
@@ -387,6 +392,7 @@ socket.on("ice", (ice) => {
   }
 });
 
+// peerA
 const makeConnection = () => {
   myPeerConnection = new RTCPeerConnection({
     iceServers: [
@@ -501,7 +507,9 @@ const handleReceiveMessage = (event) => {
       rxFileSize = message.fileSize;
       timestampStart = Date.now();
       $receiveProgress.max = rxFileSize;
+      $receiveProgress2.max = rxFileSize;
       $receiveProgress.value = 0;
+      $receiveProgress2.value = 0;
       $receiveProgressDiv.hidden = false;
       receiveBuffer = [];
       receivedSize = 0;
@@ -511,6 +519,9 @@ const handleReceiveMessage = (event) => {
       document.querySelector(
         ".rxProgressBarFileSize"
       ).innerHTML = `0/${Math.round(rxFileSize / 1024 / 1024)}MB`;
+    } else if (message.type == "rxdfilesize"){
+      console.log(message.value / 1024);
+      $receiveProgress2.value = message.value;
     } else {
       const messageToRead = filter(message.value);
       messageBlock.innerHTML += `<div>${messageToRead}</div>`;
@@ -525,6 +536,7 @@ const handleReceiveMessage = (event) => {
     document.querySelector(".rxProgressBarFileSize").innerHTML = `${Math.round(
       receivedSize / 1024 / 1024
     )}/${Math.round(rxFileSize / 1024 / 1024)}MB`;
+    myDataChannel.send(`{"type": "rxdfilesize", "value": "${receivedSize}"}`)
 
     // const file = fileInput.files[0];
 
@@ -646,13 +658,12 @@ const handleSendFile = (file) => {
     if (offset < file.size) {
       // 아직 보낼 파일이 남았을때
 
-      for (; 16777216 - myDataChannel.bufferedAmount < chunkSize; ) {
+      for (; 16666216 - myDataChannel.bufferedAmount < chunkSize; ) {
         // 버퍼에 남은 공간이 작을때
         // 버퍼 공간 16Mb를 넘지 않도록 계속 버퍼에 데이터를 넣는다.
         // console.log("wait");
         await new Promise((resolve) => setTimeout(resolve, 100));
       }
-
       readSlice(offset); // 슬라이스해서 보내기
     } else {
       messageBlock.innerHTML += `<div>${fileNameToSend} is sent</div>`; // 보내기 완료
