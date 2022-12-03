@@ -4,7 +4,7 @@ const $welcome = document.querySelector("#welcome");
 const $inRoom = document.querySelector("#inRoom");
 const $sendProgress = document.querySelector("progress#sendProgressBar");
 const $receiveProgress = document.querySelector("progress#receiveProgressBar");
-const $receiveProgress2 = document.querySelector("progress#receiveProgressBar2")
+const $receiveProgress2 = document.querySelector("progress#receiveProgressBar2");
 const $code = document.querySelector(".copyArea > .code");
 const $inRoomCode = $inRoom.querySelector(".code");
 const $codeLink = document.querySelector(".codeLink");
@@ -30,68 +30,61 @@ let sendState = false;
 // });
 
 $code.addEventListener("click", () => {
-  var tempElem = document.createElement("textarea");
-  tempElem.value = $code.innerHTML;
-  document.body.appendChild(tempElem);
+    var tempElem = document.createElement("textarea");
+    tempElem.value = $code.innerHTML;
+    document.body.appendChild(tempElem);
 
-  tempElem.select();
-  document.execCommand("copy");
-  document.body.removeChild(tempElem);
-  $codeTooltip.innerHTML = "Copied!";
-  $codeTooltip.style = "color: #2bcc2b; font-weight: bold;";
-  setTimeout(() => {
-    $codeTooltip.innerHTML = "Click to copy";
-    $codeTooltip.style = " ";
-  }, 1000);
+    tempElem.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempElem);
+    $codeTooltip.innerHTML = "Copied!";
+    $codeTooltip.style = "color: #2bcc2b; font-weight: bold;";
+    setTimeout(() => {
+        $codeTooltip.innerHTML = "Click to copy";
+        $codeTooltip.style = " ";
+    }, 1000);
 });
 $codeLink.addEventListener("click", () => {
-  var tempElem = document.createElement("textarea");
-  tempElem.value = $codeLink.innerHTML;
-  document.body.appendChild(tempElem);
+    var tempElem = document.createElement("textarea");
+    tempElem.value = $codeLink.innerHTML;
+    document.body.appendChild(tempElem);
 
-  tempElem.select();
-  document.execCommand("copy");
-  document.body.removeChild(tempElem);
-  $codeTooltip.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
-  $codeTooltip.style = "color: #2bcc2b; font-weight: bold;";
-  setTimeout(() => {
-    $codeTooltip.innerHTML = "Click to copy";
-    $codeTooltip.style = " ";
-  }, 1000);
+    tempElem.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempElem);
+    $codeTooltip.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+    $codeTooltip.style = "color: #2bcc2b; font-weight: bold;";
+    setTimeout(() => {
+        $codeTooltip.innerHTML = "Click to copy";
+        $codeTooltip.style = " ";
+    }, 1000);
 });
 function getCookie(name) {
-  let matches = document.cookie.match(
-    new RegExp(
-      "(?:^|; )" +
-        name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") +
-        "=([^;]*)"
-    )
-  );
-  return matches ? decodeURIComponent(matches[1]) : undefined;
+    let matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, "\\$1") + "=([^;]*)"));
+    return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 function setCookie(name, value, options = {}) {
-  options = {
-    path: "/",
-    // 필요한 경우, 옵션 기본값을 설정할 수도 있습니다.
-    ...options,
-  };
+    options = {
+        path: "/",
+        // 필요한 경우, 옵션 기본값을 설정할 수도 있습니다.
+        ...options,
+    };
 
-  if (options.expires instanceof Date) {
-    options.expires = options.expires.toUTCString();
-  }
-
-  let updatedCookie =
-    encodeURIComponent(name) + "=" + encodeURIComponent(value);
-
-  for (let optionKey in options) {
-    updatedCookie += "; " + optionKey;
-    let optionValue = options[optionKey];
-    if (optionValue !== true) {
-      updatedCookie += "=" + optionValue;
+    if (options.expires instanceof Date) {
+        options.expires = options.expires.toUTCString();
     }
-  }
 
-  document.cookie = updatedCookie;
+    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+
+    for (let optionKey in options) {
+        updatedCookie += "; " + optionKey;
+        let optionValue = options[optionKey];
+        if (optionValue !== true) {
+            updatedCookie += "=" + optionValue;
+        }
+    }
+
+    document.cookie = updatedCookie;
 }
 
 let roomName;
@@ -116,54 +109,54 @@ let statsInterval = null;
 $inRoom.hidden = true;
 
 window.addEventListener("load", () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const myParam = urlParams.get("code");
-  if (myParam) {
-    if (getCookie("code") !== myParam) {
-      setCookie("code", myParam);
-      $roomCodeInput.value = myParam;
-      $enterRoomForm.querySelector("button").click();
-    } else {
-      window.history.replaceState({}, document.title, "/");
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get("code");
+    if (myParam) {
+        if (getCookie("code") !== myParam) {
+            setCookie("code", myParam);
+            $roomCodeInput.value = myParam;
+            $enterRoomForm.querySelector("button").click();
+        } else {
+            window.history.replaceState({}, document.title, "/");
+        }
     }
-  }
 });
 
 // 나갈때
 const initExit = () => {
-  console.log("Back Action");
-  myDataChannel.onclose = null;
+    console.log("Back Action");
+    myDataChannel.onclose = null;
 
-  myDataChannel.onclose = null;
-  if (myPeerConnection) {
-    myPeerConnection.close();
-    myPeerConnection = null;
-  }
+    myDataChannel.onclose = null;
+    if (myPeerConnection) {
+        myPeerConnection.close();
+        myPeerConnection = null;
+    }
 
-  if (myDataChannel) {
-    myDataChannel.close();
-    myDataChannel = null;
-  }
+    if (myDataChannel) {
+        myDataChannel.close();
+        myDataChannel = null;
+    }
 
-  createRoomName();
-  $loadingScreen.style = "display: none;";
-  $welcome.hidden = false;
-  $inRoom.hidden = true;
-  document.querySelector(".footerDiv").style = "";
-  document.querySelector(".languageSelect").style = "";
-  document.querySelector("#sector2").style = "";
-  document.querySelector("#sector0").hidden = true;
-  document.querySelector("#sector1").hidden = false;
-  document.querySelector(".leftUserLable").hidden = true;
-  $code.innerHTML = roomName;
-  $inRoomCode.innerHTML = roomName;
-  document.querySelector(".codeQRcode").style = "";
-  document.querySelector(".codeQRcode").innerHTML = "";
-  document.querySelector("#wrapper").style = "";
-  document.querySelector(".flexBlink").style = "";
-  document.querySelector("nav").style = "";
-  document.querySelector(".centerC").classList.add("center");
-  $loadingScreen.style = "";
+    createRoomName();
+    $loadingScreen.style = "display: none;";
+    $welcome.hidden = false;
+    $inRoom.hidden = true;
+    document.querySelector(".footerDiv").style = "";
+    document.querySelector(".languageSelect").style = "";
+    document.querySelector("#sector2").style = "";
+    document.querySelector("#sector0").hidden = true;
+    document.querySelector("#sector1").hidden = false;
+    document.querySelector(".leftUserLable").hidden = true;
+    $code.innerHTML = roomName;
+    $inRoomCode.innerHTML = roomName;
+    document.querySelector(".codeQRcode").style = "";
+    document.querySelector(".codeQRcode").innerHTML = "";
+    document.querySelector("#wrapper").style = "";
+    document.querySelector(".flexBlink").style = "";
+    document.querySelector("nav").style = "";
+    document.querySelector(".centerC").classList.add("center");
+    $loadingScreen.style = "";
 };
 
 // window.onpageshow = function (event) {
@@ -177,36 +170,36 @@ const initExit = () => {
 
 // when click on the history back button
 window.onpopstate = function (event) {
-  initExit();
+    initExit();
 };
 
 // 들어갈때
 const initRoom = () => {
-  $loadingScreen.style = "display: flex;";
-  document.querySelector(".leftUserLable").hidden = true;
-  //pass
+    $loadingScreen.style = "display: flex;";
+    document.querySelector(".leftUserLable").hidden = true;
+    //pass
 };
 
 const createRoomName = (result = false) => {
-  if (!result) {
-    roomName = Math.random().toString(36).substring(2, 7).toUpperCase();
-    roomName = roomName.replaceAll("O", "0");
-    socket.emit("create_room", roomName, createRoomName);
-  } else {
-    $code.innerHTML = roomName;
-    $inRoomCode.innerHTML = roomName;
-    $codeLink.innerHTML = `https://triangledrop.obtuse.kr/?code=${roomName}`;
-    const qrCode = new QRCode($codeQRcode, {
-      text: `https://triangledrop.obtuse.kr/?code=${roomName}`,
-      width: 150,
-      height: 150,
-      colorDark: "#000000",
-      colorLight: "#e0e0e0",
-      correctLevel: QRCode.CorrectLevel.Q,
-    });
-    document.querySelector(".waitLabel").hidden = false;
-    makeConnection();
-  }
+    if (!result) {
+        roomName = Math.random().toString(36).substring(2, 7).toUpperCase();
+        roomName = roomName.replaceAll("O", "0");
+        socket.emit("create_room", roomName, createRoomName);
+    } else {
+        $code.innerHTML = roomName;
+        $inRoomCode.innerHTML = roomName;
+        $codeLink.innerHTML = `https://triangledrop.obtuse.kr/?code=${roomName}`;
+        const qrCode = new QRCode($codeQRcode, {
+            text: `https://triangledrop.obtuse.kr/?code=${roomName}`,
+            width: 150,
+            height: 150,
+            colorDark: "#000000",
+            colorLight: "#e0e0e0",
+            correctLevel: QRCode.CorrectLevel.Q,
+        });
+        document.querySelector(".waitLabel").hidden = false;
+        makeConnection();
+    }
 };
 
 createRoomName();
@@ -219,74 +212,68 @@ createRoomName();
 // };
 
 const enterRoomCallback = (result) => {
-  // toastr.options = {
-  //   closeButton: true,
-  //   debug: false,
-  //   newestOnTop: true,
-  //   progressBar: true,
-  //   positionClass: "toast-top-right",
-  //   preventDuplicates: false,
-  //   onclick: null,
-  //   showDuration: "300",
-  //   hideDuration: "500",
-  //   timeOut: "5000",
-  //   extendedTimeOut: "500",
-  //   showEasing: "swing",
-  //   hideEasing: "linear",
-  //   showMethod: "fadeIn",
-  //   hideMethod: "fadeOut",
-  // };
+    // toastr.options = {
+    //   closeButton: true,
+    //   debug: false,
+    //   newestOnTop: true,
+    //   progressBar: true,
+    //   positionClass: "toast-top-right",
+    //   preventDuplicates: false,
+    //   onclick: null,
+    //   showDuration: "300",
+    //   hideDuration: "500",
+    //   timeOut: "5000",
+    //   extendedTimeOut: "500",
+    //   showEasing: "swing",
+    //   hideEasing: "linear",
+    //   showMethod: "fadeIn",
+    //   hideMethod: "fadeOut",
+    // };
 
-  if (result) {
-    if (
-      roomName === $enterRoomForm.querySelector("input").value.toUpperCase()
-    ) {
-      $roomCodeInput.value = "";
-      $roomCodeInput.placeholder = "Invalid Code OR Room is Full";
-      $enterRoomDiv.classList.add("animate__shakeX");
-      $enterRoomDiv.style = "border: 5px solid red;";
-      $button.disabled = true;
-      setTimeout(() => {
-        $roomCodeInput.placeholder = "AAA00";
-        $button.disabled = false;
-        $enterRoomDiv.classList.remove("errorCode");
-        $enterRoomDiv.classList.remove("animate__shakeX");
-        $enterRoomDiv.style = "border: unset;";
-      }, 2000);
+    if (result) {
+        if (roomName === $enterRoomForm.querySelector("input").value.toUpperCase()) {
+            $roomCodeInput.value = "";
+            $roomCodeInput.placeholder = "Invalid Code OR Room is Full";
+            $enterRoomDiv.classList.add("animate__shakeX");
+            $enterRoomDiv.style = "border: 5px solid red;";
+            $button.disabled = true;
+            setTimeout(() => {
+                $roomCodeInput.placeholder = "AAA00";
+                $button.disabled = false;
+                $enterRoomDiv.classList.remove("errorCode");
+                $enterRoomDiv.classList.remove("animate__shakeX");
+                $enterRoomDiv.style = "border: unset;";
+            }, 2000);
+        }
+        roomName = $enterRoomForm.querySelector("input").value.toUpperCase();
+        initRoom();
+        $enterRoomForm.querySelector("input").value = "";
+    } else {
+        const $button = $enterRoomForm.querySelector("button");
+
+        const $roomCodeInput = document.querySelector("#roomCodeInput");
+
+        $roomCodeInput.value = "";
+        $roomCodeInput.placeholder = "Invalid Code OR Room is Full";
+        $enterRoomDiv.classList.add("animate__shakeX");
+        $enterRoomDiv.style = "border: 5px solid red;";
+        $button.disabled = true;
+        setTimeout(() => {
+            $roomCodeInput.placeholder = "AAA00";
+            $button.disabled = false;
+            $enterRoomDiv.classList.remove("errorCode");
+            $enterRoomDiv.classList.remove("animate__shakeX");
+            $enterRoomDiv.style = "border: unset;";
+        }, 2000);
     }
-    roomName = $enterRoomForm.querySelector("input").value.toUpperCase();
-    initRoom();
-    $enterRoomForm.querySelector("input").value = "";
-  } else {
-    const $button = $enterRoomForm.querySelector("button");
-
-    const $roomCodeInput = document.querySelector("#roomCodeInput");
-
-    $roomCodeInput.value = "";
-    $roomCodeInput.placeholder = "Invalid Code OR Room is Full";
-    $enterRoomDiv.classList.add("animate__shakeX");
-    $enterRoomDiv.style = "border: 5px solid red;";
-    $button.disabled = true;
-    setTimeout(() => {
-      $roomCodeInput.placeholder = "AAA00";
-      $button.disabled = false;
-      $enterRoomDiv.classList.remove("errorCode");
-      $enterRoomDiv.classList.remove("animate__shakeX");
-      $enterRoomDiv.style = "border: unset;";
-    }, 2000);
-  }
 };
 
 const handleEnterRoom = async (event) => {
-  event.preventDefault();
-  if ($enterRoomForm.querySelector("input").value.length !== 5) {
-    enterRoomCallback(false);
-  }
-  socket.emit(
-    "join_room",
-    $enterRoomForm.querySelector("input").value.toUpperCase(),
-    enterRoomCallback
-  );
+    event.preventDefault();
+    if ($enterRoomForm.querySelector("input").value.length !== 5) {
+        enterRoomCallback(false);
+    }
+    socket.emit("join_room", $enterRoomForm.querySelector("input").value.toUpperCase(), enterRoomCallback);
 };
 
 // var makeRoomForm = welcome.querySelector("#makeRoom");
@@ -298,200 +285,214 @@ $enterRoomForm.addEventListener("submit", handleEnterRoom);
 //RTC code
 
 const handleDataChannelOpen = (event) => {
-  console.log("Data channel is open and ready to be used.");
-  $welcome.hidden = true;
-  $inRoom.hidden = false;
-  document.querySelector(".footerDiv").style = "display: none;";
-  document.querySelector(".languageSelect").style = "display: none;";
-  document.querySelector("#sector2").style = "display: none;";
-  document.querySelector("#sector0").hidden = true;
-  document.querySelector("#sector1").hidden = true;
-  $code.innerHTML = roomName;
-  $inRoomCode.innerHTML = roomName;
-  document.querySelector(".codeQRcode").style = "display: none;";
-  document.querySelector("#wrapper").style = "display: none;";
-  document.querySelector(".flexBlink").style = "display: none;";
-  document.querySelector("nav").style = "display: none;";
-  document.querySelector(".centerC").classList.remove("center");
-  // if datachannel is closed
-  myDataChannel.addEventListener("close", handleDataChannelClose);
-  history.pushState(null, null, `?code=${roomName}`);
-  setCookie("code", roomName);
-  $loadingScreen.style = "display: none;";
-  if (fileList.length !== 0) {
-    //form submit
-    setTimeout(() => {
-      document.querySelector("#messageSendButton").click();
-    }, 500);
-  }
+    console.log("Data channel is open and ready to be used.");
+    $welcome.hidden = true;
+    $inRoom.hidden = false;
+    document.querySelector(".footerDiv").style = "display: none;";
+    document.querySelector(".languageSelect").style = "display: none;";
+    document.querySelector("#sector2").style = "display: none;";
+    document.querySelector("#sector0").hidden = true;
+    document.querySelector("#sector1").hidden = true;
+    $code.innerHTML = roomName;
+    $inRoomCode.innerHTML = roomName;
+    document.querySelector(".codeQRcode").style = "display: none;";
+    document.querySelector("#wrapper").style = "display: none;";
+    document.querySelector(".flexBlink").style = "display: none;";
+    document.querySelector("nav").style = "display: none;";
+    document.querySelector(".centerC").classList.remove("center");
+    // if datachannel is closed
+    myDataChannel.addEventListener("close", handleDataChannelClose);
+    history.pushState(null, null, `?code=${roomName}`);
+    setCookie("code", roomName);
+    $loadingScreen.style = "display: none;";
+    if (fileList.length !== 0) {
+        //form submit
+        setTimeout(() => {
+            document.querySelector("#messageSendButton").click();
+        }, 500);
+    }
 };
 
 const handleDataChannelClose = (event) => {
-  console.log("The Data Channel is Closed");
-  document.querySelector(".leftUserLable").hidden = false;
+    console.log("The Data Channel is Closed");
+    document.querySelector(".leftUserLable").hidden = false;
 };
 
 function waitToCompleteIceGathering(pc) {
-  return new Promise((resolve) => {
-    pc.addEventListener(
-      "icegatheringstatechange",
-      (e) =>
-        e.target.iceGatheringState === "complete" &&
-        resolve(pc.localDescription)
-    );
-  });
+    return new Promise((resolve) => {
+        pc.addEventListener("icegatheringstatechange", (e) => e.target.iceGatheringState === "complete" && resolve(pc.localDescription));
+    });
 }
 
 // peerA
 socket.on("welcome", async () => {
-  myDataChannel = myPeerConnection.createDataChannel("DataChannel");
-  myDataChannel.addEventListener("open", handleDataChannelOpen);
-  myDataChannel.addEventListener("message", handleReceiveMessage);
-  initRoom();
-  console.log("made data channel / send offer");
-  const offer = await myPeerConnection.createOffer();
-  myPeerConnection.setLocalDescription(offer);
-  socket.emit("offer", offer, roomName);
+    myDataChannel = myPeerConnection.createDataChannel("DataChannel");
+    myDataChannel.addEventListener("open", handleDataChannelOpen);
+    myDataChannel.addEventListener("message", handleReceiveMessage);
+    initRoom();
+    console.log("made data channel / send offer");
+    const offer = await myPeerConnection.createOffer();
+    myPeerConnection.setLocalDescription(offer);
+    socket.emit("offer", offer, roomName);
 });
 
 // peerB
 socket.on("offer", async (offer) => {
-  myPeerConnection.addEventListener("datachannel", (event) => {
-    console.log(event.channel);
-    myDataChannel = event.channel;
-    myDataChannel.addEventListener("message", handleReceiveMessage);
-    myDataChannel.addEventListener("open", handleDataChannelOpen);
-  });
+    myPeerConnection.addEventListener("datachannel", (event) => {
+        console.log(event.channel);
+        myDataChannel = event.channel;
+        myDataChannel.addEventListener("message", handleReceiveMessage);
+        myDataChannel.addEventListener("open", handleDataChannelOpen);
+    });
 
-  myPeerConnection.setRemoteDescription(offer);
-  let answer = await myPeerConnection.createAnswer();
+    myPeerConnection.setRemoteDescription(offer);
+    let answer = await myPeerConnection.createAnswer();
 
-  // if (!myPeerConnection.canTrickleIceCandidates) {
-  //   answer = await waitToCompleteIceGathering(myPeerConnection);
-  // }
+    // if (!myPeerConnection.canTrickleIceCandidates) {
+    //   answer = await waitToCompleteIceGathering(myPeerConnection);
+    // }
 
-  socket.emit("answer", answer, roomName);
-  myPeerConnection.setLocalDescription(answer);
-  console.log("received the offer / send answer");
+    socket.emit("answer", answer, roomName);
+    myPeerConnection.setLocalDescription(answer);
+    console.log("received the offer / send answer");
 });
 
 // peerA
 socket.on("answer", (answer) => {
-  console.log("received the answer");
-  myPeerConnection.setRemoteDescription(answer);
+    console.log("received the answer");
+    myPeerConnection.setRemoteDescription(answer);
 });
 
-// peer A and B 
 socket.on("ice", (ice) => {
-  if (ice) {
-    myPeerConnection.addIceCandidate(ice);
-    console.log("received ice candidate");
-  } else {
-    myPeerConnection.addIceCandidate(ice);
-    console.log("received null ice candidate");
-  }
+    if (ice) {
+        myPeerConnection.addIceCandidate(ice);
+        console.log("received ice candidate");
+    } else {
+        myPeerConnection.addIceCandidate(ice);
+        console.log("received null ice candidate");
+    }
 });
 
 // peerA
 const makeConnection = () => {
-  myPeerConnection = new RTCPeerConnection({
-    iceServers: [
-      {
-        urls: ["stun:stun.obtuse.kr:5349"],
-      },
-      {
-        urls: ["stun:stun.l.google.com:19302"],
-      },
-      {
-        urls: [
-          "turn:turn.obtuse.kr:5349",
-          "turn:turn.obtuse.kr:5349?transport=tcp",
+    myPeerConnection = new RTCPeerConnection({
+        iceServers: [
+            {
+                urls: ["stun:stun.obtuse.kr:5349"],
+            },
+            {
+                urls: ["stun:stun.l.google.com:19302"],
+            },
+            {
+                urls: ["turn:turn.obtuse.kr:5349", "turn:turn.obtuse.kr:5349?transport=tcp"],
+                username: "turnserver",
+                credential: "*Obtuse_turnServer",
+            },
+            // {
+            //   urls: "turn:openrelay.metered.ca:443?transport=tcp",
+            //   username: "openrelayproject",
+            //   credential: "openrelayproject",
+            // },
         ],
-        username: "turnserver",
-        credential: "*Obtuse_turnServer",
-      },
-      // {
-      //   urls: "turn:openrelay.metered.ca:443?transport=tcp",
-      //   username: "openrelayproject",
-      //   credential: "openrelayproject",
-      // },
-    ],
-  });
+    });
 
-  myPeerConnection.addEventListener("icecandidate", handleIceCandidate);
+    myPeerConnection.addEventListener("icecandidate", handleIceCandidate);
 };
 
 const handleIceCandidate = (data) => {
-  console.log("sent candidate");
-  socket.emit("ice", data.candidate, roomName);
+    console.log("sent candidate");
+    socket.emit("ice", data.candidate, roomName);
 };
 
 const filter = (message, itFile = false) => {
-  let result = message.replaceAll(/[\u0000-\u0019]+/g, "");
-  result = result.replaceAll("<", "&lt;");
-  result = result.replaceAll(">", "&gt;");
-  result = result.replaceAll("'", "&apos;");
-  result = result.replaceAll('"', "&quot;");
-  result = result.replaceAll("/", "&#x2F;");
-  result = result.replaceAll("\\", "&#x5C;");
-  result = result.replaceAll("\n", "<br>");
-  result = result.replaceAll("\r", "<br>");
-  result = result.replaceAll("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
-  if (!itFile) {
-    result = result.replaceAll(" ", "&nbsp;");
-  }
+    let result = message.replaceAll(/[\u0000-\u0019]+/g, "");
+    result = result.replaceAll("<", "&lt;");
+    result = result.replaceAll(">", "&gt;");
+    result = result.replaceAll("'", "&apos;");
+    result = result.replaceAll('"', "&quot;");
+    result = result.replaceAll("/", "&#x2F;");
+    result = result.replaceAll("\\", "&#x5C;");
+    result = result.replaceAll("\n", "<br>");
+    result = result.replaceAll("\r", "<br>");
+    result = result.replaceAll("\t", "&nbsp;&nbsp;&nbsp;&nbsp;");
+    if (!itFile) {
+        result = result.replaceAll(" ", "&nbsp;");
+    }
 
-  return result;
+    return result;
+};
+
+const showMessage = (message, filterToggle = true) => {
+    const $message = document.createElement("div");
+    $message.classList.add("message-content");
+    // if message is http link
+    if (
+        message.match(
+            /((?:(http|https|Http|Https|rtsp|Rtsp):\/\/(?:(?:[a-zA-Z0-9\$\-\_\.\+\!\*\'\(\)\,\;\?\&\=]|(?:\%[a-fA-F0-9]{2})){1,64}(?:\:(?:[a-zA-Z0-9\$\-\_\.\+\!\*\'\(\)\,\;\?\&\=]|(?:\%[a-fA-F0-9]{2})){1,25})?\@)?)?((?:(?:[a-zA-Z0-9][a-zA-Z0-9\-]{0,64}\.)+(?:(?:aero|arpa|asia|a[cdefgilmnoqrstuwxz])|(?:biz|b[abdefghijmnorstvwyz])|(?:cat|com|coop|c[acdfghiklmnoruvxyz])|d[ejkmoz]|(?:edu|e[cegrstu])|f[ijkmor]|(?:gov|g[abdefghilmnpqrstuwy])|h[kmnrtu]|(?:info|int|i[delmnoqrst])|(?:jobs|j[emop])|k[eghimnrwyz]|l[abcikrstuvy]|(?:mil|mobi|museum|m[acdghklmnopqrstuvwxyz])|(?:name|net|n[acefgilopruz])|(?:org|om)|(?:pro|p[aefghklmnrstwy])|qa|r[eouw]|s[abcdeghijklmnortuvyz]|(?:tel|travel|t[cdfghjklmnoprtvwz])|u[agkmsyz]|v[aceginu]|w[fs]|y[etu]|z[amw]))|(?:(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\.(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\.(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\.(?:25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[0-9])))(?:\:\d{1,5})?)(\/(?:(?:[a-zA-Z0-9\;\/\?\:\@\&\=\#\~\-\.\+\!\*\'\(\)\,\_])|(?:\%[a-fA-F0-9]{2}))*)?(?:\b|$)/gi
+        )
+    ) {
+        console.log("http link");
+        const $link = document.createElement("a");
+        $link.setAttribute("href", message);
+        $link.setAttribute("target", "_blank");
+        $link.setAttribute("rel", "noopener noreferrer");
+        $link.setAttribute("class", "messageLink");
+        $link.innerHTML = filter(message);
+        $message.appendChild($link);
+    } else {
+        $message.innerHTML = filterToggle ? filter(message) : message;
+    }
+    messageBlock.innerHTML += $message.outerHTML;
 };
 
 // send message with datachannel
 
 const handleSendMessage = async (event) => {
-  event.preventDefault();
-  const message = document.getElementById("messageInput");
-  const file = document.querySelector("#fileInput");
-  if (file.files[0] !== undefined || fileList.length !== 0) {
-    let i = 0;
-    if (file.files[0] !== undefined) {
-      fileList = fileList.concat(Array.from(file.files));
+    event.preventDefault();
+    const message = document.getElementById("messageInput");
+    const file = document.querySelector("#fileInput");
+    if (file.files[0] !== undefined || fileList.length !== 0) {
+        let i = 0;
+        if (file.files[0] !== undefined) {
+            fileList = fileList.concat(Array.from(file.files));
+        }
+        console.log(fileList);
+        async function sendFileLoop() {
+            if (sendState === false) {
+                handleSendFile(fileList[i]);
+                i++;
+            }
+            if (i < fileList.length) {
+                setTimeout(sendFileLoop, 500);
+            } else {
+                file.value = "";
+                fileList = [];
+            }
+        }
+        await sendFileLoop();
     }
-    console.log(fileList);
-    async function sendFileLoop() {
-      if (sendState === false) {
-        handleSendFile(fileList[i]);
-        i++;
-      }
-      if (i < fileList.length) {
-        setTimeout(sendFileLoop, 500);
-      } else {
-        file.value = "";
-        fileList = [];
-      }
+    if (message.value.length == 0) {
+        return;
     }
-    await sendFileLoop();
-  }
-  if (message.value.length == 0) {
-    return;
-  }
-  if (message.value.length > 20000) {
-    const sendButton = document.querySelector("#messageSendButton");
-    sendButton.innerHTML = "Message too long";
-    $messageForm.classList.add("animate__shakeX");
-    $messageForm.querySelector("input").style.borderColor = "red";
-    sendButton.disabled = true;
-    setTimeout(() => {
-      sendButton.innerHTML = "Send";
-      sendButton.disabled = false;
-      $messageForm.classList.remove("animate__shakeX");
-      $messageForm.querySelector("#messageInput").style.borderColor = "";
-    }, 2000);
-    return;
-  }
-  const messageToSend = filter(message.value);
-  myDataChannel.send(`{"type": "chat", "value": "${messageToSend}"}`);
-  messageBlock.innerHTML += `<div>${messageToSend}</div>`;
-  messageBlock.scrollTop = messageBlock.scrollHeight;
-  message.value = "";
+    if (message.value.length > 20000) {
+        const sendButton = document.querySelector("#messageSendButton");
+        sendButton.innerHTML = "Message too long";
+        $messageForm.classList.add("animate__shakeX");
+        $messageForm.querySelector("input").style.borderColor = "red";
+        sendButton.disabled = true;
+        setTimeout(() => {
+            sendButton.innerHTML = "Send";
+            sendButton.disabled = false;
+            $messageForm.classList.remove("animate__shakeX");
+            $messageForm.querySelector("#messageInput").style.borderColor = "";
+        }, 2000);
+        return;
+    }
+    const messageToSend = filter(message.value);
+    myDataChannel.send(`{"type": "chat", "value": "${messageToSend}"}`);
+    showMessage(messageToSend, false);
+    messageBlock.scrollTop = messageBlock.scrollHeight;
+    message.value = "";
 };
 
 $messageForm.addEventListener("submit", handleSendMessage);
@@ -499,229 +500,210 @@ const messageBlock = document.getElementById("messageBlock");
 
 // on message
 const handleReceiveMessage = (event) => {
-  // console.log(event.data);
-  // console.log(message);
-  if (typeof event.data === "string") {
-    const message = JSON.parse(event.data);
-    if (message.type == "filesignal") {
-      rxFileName = filter(message.fileName, true);
-      rxFileSize = message.fileSize;
-      timestampStart = Date.now();
-      $receiveProgress.max = rxFileSize;
-      $receiveProgress2.max = rxFileSize;
-      $receiveProgress.value = 0;
-      $receiveProgress2.value = 0;
-      $receiveProgressDiv.hidden = false;
-      receiveBuffer = [];
-      receivedSize = 0;
-      messageBlock.innerHTML += `<div>Receiving ${rxFileName}</div>`;
-      messageBlock.scrollTop = messageBlock.scrollHeight;
-      document.querySelector(".rxProgressBarFileName").innerHTML = rxFileName;
-      document.querySelector(
-        ".rxProgressBarFileSize"
-      ).innerHTML = `0/${Math.round(rxFileSize / 1024 / 1024)}MB`;
-    } else if (message.type == "rxdfilesize"){
-      // progress2
-      console.log(message.value / 1024);
-      $receiveProgress2.value = message.value;
-    } else {
-      // message
-      const messageToRead = filter(message.value);
-      if(messageToRead){}
-      messageBlock.innerHTML += `<div>${messageToRead}</div>`;
-      messageBlock.scrollTop = messageBlock.scrollHeight;
+    // console.log(event.data);
+    // console.log(message);
+    if (typeof event.data === "string") {
+        const message = JSON.parse(event.data);
+        if (message.type == "filesignal") {
+            rxFileName = filter(message.fileName, true);
+            rxFileSize = message.fileSize;
+            timestampStart = Date.now();
+            $receiveProgress.max = rxFileSize;
+            $receiveProgress2.max = rxFileSize;
+            $receiveProgress.value = 0;
+            $receiveProgress2.value = 0;
+            $receiveProgressDiv.hidden = false;
+            receiveBuffer = [];
+            receivedSize = 0;
+            showMessage(`Receiving ${rxFileName}`);
+            messageBlock.scrollTop = messageBlock.scrollHeight;
+            document.querySelector(".rxProgressBarFileName").innerHTML = rxFileName;
+            document.querySelector(".rxProgressBarFileSize").innerHTML = `0/${Math.round(rxFileSize / 1024 / 1024)}MB`;
+        } else if (message.type == "rxdfilesize") {
+            // progress2
+            console.log(message.value / 1024);
+            $receiveProgress2.value = message.value;
+        } else {
+            // message
+            showMessage(message.value);
+            if (messageToRead) {
+            }
+            messageBlock.scrollTop = messageBlock.scrollHeight;
+        }
+    } else if (typeof event.data === "object") {
+        receiveBuffer.push(event.data);
+        // console.log(event.data.byteLength);
+        receivedSize += event.data.byteLength;
+        // console.log(receivedSize);
+        $receiveProgress.value = Math.round(receivedSize); //파폭에서 작동 안함.
+        document.querySelector(".rxProgressBarFileSize").innerHTML = `${Math.round(receivedSize / 1024 / 1024)}/${Math.round(rxFileSize / 1024 / 1024)}MB`;
+        myDataChannel.send(`{"type": "rxdfilesize", "value": "${receivedSize}"}`);
+
+        // const file = fileInput.files[0];
+
+        if (receivedSize === rxFileSize) {
+            const blob = new Blob(receiveBuffer);
+            receiveBuffer = [];
+            clearInterval(statsInterval);
+            statsInterval = null;
+
+            saveFile(blob);
+
+            // const bitrate = Math.round(
+            //   (receivedSize * 8) / (new Date().getTime() - timestampStart)
+            // );
+        }
     }
-  } else if (typeof event.data === "object") {
-    receiveBuffer.push(event.data);
-    // console.log(event.data.byteLength);
-    receivedSize += event.data.byteLength;
-    // console.log(receivedSize);
-    $receiveProgress.value = Math.round(receivedSize); //파폭에서 작동 안함.
-    document.querySelector(".rxProgressBarFileSize").innerHTML = `${Math.round(
-      receivedSize / 1024 / 1024
-    )}/${Math.round(rxFileSize / 1024 / 1024)}MB`;
-    myDataChannel.send(`{"type": "rxdfilesize", "value": "${receivedSize}"}`)
-
-    // const file = fileInput.files[0];
-
-    if (receivedSize === rxFileSize) {
-      const blob = new Blob(receiveBuffer);
-      receiveBuffer = [];
-      clearInterval(statsInterval);
-      statsInterval = null;
-
-      saveFile(blob);
-
-      // const bitrate = Math.round(
-      //   (receivedSize * 8) / (new Date().getTime() - timestampStart)
-      // );
-    }
-  }
 };
 
 const saveFile = (blob) => {
-  const link = document.createElement("a");
-  link.href = window.URL.createObjectURL(blob);
-  link.target = "_blank";
-  link.rel = "noopener noreferrer";
-  link.innerHTML = "Download";
-  link.download = rxFileName;
-  $receiveProgressDiv.hidden = true;
-  //   link.download = "File Name";
-  messageBlock.appendChild(link);
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(blob);
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.innerHTML = "Download";
+    link.download = rxFileName;
+    $receiveProgressDiv.hidden = true;
+    //   link.download = "File Name";
+    messageBlock.appendChild(link);
 };
 
 function handleChangeFile(event) {
-  $filePrv.innerHTML = "";
-  $filePrv.style.display = "flex";
-  console.log(event.target.files);
-  Array.from(event.target.files).forEach((file) => {
-    // const file = event.target.files[0];
-    const fileName = filter(file.name);
-    const div = document.createElement("div");
-    const i = document.createElement("i");
-    const Box = document.createElement("div");
-    const spanFileName = document.createElement("span");
-    const spanFileSizeAndType = document.createElement("span");
-    spanFileName.classList.add("prv", "prvFileName");
-    spanFileSizeAndType.classList.add("prv", "prvFileSizeAndType");
-    Box.classList.add("prv", "prvFileBox");
-    i.classList.add("prv", "fa-regular", "fa-file");
+    $filePrv.innerHTML = "";
+    $filePrv.style.display = "flex";
+    console.log(event.target.files);
+    Array.from(event.target.files).forEach((file) => {
+        // const file = event.target.files[0];
+        const fileName = filter(file.name);
+        const div = document.createElement("div");
+        const i = document.createElement("i");
+        const Box = document.createElement("div");
+        const spanFileName = document.createElement("span");
+        const spanFileSizeAndType = document.createElement("span");
+        spanFileName.classList.add("prv", "prvFileName");
+        spanFileSizeAndType.classList.add("prv", "prvFileSizeAndType");
+        Box.classList.add("prv", "prvFileBox");
+        i.classList.add("prv", "fa-regular", "fa-file");
 
-    spanFileName.innerHTML = fileName;
-    if (file.size > 1024 * 1024) {
-      spanFileSizeAndType.innerHTML = `${Math.round(
-        file.size / 1024 / 1024
-      )}MB  ${file.type}`;
-    } else if (file.size > 1024) {
-      spanFileSizeAndType.innerHTML = `${Math.round(file.size / 1024)}KB  ${
-        file.type
-      }`;
-    } else {
-      spanFileSizeAndType.innerHTML = `${file.size}B  ${file.type}`;
-    }
-    // spanFileSizeAndType.innerHTML = `${Math.round(file.size / 1024 / 1024)}MB ${
-    //   file.type
-    // }`;
-    div.appendChild(i);
-    Box.appendChild(spanFileName);
-    Box.appendChild(spanFileSizeAndType);
-    div.appendChild(Box);
-    document.querySelector(".filesPreview").appendChild(div);
-  });
+        spanFileName.innerHTML = fileName;
+        if (file.size > 1024 * 1024) {
+            spanFileSizeAndType.innerHTML = `${Math.round(file.size / 1024 / 1024)}MB  ${file.type}`;
+        } else if (file.size > 1024) {
+            spanFileSizeAndType.innerHTML = `${Math.round(file.size / 1024)}KB  ${file.type}`;
+        } else {
+            spanFileSizeAndType.innerHTML = `${file.size}B  ${file.type}`;
+        }
+        // spanFileSizeAndType.innerHTML = `${Math.round(file.size / 1024 / 1024)}MB ${
+        //   file.type
+        // }`;
+        div.appendChild(i);
+        Box.appendChild(spanFileName);
+        Box.appendChild(spanFileSizeAndType);
+        div.appendChild(Box);
+        document.querySelector(".filesPreview").appendChild(div);
+    });
 }
 
 // send file with datachannel
 
 const handleSendFile = (file) => {
-  sendState = true;
-  console.log(
-    `File is ${[file.name, file.size, file.type, file.lastModified].join(" ")}`
-  );
-  $filePrv.style.display = "none";
+    sendState = true;
+    console.log(`File is ${[file.name, file.size, file.type, file.lastModified].join(" ")}`);
+    $filePrv.style.display = "none";
 
-  const fileNameToSend = filter(file.name, true);
-  myDataChannel.send(
-    `{"type": "filesignal", "fileName": "${fileNameToSend}", "fileSize": ${file.size}, "fileType": "${file.type}", "fileLastModified": ${file.lastModified}}`
-  );
-  messageBlock.innerHTML += `<div>Sending ${fileNameToSend}</div>`;
-  messageBlock.scrollTop = messageBlock.scrollHeight;
-  document.querySelector(".txProgressBarFileName").innerHTML = fileNameToSend;
-  document.querySelector(".txProgressBarFileSize").innerHTML = `0/${Math.round(
-    file.size / 1024 / 1024
-  )}MB`;
+    const fileNameToSend = filter(file.name, true);
+    myDataChannel.send(`{"type": "filesignal", "fileName": "${fileNameToSend}", "fileSize": ${file.size}, "fileType": "${file.type}", "fileLastModified": ${file.lastModified}}`);
+    showMessage(`Sending ${fileNameToSend}`, false);
+    messageBlock.scrollTop = messageBlock.scrollHeight;
+    document.querySelector(".txProgressBarFileName").innerHTML = fileNameToSend;
+    document.querySelector(".txProgressBarFileSize").innerHTML = `0/${Math.round(file.size / 1024 / 1024)}MB`;
 
-  if (file.size === 0) {
-    alert("File is empty");
-    return;
-  }
-
-  $sendProgress.max = file.size;
-  $sendProgress.value = 0;
-  $sendProgressDiv.hidden = false;
-  const chunkSize = 262144;
-
-  fileReader = new FileReader();
-  let offset = 0;
-
-  fileReader.addEventListener("error", (error) => {
-    alert("Error reading file");
-  });
-  fileReader.addEventListener("abort", (event) => {
-    alert("File reading aborted");
-  });
-  fileReader.addEventListener("load", async (event) => {
-    myDataChannel.send(event.target.result);
-    document.querySelector(".txProgressBarFileSize").innerHTML = `${Math.round(
-      offset / 1024 / 1024
-    )}/${Math.round(file.size / 1024 / 1024)}MB`;
-    offset += event.target.result.byteLength;
-    // console.log(`Sent ${offset} bytes`);
-    $sendProgress.value = offset;
-    // displayStats(); // 개발중
-    if (offset < file.size) {
-      // 아직 보낼 파일이 남았을때
-
-      for (; 16666216 - myDataChannel.bufferedAmount < chunkSize; ) {
-        // 버퍼에 남은 공간이 작을때
-        // 버퍼 공간 16Mb를 넘지 않도록 계속 버퍼에 데이터를 넣는다.
-        // console.log("wait");
-        await new Promise((resolve) => setTimeout(resolve, 100));
-      }
-      readSlice(offset); // 슬라이스해서 보내기
-    } else {
-      messageBlock.innerHTML += `<div>${fileNameToSend} is sent</div>`; // 보내기 완료
-      filesignalS = false;
-      messageBlock.scrollTop = messageBlock.scrollHeight;
-      $sendProgressDiv.hidden = true;
-      setTimeout(() => {
-        sendState = false;
-      }, 400);
+    if (file.size === 0) {
+        alert("File is empty");
+        return;
     }
-  });
 
-  const readSlice = (o) => {
-    const slice = file.slice(offset, o + chunkSize);
-    fileReader.readAsArrayBuffer(slice); //fileReader 일해라
-  };
-  readSlice(0);
+    $sendProgress.max = file.size;
+    $sendProgress.value = 0;
+    $sendProgressDiv.hidden = false;
+    const chunkSize = 262144;
+
+    fileReader = new FileReader();
+    let offset = 0;
+
+    fileReader.addEventListener("error", (error) => {
+        alert("Error reading file");
+    });
+    fileReader.addEventListener("abort", (event) => {
+        alert("File reading aborted");
+    });
+    fileReader.addEventListener("load", async (event) => {
+        myDataChannel.send(event.target.result);
+        document.querySelector(".txProgressBarFileSize").innerHTML = `${Math.round(offset / 1024 / 1024)}/${Math.round(file.size / 1024 / 1024)}MB`;
+        offset += event.target.result.byteLength;
+        // console.log(`Sent ${offset} bytes`);
+        $sendProgress.value = offset;
+        // displayStats(); // 개발중
+        if (offset < file.size) {
+            // 아직 보낼 파일이 남았을때
+
+            for (; 16666216 - myDataChannel.bufferedAmount < chunkSize; ) {
+                // 버퍼에 남은 공간이 작을때
+                // 버퍼 공간 16Mb를 넘지 않도록 계속 버퍼에 데이터를 넣는다.
+                // console.log("wait");
+                await new Promise((resolve) => setTimeout(resolve, 100));
+            }
+            readSlice(offset); // 슬라이스해서 보내기
+        } else {
+            showMessage(`${fileNameToSend} is sent`, false); // 보내기 완료
+            filesignalS = false;
+            messageBlock.scrollTop = messageBlock.scrollHeight;
+            $sendProgressDiv.hidden = true;
+            setTimeout(() => {
+                sendState = false;
+            }, 400);
+        }
+    });
+
+    const readSlice = (o) => {
+        const slice = file.slice(offset, o + chunkSize);
+        fileReader.readAsArrayBuffer(slice); //fileReader 일해라
+    };
+    readSlice(0);
 };
 
 // 개발중
 function displayStats() {
-  const stats = myPeerConnection.getStats();
-  console.log(stats);
-  let activeCandidatePair;
-  stats.forEach((report) => {
-    if (report.type === "transport") {
-      activeCandidatePair = stats.get(report.selectedCandidatePairId);
+    const stats = myPeerConnection.getStats();
+    console.log(stats);
+    let activeCandidatePair;
+    stats.forEach((report) => {
+        if (report.type === "transport") {
+            activeCandidatePair = stats.get(report.selectedCandidatePairId);
+        }
+    });
+    if (activeCandidatePair) {
+        if (timestampStart === activeCandidatePair.timestamp) {
+            return;
+        }
+        const byteNow = activeCandidatePair.bytesReceived;
+        const bitrate = Math.round(((byteNow - bytesPrev) * 8) / (activeCandidatePair.timestamp - timestampStart));
+        timestampPrev = activeCandidatePair.timestamp;
+        bytesPrev = byteNow;
+        console.log(bitrate);
+        if (bitrate > bitrateMax) {
+            bitrateMax = bitrate;
+        }
     }
-  });
-  if (activeCandidatePair) {
-    if (timestampStart === activeCandidatePair.timestamp) {
-      return;
-    }
-    const byteNow = activeCandidatePair.bytesReceived;
-    const bitrate = Math.round(
-      ((byteNow - bytesPrev) * 8) /
-        (activeCandidatePair.timestamp - timestampStart)
-    );
-    timestampPrev = activeCandidatePair.timestamp;
-    bytesPrev = byteNow;
-    console.log(bitrate);
-    if (bitrate > bitrateMax) {
-      bitrateMax = bitrate;
-    }
-  }
 }
 
 function handleDragAndDropEnter(event) {
-  event.stopPropagation();
-  event.preventDefault();
-  if (!$inRoom.hidden) {
-    $dropZone.classList.add("drop-zone-active");
-    console.log("DragAndDropEnter");
-  }
+    event.stopPropagation();
+    event.preventDefault();
+    if (!$inRoom.hidden) {
+        $dropZone.classList.add("drop-zone-active");
+        console.log("DragAndDropEnter");
+    }
 }
 
 $dropZone.addEventListener("dragleave", handleDragAndDropLeave);
@@ -729,26 +711,26 @@ $dropZone.addEventListener("dragover", handleDragAndDropOver, false);
 $dropZone.addEventListener("drop", handleDragAndDropDrop, false);
 
 function handleDragAndDropOver(evnet) {
-  event.stopPropagation();
-  event.preventDefault();
-  console.log("DragAndDropOver");
+    event.stopPropagation();
+    event.preventDefault();
+    console.log("DragAndDropOver");
 }
 
 function handleDragAndDropLeave(event) {
-  event.stopPropagation();
-  event.preventDefault();
-  if (!$inRoom.hidden) {
-    $dropZone.classList.remove("drop-zone-active");
-    console.log("DragAndDropLeave");
-  }
+    event.stopPropagation();
+    event.preventDefault();
+    if (!$inRoom.hidden) {
+        $dropZone.classList.remove("drop-zone-active");
+        console.log("DragAndDropLeave");
+    }
 }
 
 function handleDragAndDropDrop(event) {
-  event.stopPropagation();
-  event.preventDefault();
-  $dropZone.classList.remove("drop-zone-active");
-  console.log("DragAndDropDrop");
-  const files = event.dataTransfer.files;
-  $inRoom.querySelector("#fileInput").files = files;
-  handleChangeFile({ target: { files: [files[0]] } });
+    event.stopPropagation();
+    event.preventDefault();
+    $dropZone.classList.remove("drop-zone-active");
+    console.log("DragAndDropDrop");
+    const files = event.dataTransfer.files;
+    $inRoom.querySelector("#fileInput").files = files;
+    handleChangeFile({ target: { files: [files[0]] } });
 }
