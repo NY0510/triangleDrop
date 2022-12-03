@@ -20,6 +20,7 @@ const $codeQRcode = document.querySelector(".codeQRcode");
 const $loadingScreen = document.querySelector(".loading");
 
 let sendState = false;
+let acceptFile = 0;
 
 // $roomCodeInput.addEventListener("keydown", (event) => {
 //   $roomCodeInput.value = $roomCodeInput.value.toUpperCase();
@@ -433,16 +434,20 @@ const showMessage = (message, filterToggle = true) => {
     ) {
         console.log("http link");
         const $link = document.createElement("a");
-        $link.setAttribute("href", message);
         $link.setAttribute("target", "_blank");
         $link.setAttribute("rel", "noopener noreferrer");
         $link.setAttribute("class", "messageLink");
         $link.innerHTML = filter(message);
+        if (!message.match(/(http|https|Http|Https|rtsp|Rtsp):\/\//gi)) {
+            message = "http://" + message;
+        }
+        $link.setAttribute("href", message);
         $message.appendChild($link);
     } else {
         $message.innerHTML = filterToggle ? filter(message) : message;
     }
     messageBlock.innerHTML += $message.outerHTML;
+    messageBlock.scrollTop = messageBlock.scrollHeight;
 };
 
 // send message with datachannel
@@ -491,7 +496,6 @@ const handleSendMessage = async (event) => {
     const messageToSend = filter(message.value);
     myDataChannel.send(`{"type": "chat", "value": "${messageToSend}"}`);
     showMessage(messageToSend, false);
-    messageBlock.scrollTop = messageBlock.scrollHeight;
     message.value = "";
 };
 
@@ -508,6 +512,14 @@ const handleReceiveMessage = (event) => {
             rxFileName = filter(message.fileName, true);
             rxFileSize = message.fileSize;
             if (rxFileSize / 1024 / 1024 > 20) {
+                if (confirm("File size is over 20MB. Do you want to download?")) {
+                    myDataChannel.send(`{"type": "file", "value": "download"}`);
+                } else {
+                    myDataChannel.send(`{"type": "file", "value": "cancel"}`);
+                    return;
+                }
+            } else {
+                myDataChannel.send(`{"type": "file", "value": "download"}`);
             }
             timestampStart = Date.now();
             $receiveProgress.max = rxFileSize;
@@ -516,7 +528,6 @@ const handleReceiveMessage = (event) => {
             receiveBuffer = [];
             receivedSize = 0;
             showMessage(`Receiving ${rxFileName}`);
-            messageBlock.scrollTop = messageBlock.scrollHeight;
             document.querySelector(".rxProgressBarFileName").innerHTML = rxFileName;
             document.querySelector(".rxProgressBarFileSize").innerHTML = `0/${Math.round(rxFileSize / 1024 / 1024)}MB`;
         } else if (message.type == "rxdfilesize") {
@@ -526,12 +537,20 @@ const handleReceiveMessage = (event) => {
             if ($sendProgress.max == message.value) {
                 showMessage(`${message.fileName} is sent`);
             }
+        } else if (message.type == "file") {
+            if (message.value == "download") {
+                console.log("download");
+                acceptFile = 1;
+            } else if (message.value == "cancel") {
+                console.log("cancel");
+                showMessage("File transfer canceled");
+                acceptFile = 2;
+            }
         } else {
             // message
             showMessage(message.value);
-            if (messageToRead) {
-            }
-            messageBlock.scrollTop = messageBlock.scrollHeight;
+            // if (messageToRead) {
+            // }
         }
     } else if (typeof event.data === "object") {
         receiveBuffer.push(event.data);
@@ -618,7 +637,6 @@ const handleSendFile = (file) => {
     const fileNameToSend = filter(file.name, true);
     myDataChannel.send(`{"type": "filesignal", "fileName": "${fileNameToSend}", "fileSize": ${file.size}, "fileType": "${file.type}", "fileLastModified": ${file.lastModified}}`);
     showMessage(`Sending ${fileNameToSend}`, false);
-    messageBlock.scrollTop = messageBlock.scrollHeight;
     document.querySelector(".txProgressBarFileName").innerHTML = fileNameToSend;
     document.querySelector(".txProgressBarFileSize").innerHTML = `0/${Math.round(file.size / 1024 / 1024)}MB`;
 
@@ -627,6 +645,40 @@ const handleSendFile = (file) => {
         return;
     }
 
+    let ii = 0;
+
+    // wait for other user to accept
+    const interval = setInterval(() => {
+        if (acceptFile == 1) {
+            clearInterval(interval);
+            acceptFileSend(file);
+        } else if (acceptFile == 2) {
+            clearInterval(interval);
+            filesignalS = false;
+            acceptFile = 0;
+            $sendProgressDiv.hidden = true;
+            setTimeout(() => {
+                sendState = false;
+            }, 400);
+            return;
+        } else if (ii > 30) {
+            showMessage("File transfer canceled");
+            clearInterval(interval);
+            filesignalS = false;
+            acceptFile = 0;
+            $sendProgressDiv.hidden = true;
+            setTimeout(() => {
+                sendState = false;
+            }, 400);
+            return;
+        } else {
+            console.log("waiting for other user to accept");
+        }
+        i++;
+    }, 500);
+};
+
+function acceptFileSend(file) {
     $sendProgress.max = file.size;
     $sendProgress2.max = file.size;
     $sendProgress.value = 0;
@@ -664,7 +716,7 @@ const handleSendFile = (file) => {
             // 보내기 완료
             // showMessage(`${fileNameToSend} is sent`, false);
             filesignalS = false;
-            messageBlock.scrollTop = messageBlock.scrollHeight;
+            acceptFile = 0;
             $sendProgressDiv.hidden = true;
             setTimeout(() => {
                 sendState = false;
@@ -677,7 +729,7 @@ const handleSendFile = (file) => {
         fileReader.readAsArrayBuffer(slice); //fileReader 일해라
     };
     readSlice(0);
-};
+}
 
 // 개발중
 function displayStats() {
