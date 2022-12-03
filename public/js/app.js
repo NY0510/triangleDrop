@@ -126,6 +126,7 @@ window.addEventListener("load", () => {
 // 나갈때
 const initExit = () => {
     console.log("Back Action");
+    socket.emit("exitRoom", roomName);
     myDataChannel.onclose = null;
 
     myDataChannel.onclose = null;
@@ -158,6 +159,7 @@ const initExit = () => {
     document.querySelector("nav").style = "";
     document.querySelector(".centerC").classList.add("center");
     $loadingScreen.style = "";
+    acceptFile = 0;
 };
 
 // window.onpageshow = function (event) {
@@ -212,6 +214,24 @@ createRoomName();
 //   // socket.emit("join_room", roomName);
 // };
 
+const codeError = () => {
+    const $button = $enterRoomForm.querySelector("button");
+
+    const $roomCodeInput = document.querySelector("#roomCodeInput");
+    $roomCodeInput.value = "";
+    $roomCodeInput.placeholder = "Invalid Code OR Room is Full";
+    $enterRoomDiv.classList.add("animate__shakeX");
+    $enterRoomDiv.style = "border: 5px solid red;";
+    $button.disabled = true;
+    setTimeout(() => {
+        $roomCodeInput.placeholder = "AAA00";
+        $button.disabled = false;
+        $enterRoomDiv.classList.remove("errorCode");
+        $enterRoomDiv.classList.remove("animate__shakeX");
+        $enterRoomDiv.style = "border: unset;";
+    }, 2000);
+};
+
 const enterRoomCallback = (result) => {
     // toastr.options = {
     //   closeButton: true,
@@ -232,47 +252,20 @@ const enterRoomCallback = (result) => {
     // };
 
     if (result) {
-        if (roomName === $enterRoomForm.querySelector("input").value.toUpperCase()) {
-            $roomCodeInput.value = "";
-            $roomCodeInput.placeholder = "Invalid Code OR Room is Full";
-            $enterRoomDiv.classList.add("animate__shakeX");
-            $enterRoomDiv.style = "border: 5px solid red;";
-            $button.disabled = true;
-            setTimeout(() => {
-                $roomCodeInput.placeholder = "AAA00";
-                $button.disabled = false;
-                $enterRoomDiv.classList.remove("errorCode");
-                $enterRoomDiv.classList.remove("animate__shakeX");
-                $enterRoomDiv.style = "border: unset;";
-            }, 2000);
-        }
+        socket.emit("exitRoom", roomName);
         roomName = $enterRoomForm.querySelector("input").value.toUpperCase();
         initRoom();
         $enterRoomForm.querySelector("input").value = "";
     } else {
-        const $button = $enterRoomForm.querySelector("button");
-
-        const $roomCodeInput = document.querySelector("#roomCodeInput");
-
-        $roomCodeInput.value = "";
-        $roomCodeInput.placeholder = "Invalid Code OR Room is Full";
-        $enterRoomDiv.classList.add("animate__shakeX");
-        $enterRoomDiv.style = "border: 5px solid red;";
-        $button.disabled = true;
-        setTimeout(() => {
-            $roomCodeInput.placeholder = "AAA00";
-            $button.disabled = false;
-            $enterRoomDiv.classList.remove("errorCode");
-            $enterRoomDiv.classList.remove("animate__shakeX");
-            $enterRoomDiv.style = "border: unset;";
-        }, 2000);
+        codeError();
     }
 };
 
 const handleEnterRoom = async (event) => {
     event.preventDefault();
-    if ($enterRoomForm.querySelector("input").value.length !== 5) {
+    if ($enterRoomForm.querySelector("input").value.length !== 5 || roomName === $enterRoomForm.querySelector("input").value.toUpperCase()) {
         enterRoomCallback(false);
+        return;
     }
     socket.emit("join_room", $enterRoomForm.querySelector("input").value.toUpperCase(), enterRoomCallback);
 };
@@ -511,11 +504,13 @@ const handleReceiveMessage = (event) => {
         if (message.type == "filesignal") {
             rxFileName = filter(message.fileName, true);
             rxFileSize = message.fileSize;
+            showMessage(`Receiving ${rxFileName}`);
             if (rxFileSize / 1024 / 1024 > 20) {
                 if (confirm("File size is over 20MB. Do you want to download?")) {
                     myDataChannel.send(`{"type": "file", "value": "download"}`);
                 } else {
                     myDataChannel.send(`{"type": "file", "value": "cancel"}`);
+                    showMessage("File transfer canceled", false);
                     return;
                 }
             } else {
@@ -527,7 +522,6 @@ const handleReceiveMessage = (event) => {
             $receiveProgressDiv.hidden = false;
             receiveBuffer = [];
             receivedSize = 0;
-            showMessage(`Receiving ${rxFileName}`);
             document.querySelector(".rxProgressBarFileName").innerHTML = rxFileName;
             document.querySelector(".rxProgressBarFileSize").innerHTML = `0/${Math.round(rxFileSize / 1024 / 1024)}MB`;
         } else if (message.type == "rxdfilesize") {
