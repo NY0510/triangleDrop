@@ -391,9 +391,18 @@ div.receiveProgress > div.label {
 	padding-top: 15px;
 }
 #sendProgressBar,
+#sendProgressBar2,
 #receiveProgressBar {
-	width: 60vw;
-	margin: 20px;
+	width: 80%;
+	margin: 0.3rem;
+}
+#sendProgressBar2,
+#receiveProgressBar{
+	margin-bottom: 1rem;
+}
+#sendProgressBar,
+#receiveProgressBar {
+	margin-top: 1rem;
 }
 #enterRoom {
 	display: flex;

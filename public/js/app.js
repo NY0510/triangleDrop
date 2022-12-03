@@ -4,7 +4,7 @@ const $welcome = document.querySelector("#welcome");
 const $inRoom = document.querySelector("#inRoom");
 const $sendProgress = document.querySelector("progress#sendProgressBar");
 const $receiveProgress = document.querySelector("progress#receiveProgressBar");
-const $receiveProgress2 = document.querySelector("progress#receiveProgressBar2");
+const $sendProgress2 = document.querySelector("progress#sendProgressBar2");
 const $code = document.querySelector(".copyArea > .code");
 const $inRoomCode = $inRoom.querySelector(".code");
 const $codeLink = document.querySelector(".codeLink");
@@ -507,11 +507,11 @@ const handleReceiveMessage = (event) => {
         if (message.type == "filesignal") {
             rxFileName = filter(message.fileName, true);
             rxFileSize = message.fileSize;
+            if (rxFileSize / 1024 / 1024 > 20) {
+            }
             timestampStart = Date.now();
             $receiveProgress.max = rxFileSize;
-            $receiveProgress2.max = rxFileSize;
             $receiveProgress.value = 0;
-            $receiveProgress2.value = 0;
             $receiveProgressDiv.hidden = false;
             receiveBuffer = [];
             receivedSize = 0;
@@ -522,7 +522,10 @@ const handleReceiveMessage = (event) => {
         } else if (message.type == "rxdfilesize") {
             // progress2
             console.log(message.value / 1024);
-            $receiveProgress2.value = message.value;
+            $sendProgress2.value = message.value;
+            if ($sendProgress.max == message.value) {
+                showMessage(`${message.fileName} is sent`);
+            }
         } else {
             // message
             showMessage(message.value);
@@ -537,7 +540,7 @@ const handleReceiveMessage = (event) => {
         // console.log(receivedSize);
         $receiveProgress.value = Math.round(receivedSize); //파폭에서 작동 안함.
         document.querySelector(".rxProgressBarFileSize").innerHTML = `${Math.round(receivedSize / 1024 / 1024)}/${Math.round(rxFileSize / 1024 / 1024)}MB`;
-        myDataChannel.send(`{"type": "rxdfilesize", "value": "${receivedSize}"}`);
+        myDataChannel.send(`{"type": "rxdfilesize", "value": "${receivedSize}", "fileName": "${rxFileName}"}`);
 
         // const file = fileInput.files[0];
 
@@ -546,6 +549,7 @@ const handleReceiveMessage = (event) => {
             receiveBuffer = [];
             clearInterval(statsInterval);
             statsInterval = null;
+            // myDataChannel.send(`{"type": "chat", "value": "${rxFileName}File received"}`);
 
             saveFile(blob);
 
@@ -624,7 +628,9 @@ const handleSendFile = (file) => {
     }
 
     $sendProgress.max = file.size;
+    $sendProgress2.max = file.size;
     $sendProgress.value = 0;
+    $sendProgress2.value = 0;
     $sendProgressDiv.hidden = false;
     const chunkSize = 262144;
 
@@ -655,7 +661,8 @@ const handleSendFile = (file) => {
             }
             readSlice(offset); // 슬라이스해서 보내기
         } else {
-            showMessage(`${fileNameToSend} is sent`, false); // 보내기 완료
+            // 보내기 완료
+            // showMessage(`${fileNameToSend} is sent`, false);
             filesignalS = false;
             messageBlock.scrollTop = messageBlock.scrollHeight;
             $sendProgressDiv.hidden = true;
@@ -696,6 +703,8 @@ function displayStats() {
         }
     }
 }
+
+// drag and drop
 
 function handleDragAndDropEnter(event) {
     event.stopPropagation();
