@@ -2,6 +2,8 @@
 
 # Triangle Drop
 
+[![wakatime](https://wakatime.com/badge/github/NY0510/triangleDrop.svg)](https://wakatime.com/badge/github/NY0510/triangleDrop)
+
 ## 소개
 
 TriangleDrop이란 WebRTC의 Datachannel 을 이용한 간단한 파일 공유 및 메시지 웹앱입니다.
