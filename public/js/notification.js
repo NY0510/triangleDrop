@@ -14,7 +14,7 @@ function sendNotification(title, message) {
             body: message,
             icon: "/img/favicon/favicon.png",
         });
-        setTimeout(notification.close.bind(notification), 3500);
+        setTimeout(notification.close.bind(notification), 4000);
     }
 }
 
