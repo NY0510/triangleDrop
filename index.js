@@ -79,6 +79,9 @@ app.get("/about", (req, res) => {
 app.get("/sitemap.xml", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "sitemap.xml"));
 });
+app.get("/js/ifvisible.min.js", (req, res) => {
+    res.sendFile(path.join(__dirname, "node_modules", "ifvisible.js", "src", "ifvisible.min.js"));
+});
 
 app.get("/en", (req, res) => {
     // req.i18n.changeLanguage("en");

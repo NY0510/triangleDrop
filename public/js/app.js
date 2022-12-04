@@ -21,6 +21,7 @@ const $loadingScreen = document.querySelector(".loading");
 
 let sendState = false;
 let acceptFile = 0;
+let messageLog = [];
 
 // $roomCodeInput.addEventListener("keydown", (event) => {
 //   $roomCodeInput.value = $roomCodeInput.value.toUpperCase();
@@ -127,6 +128,7 @@ window.addEventListener("load", () => {
 const initExit = () => {
     console.log("Back Action");
     socket.emit("exitRoom", roomName);
+    messageLog = [];
     myDataChannel.onclose = null;
 
     myDataChannel.onclose = null;
@@ -279,6 +281,7 @@ $enterRoomForm.addEventListener("submit", handleEnterRoom);
 //RTC code
 
 const handleDataChannelOpen = (event) => {
+    messageLog = [];
     console.log("Data channel is open and ready to be used.");
     $welcome.hidden = true;
     $inRoom.hidden = false;
@@ -299,6 +302,8 @@ const handleDataChannelOpen = (event) => {
     history.pushState(null, null, `?code=${roomName}`);
     setCookie("code", roomName);
     $loadingScreen.style = "display: none;";
+    // notification permission
+    notificationPermisson();
     if (fileList.length !== 0) {
         //form submit
         setTimeout(() => {
@@ -398,7 +403,12 @@ const handleIceCandidate = (data) => {
     socket.emit("ice", data.candidate, roomName);
 };
 
-const filter = (message, itFile = false) => {
+const filter = (message, itFile = false, toSend = false) => {
+    if (toSend) {
+        let result = message.replaceAll(`"`, '\\"');
+        result = result.replaceAll(`\\`, "\\\\");
+        return result;
+    }
     let result = message.replaceAll(/[\u0000-\u0019]+/g, "");
     result = result.replaceAll("<", "&lt;");
     result = result.replaceAll(">", "&gt;");
@@ -416,7 +426,7 @@ const filter = (message, itFile = false) => {
     return result;
 };
 
-const showMessage = (message, filterToggle = true) => {
+const showMessage = (message, filterToggle = true, notification = true) => {
     const $message = document.createElement("div");
     $message.classList.add("message-content");
     // if message is http link
@@ -431,16 +441,26 @@ const showMessage = (message, filterToggle = true) => {
         $link.setAttribute("rel", "noopener noreferrer");
         $link.setAttribute("class", "messageLink");
         $link.innerHTML = filter(message);
-        if (!message.match(/(http|https|Http|Https|rtsp|Rtsp):\/\//gi)) {
-            message = "http://" + message;
+        if (!message.match(/(http|https|Http|Https|rtsp|Rtsp):/)) {
+            $link.setAttribute("href", "http://" + message);
+        } else {
+            $link.setAttribute("href", message);
         }
-        $link.setAttribute("href", message);
+
         $message.appendChild($link);
     } else {
-        $message.innerHTML = filterToggle ? filter(message) : message;
+        if (filterToggle) {
+            $message.innerHTML = filter(message);
+        } else {
+            $message.innerHTML = message;
+        }
     }
     messageBlock.innerHTML += $message.outerHTML;
     messageBlock.scrollTop = messageBlock.scrollHeight;
+    messageLog.push({ message: message, timeStamp: new Date().getTime() });
+    if (notification) {
+        sendNotification("Triangle Drop", message);
+    }
 };
 
 // send message with datachannel
@@ -486,9 +506,9 @@ const handleSendMessage = async (event) => {
         }, 2000);
         return;
     }
-    const messageToSend = filter(message.value);
+    const messageToSend = filter(message.value, false, true);
     myDataChannel.send(`{"type": "chat", "value": "${messageToSend}"}`);
-    showMessage(messageToSend, false);
+    showMessage(message.value, true, false);
     message.value = "";
 };
 
@@ -526,7 +546,7 @@ const handleReceiveMessage = (event) => {
             document.querySelector(".rxProgressBarFileSize").innerHTML = `0/${Math.round(rxFileSize / 1024 / 1024)}MB`;
         } else if (message.type == "rxdfilesize") {
             // progress2
-            console.log(message.value / 1024);
+            // console.log(message.value / 1024);
             $sendProgress2.value = message.value;
             if ($sendProgress.max == message.value) {
                 showMessage(`${message.fileName} is sent`);
@@ -630,7 +650,7 @@ const handleSendFile = (file) => {
 
     const fileNameToSend = filter(file.name, true);
     myDataChannel.send(`{"type": "filesignal", "fileName": "${fileNameToSend}", "fileSize": ${file.size}, "fileType": "${file.type}", "fileLastModified": ${file.lastModified}}`);
-    showMessage(`Sending ${fileNameToSend}`, false);
+    showMessage(`Sending ${fileNameToSend}`, false, false);
     document.querySelector(".txProgressBarFileName").innerHTML = fileNameToSend;
     document.querySelector(".txProgressBarFileSize").innerHTML = `0/${Math.round(file.size / 1024 / 1024)}MB`;
 
@@ -668,7 +688,7 @@ const handleSendFile = (file) => {
         } else {
             console.log("waiting for other user to accept");
         }
-        i++;
+        ii++;
     }, 500);
 };
 
