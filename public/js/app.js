@@ -18,6 +18,7 @@ const $enterRoomDiv = document.querySelector(".enterRoomDiv");
 const $messageForm = document.querySelector("#messageForm");
 const $codeQRcode = document.querySelector(".codeQRcode");
 const $loadingScreen = document.querySelector(".loading");
+const $enterRoomErrorLable = document.querySelector(".enterRoomErrorLable");
 
 let sendState = false;
 let acceptFile = 0;
@@ -39,7 +40,7 @@ $code.addEventListener("click", () => {
     tempElem.select();
     document.execCommand("copy");
     document.body.removeChild(tempElem);
-    $codeTooltip.innerHTML = "Copied!";
+    $codeTooltip.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
     $codeTooltip.style = "color: #2bcc2b; font-weight: bold;";
     setTimeout(() => {
         $codeTooltip.innerHTML = "Click to copy";
@@ -221,16 +222,16 @@ const codeError = () => {
 
     const $roomCodeInput = document.querySelector("#roomCodeInput");
     $roomCodeInput.value = "";
-    $roomCodeInput.placeholder = "Invalid Code OR Room is Full";
     $enterRoomDiv.classList.add("animate__shakeX");
-    $enterRoomDiv.style = "border: 5px solid red;";
+    $enterRoomDiv.style = "border-color:red;";
     $button.disabled = true;
+    $enterRoomErrorLable.style = "opacity: 1;";
     setTimeout(() => {
-        $roomCodeInput.placeholder = "AAA00";
+        $enterRoomErrorLable.style = "";
         $button.disabled = false;
         $enterRoomDiv.classList.remove("errorCode");
         $enterRoomDiv.classList.remove("animate__shakeX");
-        $enterRoomDiv.style = "border: unset;";
+        $enterRoomDiv.style = "";
     }, 2000);
 };
 

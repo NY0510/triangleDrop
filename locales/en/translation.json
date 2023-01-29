@@ -10,5 +10,6 @@
 	"codeInputPlaceholder": "AAA00",
 	"enterButton": "Enter",
 	"fileListLabel":"Send this file automatically.",
-	"leftUserLable": "Other user left the room"
+	"leftUserLable": "Other user left the room",
+	"enterRoomErrorLable":"Invalid Code OR Room is Full"
 }

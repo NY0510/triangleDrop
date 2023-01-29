@@ -11,5 +11,6 @@
 	"enterButton": "Enter",
 	"fileListLabel": "연결되면 자동으로 해당 파일을 전송해요.",
 	"AboutTitle": "AboutTitle",
-	"leftUserLable": "상대방이 퇴장했습니다"
+	"leftUserLable": "상대방이 퇴장했습니다",
+	"enterRoomErrorLable":"유효하지 않은 코드이거나 방이 꽉 찼습니다."
 }

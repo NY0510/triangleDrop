@@ -9,7 +9,7 @@ if (
   if (window.location.href.indexOf("unsupported") > -1) {
     //pass
   } else {
-    window.location.href = "/html/unsupported.html";
+    window.location.href = "/unsupported";
   }
 } else {
   if (window.location.href.indexOf("unsupported") > -1) {

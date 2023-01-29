@@ -5,8 +5,11 @@
 :root {
 	--color-light-blue: rgb(229, 243, 252);
 	--color-light-green: rgb(195, 247, 229);
-	--box-shadow-flat: 15px 15px 30px #989898,
-	-15px -15px 30px #ffffff;
+	--color1: #d9d9d9;
+	--colorbg: #e0e0e0;
+	--color1-active: #c9c9c9;
+	--tran-def: background-color 0.3s;
+	--color-link-active: #116dc2;
 }
 
 * {
@@ -44,19 +47,36 @@ input[type="text"] {
 	border-radius: 10px;
 	outline: none;
 	padding: 0.5rem;
-	background: #e0e0e0;
-	box-shadow: inset 15px 15px 30px #cccccc,
-            inset -15px -15px 30px #f6f6f6;
+	background-color: var(--color1);
+	transition: var(--tran-def);
+	transition: border-color 0.3s;
+	border: var(--color1) 1px solid;
+	/* box-shadow: inset 15px 15px 30px #cccccc,
+            inset -15px -15px 30px #f6f6f6; */
+}
+
+input[type="text"]:hover, input[type="text"]:active, input[type="text"]:focus {
+	background-color: var(--color1-active);
+	border-color: var(--color1-active);
+}
+
+input[type="text"]:active, input[type="text"]:focus {
+	border-color: var(--color-link-active);
 }
 
 button {
 	border-radius: 10px;
 	color: #000;
-	background: linear-gradient(145deg, #f0f0f0, #cacaca);
 	border: none;
-	box-shadow:  15px 15px 30px #989898,
-				 -15px -15px 30px #ffffff;
-				 cursor: pointer;
+	background-color: var(--color1);
+	/* box-shadow:  15px 15px 30px #989898,
+				 -15px -15px 30px #ffffff; */
+	cursor: pointer;
+	transition: var(--tran-def);
+}
+
+button:hover, button:active, button:focus {
+	background-color: var(--color1-active);
 }
 
 /* button {
@@ -100,12 +120,12 @@ button:hover {
 }
 
 .label {
-	font-size: 2rem;
+	font-size: 1.7rem;
 	font-weight: 400;
 }
 
 .codeInputLabel{
-	font-size: 1.4rem;
+	font-size: 1.7rem;
 	margin-bottom: 1rem;
 	display: block;
 }
@@ -162,7 +182,7 @@ hr {
 	cursor: pointer;
 
 	font-weight: 500;
-	font-size: 5rem;
+	font-size: 4rem;
 	font-family: "Noto Sans Mono", "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono", monospace;
 	/* border-radius: 20px; */
 
@@ -219,7 +239,7 @@ span.code:hover:after {
 }
 
 .waitLabel {
-	font-size: 1.5rem;
+	font-size: 1.2rem;
 	margin-bottom: 1rem;
 	width: fit-content;
 	display: inline;
@@ -351,7 +371,7 @@ span.code:hover:after {
 #messageSendButton {
 	/* width: min-content; */
 	/* margin: 2rem; */
-	background-color: #212121;
+	background-color: var(--colorbg);
 	border: none;
 	margin-right: 10px;
 	cursor: pointer;
@@ -411,7 +431,9 @@ div.receiveProgress > div.label {
 	justify-content: space-around;
 }
 .enterRoomDiv{
-	transition: border 0.5s;
+	transition: border-color 0.5s;
+	border-radius: 10px;
+	border: var(--colorbg) 2px solid;
 }
 .prv {
 	margin-right: 0.2rem;
@@ -535,8 +557,8 @@ a:hover{
 }
 #sector0 ,#sector1, #sector2{
 	border-radius: 30px;
-box-shadow:  15px 15px 30px #989898,
-             -15px -15px 30px #ffffff;
+/* box-shadow:  15px 15px 30px #989898,
+             -15px -15px 30px #ffffff; */
 			 padding: 15px;
 			 z-index: -1;
 }
@@ -548,7 +570,7 @@ box-shadow:  15px 15px 30px #989898,
 }
 .languageDropDown{
 	display: none;
-	background-color: e0e0e0;
+	background-color: var(--color1-active);
 	max-width: 160px;
 	z-index: 1;
 	margin-top: 1rem;
@@ -558,9 +580,11 @@ box-shadow:  15px 15px 30px #989898,
 	padding: 12px 16px;
 	text-decoration: none;
 	display: block;
+	transition: var(--tran-def);
+	border-radius: 20px;
 }
 .languageDropDown > a:hover{
-	background-color: #f1f1f1;
+	background-color: var(--color1);
 }
 .languageSelect:hover .languageDropDown{
 	display: block;
@@ -571,10 +595,15 @@ box-shadow:  15px 15px 30px #989898,
 .languageSelect{
 	position: relative;
 	display: inline-block;
-	box-shadow: var(--box-shadow-flat);
+	/* box-shadow: var(--box-shadow-flat); */
+	background-color: var(--color1);
 	margin: 2rem;
 	padding: 1rem;
 	border-radius: 20px;
+	transition: var(--tran-def);
+}
+.languageSelect:hover, .languageSelect:focus, .languageSelect:active{
+	background-color: var(--color1-active);
 }
 
 .codeBox:hover .codeTooltip{
@@ -606,11 +635,11 @@ box-shadow:  15px 15px 30px #989898,
             inset -5px -5px 15px #f4f4f4;
 	padding: 0.3rem 1rem;
 	border-radius: 20px;
-	margin-bottom: 10px;
+	margin-bottom: 1rem;
 	display: inline-block;
 }
 .codeLink{
-	font-size: 1.3rem;
+	font-size: 1rem;
 }
 .contactUs{
 	display: inline-block;
@@ -633,6 +662,7 @@ nav{
 	flex-wrap: nowrap;
 	align-items: center;
 	justify-content: space-between;
+	margin-bottom: 30px;
 }
 .title{
 	display: flex;
@@ -654,6 +684,7 @@ nav>ul>li>a {
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
+	margin: 1.5rem 0;
 }
 .flexBlink{
 	flex-basis: 150px;
@@ -661,10 +692,10 @@ nav>ul>li>a {
 }
 .codeQRcode{
 	padding: 10px;
-	margin: 1rem;
+	/* margin: 1rem; */
 	border-radius: 10px;
-	box-shadow: inset 5px 5px 15px #cccccc,
-			inset -5px -5px 15px #f4f4f4;
+	/* box-shadow: inset 5px 5px 15px #cccccc,
+			inset -5px -5px 15px #f4f4f4; */
 
 }
 .codeQRcode>img{
@@ -706,4 +737,10 @@ nav>ul>li>a {
 }
 .kakao_ad_area{
 	z-index: 50;
+}
+
+.enterRoomErrorLable{
+	opacity: 0;
+	color: red;
+	transition: opacity 0.4s;
 }
