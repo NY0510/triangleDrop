@@ -8,7 +8,7 @@ const $sendProgress2 = document.querySelector("progress#sendProgressBar2");
 const $code = document.querySelector(".copyArea > .code");
 const $inRoomCode = $inRoom.querySelector(".code");
 const $codeLink = document.querySelector(".codeLink");
-const $codeTooltip = document.querySelector(".codeTooltip");
+const $codeTooltip = document.querySelectorAll(".codeTooltip");
 const $roomCodeInput = document.querySelector("#roomCodeInput");
 const $sendProgressDiv = document.querySelector(".sendProgress");
 const $receiveProgressDiv = document.querySelector(".receiveProgress");
@@ -40,11 +40,11 @@ $code.addEventListener("click", () => {
     tempElem.select();
     document.execCommand("copy");
     document.body.removeChild(tempElem);
-    $codeTooltip.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
-    $codeTooltip.style = "color: #2bcc2b; font-weight: bold;";
+    $codeTooltip[0].innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+    $codeTooltip[0].style = "color: #2bcc2b; font-weight: bold;";
     setTimeout(() => {
-        $codeTooltip.innerHTML = "Click to copy";
-        $codeTooltip.style = " ";
+        $codeTooltip[0].innerHTML = "Click to copy";
+        $codeTooltip[0].style = " ";
     }, 1000);
 });
 $codeLink.addEventListener("click", () => {
@@ -55,11 +55,11 @@ $codeLink.addEventListener("click", () => {
     tempElem.select();
     document.execCommand("copy");
     document.body.removeChild(tempElem);
-    $codeTooltip.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
-    $codeTooltip.style = "color: #2bcc2b; font-weight: bold;";
+    $codeTooltip[1].innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+    $codeTooltip[1].style = "color: #2bcc2b; font-weight: bold;";
     setTimeout(() => {
-        $codeTooltip.innerHTML = "Click to copy";
-        $codeTooltip.style = " ";
+        $codeTooltip[1].innerHTML = "Click to copy";
+        $codeTooltip[1].style = " ";
     }, 1000);
 });
 function getCookie(name) {
@@ -199,8 +199,8 @@ const createRoomName = (result = false) => {
             text: `https://triangledrop.obtuse.kr/?code=${roomName}`,
             width: 150,
             height: 150,
-            colorDark: "#000000",
-            colorLight: "#e0e0e0",
+            colorDark: theme.currentTheme.QRdarkColor,
+            colorLight: theme.currentTheme.QRlightColor,
             correctLevel: QRCode.CorrectLevel.Q,
         });
         document.querySelector(".waitLabel").hidden = false;

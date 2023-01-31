@@ -5,7 +5,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <!-- 브라우저 감지 -->
-        <script src="/js/IEDetect.js"></script>
+        <script async src="/js/IEDetect.js"></script>
+        <script async src="/js/theme.js"></script>
         <script src="/js/qrcode.min.js"></script>
         <script src="/js/ifvisible.min.js"></script>
         <script src="/js/notification.js"></script>
@@ -306,10 +307,16 @@
                     <div class="codeSector">
                         <div class="flexBlink"></div>
                         <span class="codeBox">
-                            <div class="codeTooltip">Click to copy</div>
-                            <p class="copyArea"><span class="code"></span> <i class="fa-solid fa-copy"></i></p>
+                            <span class="copyArea">
+                                <div class="codeTooltip">Click to copy</div>
+                                <span class="code"></span>
+                                <i class="fa-solid fa-copy"></i>
+                            </span>
                             <br />
-                            <span class="copyArea copyAreaLink"> <span class="codeLink"></span> <i class="fa-solid fa-copy"></i></span>
+                            <span class="copyArea copyAreaLink"
+                                ><div class="codeTooltip">Click to copy</div>
+                                <span class="codeLink"></span> <i class="fa-solid fa-copy"></i
+                            ></span>
                         </span>
                         <div class="codeQRcode"></div>
                     </div>
