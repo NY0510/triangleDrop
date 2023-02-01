@@ -3,8 +3,7 @@ console.log(agent);
 if (
   (navigator.appName == "Netscape" && agent.indexOf("trident") != -1) ||
   agent.indexOf("msie") != -1 ||
-  agent.indexOf("edge") != -1 ||
-  agent.indexOf("firefox") != -1
+  agent.indexOf("edge") != -1
 ) {
   if (window.location.href.indexOf("unsupported") > -1) {
     //pass
@@ -16,3 +15,11 @@ if (
     window.location.href = "/";
   }
 }
+
+
+//if (
+//   (navigator.appName == "Netscape" && agent.indexOf("trident") != -1) ||
+//   agent.indexOf("msie") != -1 ||
+//   agent.indexOf("edge") != -1 ||
+//   agent.indexOf("firefox") != -1
+// )

@@ -15,6 +15,9 @@ let theme = {
         QRlightColor: "#e0e0e0",
         QRdarkColor: "#292929",
         boxShadowIn: "unset",
+        boxShadowFlat: "unset",
+        codeGradient: "linear-gradient(45deg, #9857ff, #5af6ff)",
+        primaryBgColorNext: "#e0e0e0",
         // primaryBorderColor: "",
         // secondaryBorderColor: "",
     },
@@ -30,26 +33,32 @@ let theme = {
         QRlightColor: "#e0e0e0",
         QRdarkColor: "#292929",
         boxShadowIn: "inset 5px 5px 15px #cccccc, inset -5px -5px 15px #f4f4f4",
+        boxShadowFlat: "15px 15px 30px #989898, -15px -15px 30px #ffffff",
+        codeGradient: "linear-gradient(45deg, #9857ff, #5af6ff)",
+        primaryBgColorNext: "#FF469F",
         // primaryBorderColor: "",
         // secondaryBorderColor: "",
     },
     pink: {
         currentTheme: "pink",
         primaryColor: "Kang Likes This",
-        secondaryColor: "",
-        primaryTextColor: "#ffffff",
+        secondaryColor: "#f28cbf",
+        primaryTextColor: "#A20D55",
         secondaryTextColor: "",
-        primaryBgColor: "#000000",
-        secondaryBgColor: "#292929",
-        primaryBorderColor: "#116dc2",
-        QRlightColor: "",
-        QRdarkColor: "",
+        primaryBgColor: "#FF469F",
+        secondaryBgColor: "#FF9FCD",
+        primaryBorderColor: "#FF006E",
+        QRlightColor: "#FF9FCD",
+        QRdarkColor: "#A20D55",
         boxShadowIn: "unset",
+        boxShadowFlat: "unset",
+        codeGradient: "linear-gradient(45deg, #9857ff, #eb569d)",
+        primaryBgColorNext: "#000000",
         // primaryBorderColor: "",
         // secondaryBorderColor: "",
     },
 };
-let cssVar = document.querySelector(":root");
+
 if (localStorage.getItem("theme") == null) {
     // if there is no theme in local storage, get system theme preference
     window.matchMedia("(prefers-color-scheme: dark)").matches == true ? (theme.currentTheme = theme.dark) : (theme.currentTheme = theme.light);
@@ -66,10 +75,34 @@ if (localStorage.getItem("theme") == null) {
     console.log("load to local storage: " + theme.currentTheme.currentTheme);
 }
 
-applyCurrentTheme();
+let cssVar;
+
+window.onload = function () {
+    cssVar = document.querySelector(":root");
+    applyCurrentTheme();
+    document.querySelector(".themeToggleButton").addEventListener("click", changeTheme);
+};
 
 function changeTheme() {
-    theme.currentTheme.currentTheme == "dark" ? (theme.currentTheme = theme.light) : (theme.currentTheme = theme.dark);
+    // theme.currentTheme.currentTheme == "dark" ? (theme.currentTheme = theme.light) : (theme.currentTheme = theme.dark);
+    theme.currentTheme.currentTheme == "dark"
+        ? (theme.currentTheme = theme.light)
+        : theme.currentTheme.currentTheme == "light"
+        ? (theme.currentTheme = theme.pink)
+        : (theme.currentTheme = theme.dark);
+
+    if (theme.currentTheme.currentTheme == "dark" || theme.currentTheme.currentTheme == "pink") {
+        document.querySelector(".codeQRcode").style = "";
+        document.querySelector(".codeQRcode").innerHTML = "";
+        qrCode = new QRCode($codeQRcode, {
+            text: `https://triangledrop.obtuse.kr/?code=${roomName}`,
+            width: 130,
+            height: 130,
+            colorDark: theme.currentTheme.QRdarkColor,
+            colorLight: theme.currentTheme.QRlightColor,
+            correctLevel: QRCode.CorrectLevel.Q,
+        });
+    }
     applyCurrentTheme();
 }
 
@@ -82,6 +115,9 @@ function applyCurrentTheme() {
     cssVar.style.setProperty("--primary-bg-color", theme.currentTheme.primaryBgColor);
     cssVar.style.setProperty("--secondary-bg-color", theme.currentTheme.secondaryBgColor);
     cssVar.style.setProperty("--box-shadow-in", theme.currentTheme.boxShadowIn);
+    cssVar.style.setProperty("--box-shadow-flat", theme.currentTheme.boxShadowFlat);
+    cssVar.style.setProperty("--code-gradient", theme.currentTheme.codeGradient);
+    cssVar.style.setProperty("--primary-bg-color-next", theme.currentTheme.primaryBgColorNext);
     // cssVar.style.setProperty("--primary-border-color", theme.currentTheme.primaryBorderColor);
     // cssVar.style.setProperty("--secondary-border-color", theme.currentTheme.secondaryBorderColor);
 }

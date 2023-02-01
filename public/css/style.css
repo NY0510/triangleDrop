@@ -13,7 +13,7 @@
 	--color-text: #ffffff;
 
 
-	--tran-def: background-color 0.3s;
+	--tran-def: background-color 0.4s;
 	--color-link-active: #116dc2;
 
 	/* light */
@@ -34,6 +34,7 @@ body {
 	background-color: var(--primary-bg-color);
 	color: var(--primary-text-color);
 	height: 100vh;
+	transition: var(--tran-def);
 }
 
 ::-webkit-scrollbar,
@@ -60,8 +61,7 @@ input[type="text"] {
 	outline: none;
 	padding: 0.5rem;
 	background-color: var(--secondary-bg-color);
-	transition: var(--tran-def);
-	transition: border-color 0.3s;
+	transition: border-color 0.4s, var(--tran-def);
 	border: var(--secondary-bg-color) 1px solid;
 	/* box-shadow: inset 15px 15px 30px #cccccc,
             inset -15px -15px 30px #f6f6f6; */
@@ -204,7 +204,7 @@ hr {
 	position: relative;
 
 	/* margin-bottom: 0.5rem; */
-	background: linear-gradient(45deg, #9857ff, #5af6ff);
+	background: var(--code-gradient);
 	background-clip: text;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
@@ -265,6 +265,7 @@ span.code:after {
 	flex-shrink: 1;
 	font-family: "Noto Sans Mono", "Consolas", "Monaco", "Andale Mono", "Ubuntu Mono", monospace;
 	text-transform: uppercase;
+	width: 100%;
 }
 
 .enterButton {
@@ -343,7 +344,8 @@ span.code:after {
 	/* height: 50px; */
 	/* box-shadow: 15px 15px 30px #989898; */
 	z-index: 0;
-	background-color: var(--secondary-bg-color)
+	background-color: var(--secondary-bg-color);
+	transition: var(--tran-def);
 }
 .messageSendBlock{
 	margin: 0;
@@ -385,6 +387,7 @@ span.code:after {
 	/* width: min-content; */
 	/* margin: 2rem; */
 	background-color: var(--primary-bg-color);
+	transition: var(--tran-def);
 	border: none;
 	margin-right: 10px;
 	cursor: pointer;
@@ -407,12 +410,14 @@ span.code:after {
 .progress {
 	position: sticky;
 	top: 0;
-	background: var(--primary-bg-color);
+	background: var(--secondary-bg-color);
 	width: 100%;
 	/* margin: auto; */
 	border-radius: 50px;
-	box-shadow:  15px 15px 30px #989898,
-				 -15px -15px 30px #ffffff;
+	box-shadow: var(--box-shadow-flat);
+	transition: box-shadow 1s;
+	transition: var(--tran-def);
+
 }
 
 div.sendProgress > div.label,
@@ -440,7 +445,7 @@ div.receiveProgress > div.label {
 #enterRoom {
 	display: flex;
 	flex-direction: row;
-	flex-wrap: wrap;
+	flex-wrap: nowrap;
 	justify-content: space-around;
 }
 .enterRoomDiv{
@@ -521,8 +526,11 @@ div.receiveProgress > div.label {
 	/* box-shadow:  15px 15px 30px #989898,
              -15px -15px 30px #ffffff; */
 	z-index: 1;
-	border-radius: 20px;
+	border-radius: 20px 20px 0 0;
 	padding: 10px;
+	background-color: var(--secondary-bg-color);
+	transition: var(--tran-def);
+
 
 }
 
@@ -572,6 +580,8 @@ a:hover{
 	padding: 15px;
 	z-index: -1;
 	background-color: var(--secondary-bg-color);
+	transition: var(--tran-def);
+
 }
 #sector0{
 	margin-bottom: 2rem;
@@ -596,6 +606,8 @@ a:hover{
 }
 .languageDropDown > a:hover{
 	background-color: var(--secondary-bg-color);
+	transition: var(--tran-def);
+
 }
 .languageSelect:hover .languageDropDown{
 	display: block;
@@ -628,6 +640,7 @@ a:hover{
 	display: inline-block;
 	position: absolute;
 	background-color: var(--primary-bg-color);
+	transition: var(--tran-def);
 	color: var(--primary-text-color);
 	border-radius: 10px;
 	padding: 0.4rem 0.8rem;
@@ -638,7 +651,7 @@ a:hover{
 	max-width: max-content;
 	pointer-events: none;
 	opacity: 0;
-	transition: opacity 0.3s;
+	transition: opacity 0.4s;
 }
 .copyArea{
 	box-shadow: var(--box-shadow-in);
@@ -693,7 +706,7 @@ nav>ul>li>a {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-evenly;
 	margin: 1.5rem 0 0 0;
 }
 .flexBlink{
@@ -709,7 +722,7 @@ nav>ul>li>a {
 
 }
 .codeQRcode>img{
-	width: 150px;
+	width: 130px;
 }
 .flexBox{
 	display: flex;
@@ -754,3 +767,33 @@ nav>ul>li>a {
 	color: red;
 	transition: opacity 0.4s;
 }
+.themeToggleButton{
+	display: inline-block;
+	margin: 0 1rem;
+	cursor: pointer;
+	/* background-color: var(--primary-bg-color-next); */
+	transition: var(--tran-def), box-shadow 0.4s;
+	border-radius: 20px;
+	padding: 0 0.5rem;
+}
+.themeToggleButton::after{
+	content : "";
+	border-radius:10000px;
+	position: relative;
+	box-shadow: 0 -15px 50px 40px var(--primary-bg-color-next);
+	background-color: var(--primary-bg-color-next);
+	z-index: -50;
+	display: block;
+	opacity: 0.6;
+	transition: box-shadow 0.25s ease-in-out, opacity 0.6s ease-in-out;
+	/* 흠 */
+
+}
+.themeToggleButton:hover::after{
+	/* box-shadow: 0 -15px 40px 40px var(--primary-bg-color-next); */
+	opacity: 1;
+}
+/* .themeToggleButton::before{
+	background-color: var(--primary-bg-color-next);
+} */
+

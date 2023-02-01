@@ -64,6 +64,15 @@
 	.codeQRcode{
 		margin: 0px auto;
 	}
+	#enterRoom{
+		flex-wrap: wrap;
+	}
+	.roomCodeInput{
+		margin: 0px auto;
+	}
+	.enterButton{
+		width: 100%;
+	}
 }
 
 /* qrcode */

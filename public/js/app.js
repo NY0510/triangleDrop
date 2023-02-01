@@ -197,8 +197,8 @@ const createRoomName = (result = false) => {
         $codeLink.innerHTML = `https://triangledrop.obtuse.kr/?code=${roomName}`;
         const qrCode = new QRCode($codeQRcode, {
             text: `https://triangledrop.obtuse.kr/?code=${roomName}`,
-            width: 150,
-            height: 150,
+            width: 130,
+            height: 130,
             colorDark: theme.currentTheme.QRdarkColor,
             colorLight: theme.currentTheme.QRlightColor,
             correctLevel: QRCode.CorrectLevel.Q,
