@@ -521,11 +521,11 @@ div.receiveProgress > div.label {
 
 .footerDiv{
 	height: 156.6px;
-	transform: translateY(-100%);
-	position: absolute;
+	/* transform: translateY(-100%); */
+	position: relative;
 	/* box-shadow:  15px 15px 30px #989898,
              -15px -15px 30px #ffffff; */
-	z-index: 1;
+	/* z-index: 1; */
 	border-radius: 20px 20px 0 0;
 	padding: 10px;
 	background-color: var(--secondary-bg-color);
@@ -620,13 +620,14 @@ a:hover{
 	display: inline-block;
 	/* box-shadow: var(--box-shadow-flat); */
 	background-color: var(--secondary-bg-color);
-	margin: 2rem;
+	margin: 2rem 2rem 125px 2rem;
 	padding: 1rem;
 	border-radius: 20px;
 	transition: var(--tran-def);
 }
 .languageSelect:hover, .languageSelect:focus, .languageSelect:active{
 	background-color: var(--secondary-color);
+	margin-bottom: 20px;
 }
 
 .copyArea:hover .codeTooltip{
