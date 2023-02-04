@@ -386,7 +386,7 @@ span.code:after {
 #messageSendButton {
 	/* width: min-content; */
 	/* margin: 2rem; */
-	background-color: var(--primary-bg-color);
+	/* background-color: var(--primary-bg-color); */
 	transition: var(--tran-def);
 	border: none;
 	margin-right: 10px;
