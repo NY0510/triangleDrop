@@ -91,19 +91,23 @@ function changeTheme() {
         ? (theme.currentTheme = theme.pink)
         : (theme.currentTheme = theme.dark);
 
-    if (theme.currentTheme.currentTheme == "dark" || theme.currentTheme.currentTheme == "pink") {
-        document.querySelector(".codeQRcode").style = "";
-        document.querySelector(".codeQRcode").innerHTML = "";
-        qrCode = new QRCode($codeQRcode, {
-            text: `https://triangledrop.obtuse.kr/?code=${roomName}`,
-            width: 130,
-            height: 130,
-            colorDark: theme.currentTheme.QRdarkColor,
-            colorLight: theme.currentTheme.QRlightColor,
-            correctLevel: QRCode.CorrectLevel.Q,
-        });
-    }
-    applyCurrentTheme();
+    document.querySelector(".themeToggleButton").classList.add("activate");
+
+    setTimeout(() => {
+        if (theme.currentTheme.currentTheme == "dark" || theme.currentTheme.currentTheme == "pink") {
+            document.querySelector(".codeQRcode").style = "";
+            document.querySelector(".codeQRcode").innerHTML = "";
+            qrCode = new QRCode($codeQRcode, {
+                text: `https://triangledrop.obtuse.kr/?code=${roomName}`,
+                width: 130,
+                height: 130,
+                colorDark: theme.currentTheme.QRdarkColor,
+                colorLight: theme.currentTheme.QRlightColor,
+                correctLevel: QRCode.CorrectLevel.Q,
+            });
+        }
+        applyCurrentTheme();
+    }, 280);
 }
 
 function applyCurrentTheme() {
@@ -120,4 +124,5 @@ function applyCurrentTheme() {
     cssVar.style.setProperty("--primary-bg-color-next", theme.currentTheme.primaryBgColorNext);
     // cssVar.style.setProperty("--primary-border-color", theme.currentTheme.primaryBorderColor);
     // cssVar.style.setProperty("--secondary-border-color", theme.currentTheme.secondaryBorderColor);
+    document.querySelector(".themeToggleButton").classList.remove("activate");
 }

@@ -775,22 +775,38 @@ nav>ul>li>a {
 	transition: var(--tran-def), box-shadow 0.4s;
 	border-radius: 20px;
 	padding: 0 0.5rem;
+	color: var(--primary-bg-color-next);
 }
 .themeToggleButton::after{
 	content : "";
 	border-radius:10000px;
 	position: relative;
-	box-shadow: 0 -15px 50px 40px var(--primary-bg-color-next);
+	box-shadow: 0 -15px 80px 50px var(--primary-bg-color-next);
 	background-color: var(--primary-bg-color-next);
 	z-index: -50;
 	display: block;
 	opacity: 0.6;
-	transition: box-shadow 0.25s ease-in-out, opacity 0.6s ease-in-out;
+	transition: box-shadow 0.25s ease-in-out, opacity 0.3s ease-in-out;
 	/* 흠 */
 
 }
 .themeToggleButton:hover::after{
 	/* box-shadow: 0 -15px 40px 40px var(--primary-bg-color-next); */
+	opacity: 0.8;
+}
+/* .themeToggleButton.activate::after{
+	opacity: 1;
+	box-shadow: 0 -15px 250px 200px var(--primary-bg-color-next);
+} */
+.themeToggleButton::before{
+	content: "";
+	box-shadow: 0 15px 10000px 150px var(--primary-bg-color-next);
+	z-index: 999999;
+	display: block;
+	opacity: 0;
+	transition: opacity 0.25s ease-out, box-shadow 0.25s ease-in-out;
+}
+.themeToggleButton.activate::before{
 	opacity: 1;
 }
 /* .themeToggleButton::before{
