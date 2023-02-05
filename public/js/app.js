@@ -157,7 +157,6 @@ const initExit = () => {
     $inRoomCode.innerHTML = roomName;
     document.querySelector(".codeQRcode").style = "";
     document.querySelector(".codeQRcode").innerHTML = "";
-    document.querySelector("#wrapper").style = "";
     document.querySelector(".flexBlink").style = "";
     document.querySelector("nav").style = "";
     document.querySelector(".centerC").classList.add("center");
@@ -294,7 +293,6 @@ const handleDataChannelOpen = (event) => {
     $code.innerHTML = roomName;
     $inRoomCode.innerHTML = roomName;
     document.querySelector(".codeQRcode").style = "display: none;";
-    document.querySelector("#wrapper").style = "display: none;";
     document.querySelector(".flexBlink").style = "display: none;";
     document.querySelector("nav").style = "display: none;";
     document.querySelector(".centerC").classList.remove("center");

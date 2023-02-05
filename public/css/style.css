@@ -513,11 +513,6 @@ div.receiveProgress > div.label {
 	opacity: 0.8;
 	pointer-events: all;
 }
-#wrapper{
-	height: auto;
-	/* min-height: 100%; */
-	padding-bottom:156.6px;
-  }
 
 .footerDiv{
 	height: 156.6px;
