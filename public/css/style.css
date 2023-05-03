@@ -809,3 +809,7 @@ nav>ul>li>a {
 	background-color: var(--primary-bg-color-next);
 } */
 
+.myMessage{
+	color: var(--secondary-text-color);
+	transition: var(--tran-def);
+}
