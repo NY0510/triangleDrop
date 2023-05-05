@@ -93,6 +93,9 @@ app.get("/ko", (req, res) => {
     // res.cookie("lang", "ko");
     res.render(path.join(__dirname, "public", "ejs", "index.ejs"));
 });
+app.get("/unsupport-browser", (req, res) => {
+    res.render(path.join(__dirname, "public", "ejs", "unsupport-browser.ejs"));
+});
 
 io.on("connection", (socket) => {
     console.log("a user connected");

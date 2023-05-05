@@ -12,5 +12,14 @@
 	"fileListLabel": "연결되면 자동으로 해당 파일을 전송해요.",
 	"AboutTitle": "AboutTitle",
 	"leftUserLable": "상대방이 퇴장했습니다",
-	"enterRoomErrorLable":"유효하지 않은 코드이거나 방이 꽉 찼습니다."
+	"enterRoomErrorLable":"유효하지 않은 코드이거나 방이 꽉 찼습니다.",
+	"unsupporteBrowserMessgae":"이 브라우저에서는 일부 기능이 정상적으로 작동하지 않을 수 있습니다. ",
+	"unsupporteBrowserMessgaeLinkLable":"자세히 알아보기",
+	"__unsupport-browser.ejs__":"__unsupport-browser.ejs__",
+	"unsupport-browser.title":"Triangle Drop 브라우저 호환성",
+	"unsupport-browser.description":"Triangle Drop은 최신 Chromium기반 브라우저와 Safari에 최적화되어 있습니다. 아래 목록에 포함된 브라우저는 일부 기능이 작동하지 않을 수 있어요. ",
+	"unsupport-browser.Firefox.description":"Firefox에서는 파일전송 기능이 작동하지 않을 수 있어요",
+	"unsupport-browser.InternetExplorer.description":"Internet Explorer에서는 webRTC를 지원하지 않아 Triangle Drop이 작동하지 않아요",
+	"browserUpdateMessage":""
+
 }
