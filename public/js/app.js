@@ -69,7 +69,6 @@ function getCookie(name) {
 function setCookie(name, value, options = {}) {
     options = {
         path: "/",
-        // 필요한 경우, 옵션 기본값을 설정할 수도 있습니다.
         ...options,
     };
 
@@ -165,15 +164,6 @@ const initExit = () => {
     document.queryselector("#messageblock").innerHTML = "";
 };
 
-// window.onpageshow = function (event) {
-//   if (
-//     event.persisted ||
-//     (window.performance && window.performance.navigation.type == 2)
-//   ) {
-//     initExit();
-//   }
-// };
-
 // when click on the history back button
 window.onpopstate = function (event) {
     initExit();
@@ -210,13 +200,6 @@ const createRoomName = (result = false) => {
 
 createRoomName();
 
-// const handleMakeRoom = async (evnet) => {
-//   event.preventDefault();
-//   await initRoom();
-
-//   // socket.emit("join_room", roomName);
-// };
-
 const codeError = () => {
     const $button = $enterRoomForm.querySelector("button");
 
@@ -236,24 +219,6 @@ const codeError = () => {
 };
 
 const enterRoomCallback = (result) => {
-    // toastr.options = {
-    //   closeButton: true,
-    //   debug: false,
-    //   newestOnTop: true,
-    //   progressBar: true,
-    //   positionClass: "toast-top-right",
-    //   preventDuplicates: false,
-    //   onclick: null,
-    //   showDuration: "300",
-    //   hideDuration: "500",
-    //   timeOut: "5000",
-    //   extendedTimeOut: "500",
-    //   showEasing: "swing",
-    //   hideEasing: "linear",
-    //   showMethod: "fadeIn",
-    //   hideMethod: "fadeOut",
-    // };
-
     if (result) {
         socket.emit("exitRoom", roomName);
         roomName = $enterRoomForm.querySelector("input").value.toUpperCase();

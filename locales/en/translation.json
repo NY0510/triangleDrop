@@ -11,5 +11,7 @@
 	"enterButton": "Enter",
 	"fileListLabel":"Send this file automatically.",
 	"leftUserLable": "Other user left the room",
-	"enterRoomErrorLable":"Invalid Code OR Room is Full"
+	"enterRoomErrorLable":"Invalid Code OR Room is Full",
+	"unsupporteBrowserMessgae":"Some features of this site may not function properly with this browser. ",
+	"unsupporteBrowserMessgaeLinkLable":"learn more"
 }

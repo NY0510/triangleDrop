@@ -813,3 +813,9 @@ nav>ul>li>a {
 	color: var(--secondary-text-color);
 	transition: var(--tran-def);
 }
+.unsupporteBrowserMessgae{
+	background-color: #ffff00;
+	color: black;
+	padding: 1rem;
+	width: 100vw;
+}

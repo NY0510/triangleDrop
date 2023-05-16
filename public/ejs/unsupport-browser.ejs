@@ -243,10 +243,6 @@
         />
     </head>
     <body>
-        <!-- Install button, hidden by default -->
-        <!-- <div id="installContainer" class="hidden">
-      <button id="butInstall" type="button">Install</button>
-    </div> -->
         <noscript>
             <style>
                 noscript {
@@ -280,10 +276,6 @@
                     );
                 }
             </script>
-            <div class="loading" hidden>
-                <div class="loadingMessage">Loading...</div>
-            </div>
-            <div class="unsupporteBrowserMessgae"><%= t('unsupporteBrowserMessgae')%><a href="/unsupport-browser"><%= t('unsupporteBrowserMessgaeLinkLable')%></a></div>
             <div class="centerC center">
                 <nav>
                     <a class="title" href="/">
@@ -301,44 +293,16 @@
                         </li>
                     </ul>
                 </nav>
-                <div id="sector0" hidden>
-                    <div><%= t('fileListLabel')%></div>
-                    <div class="fileList"></div>
-                </div>
                 <div id="sector1">
-                    <h2 class="codeLabel label"><%= t('codeLabel')%></h2>
-                    <!-- <h1 align="center"><span href="#" class="code">underline</span></h1> -->
-                    <div class="codeSector">
-                        <div class="flexBlink"></div>
-                        <span class="codeBox">
-                            <span class="copyArea">
-                                <div class="codeTooltip">Click to copy</div>
-                                <span class="code"></span>
-                                <i class="fa-solid fa-copy"></i>
-                            </span>
-                            <br />
-                            <span class="copyArea copyAreaLink"
-                                ><div class="codeTooltip">Click to copy</div>
-                                <span class="codeLink"></span> <i class="fa-solid fa-copy"></i
-                            ></span>
-                        </span>
-                        <div class="codeQRcode"></div>
+                    <h2 class="label"><%= t('unsupport-browser.title')%></h2>
+                    <div class="description"><%= t('unsupport-browser.description')%></div>
+                    <div>
+                        <h3>Firefox</h3>
+                        <p><%= t('unsupport-browser.Firefox.description')%></p>
+                        <h3>Internet Explorer</h3>
+                        <p><% =t('unsupport-browser.InternetExplorer.description')%></p>
                     </div>
-                    <!-- 첫화면 -->
-                    <div id="welcome">
-                        <div class="waitLabel" aria-busy="true" hidden><i class="fa-solid fa-circle-notch fa- spin"></i> <%= t('waitCodeInputLabel')%></div>
-                    </div>
-                </div>
-                <!-- <hr class="hr-text" data-content="OR" /> -->
-                <div id="sector2">
-                    <h2 class="label codeInputLabel"><%= t('codeInputLabel')%></h2>
-                    <div class="enterRoomDiv animate__animated">
-                        <form action="" id="enterRoom">
-                            <input autocomplete="off" type="text" class="roomCodeInput" id="roomCodeInput" placeholder="<%= t('codeInputPlaceholder')%>" maxlength="5" />
-                            <button class="enterButton animate__animated"><%= t('enterButton')%></button>
-                        </form>
-                    </div>
-                    <div class="enterRoomErrorLable"><%= t('enterRoomErrorLable')%></div>
+                    <p><% =t('browserUpdateMessage')%></p>
                 </div>
                 <div class="languageSelect">
                     <i class="fa-solid fa-globe"></i> Language | 언어
@@ -373,54 +337,6 @@
                         </div>
                         Copyright© 2022 TriangleDrop All Rights reserved.
                     </div>
-                </div>
-            </div>
-
-            <!-- 룸 입장후 -->
-            <div id="inRoom" hidden>
-                <div class="flexBox">
-                    <div class="inRoomTopBar">
-                        <span class="code InRoom"></span>
-                    </div>
-                    <div class="progress">
-                        <div class="sendProgress" hidden>
-                            <div class="label">
-                                <span class="sendProgressSending">Sending...</span>
-                                <span class="txProgressBarFileName"></span>
-                                <span class="txProgressBarFileSize"></span>
-                            </div>
-                            <progress id="sendProgressBar" max="0" value="0"></progress>
-                            <progress id="sendProgressBar2" max="0" value="0"></progress>
-                        </div>
-                        <div class="receiveProgress" hidden>
-                            <div class="label">
-                                <span class="receiveProgressReceiving">Receiveing... </span>
-                                <span class="rxProgressBarFileName"></span>
-                                <span class="rxProgressBarFileSize"></span>
-                            </div>
-                            <progress id="receiveProgressBar" max="0" value="0"></progress>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <div id="messageBlock"></div>
-                        <div class="leftUserLable" hidden style="color: orangered; font-weight: bolder"><%= t('leftUserLable')%></div>
-                        <form action="" class="animate__animated" id="messageForm">
-                            <div class="messageSendBlock">
-                                <div class="filesPreview" hidden></div>
-                                <div class="messageDiv">
-                                    <input autocomplete="off" type="text" id="messageInput" />
-                                    <label for="fileInput" class="fileInputLabel"> <i class="fa-solid fa-paperclip fa-fw"></i></label>
-                                    <input type="file" placeholder="file select" id="fileInput" multiple="multiple" onchange="handleChangeFile(event)" />
-                                    <button id="messageSendButton">
-                                        <i class="fa-solid fa-paper-plane"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="dragAndDrop">
-                    <i class="fa-solid fa-inbox-full"></i>
                 </div>
             </div>
         </div>
