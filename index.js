@@ -51,6 +51,13 @@ app.use(express.static("public"));
 app.use(cookieParser());
 app.set("view engine", "ejs");
 
+app.all("/*". (req, res) => {
+    res.header("Access-Control-Allow_Origin", "localhost:3034");
+
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+});
+
+
 app.get("/", (req, res) => {
     res.render(path.join(__dirname, "public", "ejs", "index.ejs"));
 });
