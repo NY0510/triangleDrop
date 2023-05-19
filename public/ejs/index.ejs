@@ -266,7 +266,7 @@
         <div class="app" ondragenter="handleDragAndDropEnter(event)">
             <!-- 상단광고 -->
 
-            <script>
+           <!-- <script>
                 if (window.matchMedia("( min-width: 769px )").matches == true) {
                     document.write(
                         '\<ins class="kakao_ad_area" style="display:none;" data-ad-unit="DAN-btNY2xMFWDQ92WJm" data-ad-width="728" \
@@ -279,11 +279,11 @@
           \<\/ins>\<script type="text\/javascript" src="\/\/t1.daumcdn.net\/kas\/static\/ba.min.js" async\>\<\/script\>'
                     );
                 }
-            </script>
+	  </script>-->
             <div class="loading" hidden>
                 <div class="loadingMessage">Loading...</div>
             </div>
-            <div class="unsupporteBrowserMessgae"><%= t('unsupporteBrowserMessgae')%><a href="/unsupport-browser"><%= t('unsupporteBrowserMessgaeLinkLable')%></a></div>
+            <div class="unsupporteBrowserMessgae" hidden><%= t('unsupporteBrowserMessgae')%><a href="/unsupport-browser"><%= t('unsupporteBrowserMessgaeLinkLable')%></a></div>
             <div class="centerC center">
                 <nav>
                     <a class="title" href="/">
