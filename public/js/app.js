@@ -394,7 +394,7 @@ const filter = (message, itFile = false, toSend = false) => {
     return result;
 };
 
-const showMessage = (message, filterToggle = true, notification = true, myMessage = false) => {
+const showMessage = (message, filterToggle = true, showNotification = true, myMessage = false) => {
     const $message = document.createElement("div");
     if (myMessage) {
         $message.classList.add("myMessage");
@@ -429,7 +429,7 @@ const showMessage = (message, filterToggle = true, notification = true, myMessag
     messageBlock.innerHTML += $message.outerHTML;
     messageBlock.scrollTop = messageBlock.scrollHeight;
     messageLog.push({ message: message, timeStamp: new Date().getTime() });
-    if (notification && !myMessage) {
+    if (showNotification && !myMessage) {
         sendNotification("Triangle Drop", message);
     }
 };
