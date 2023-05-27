@@ -110,6 +110,8 @@ let statsInterval = null;
 
 $inRoom.hidden = true;
 
+let notificationAllowed = false;
+
 window.addEventListener("load", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get("code");
@@ -267,6 +269,7 @@ const handleDataChannelOpen = (event) => {
     history.pushState(null, null, `?code=${roomName}`);
     setCookie("code", roomName);
     $loadingScreen.style = "display: none;";
+    notificationAllowed = false;
     // notification permission
     notificationPermisson();
     if (fileList.length !== 0) {
