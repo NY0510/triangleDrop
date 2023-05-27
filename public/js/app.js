@@ -347,9 +347,9 @@ const makeConnection = () => {
             {
                 urls: ["stun:stun.obtuse.kr:5349"],
             },
-            {
-                urls: ["stun:stun.l.google.com:19302"],
-            },
+            // {
+            //     urls: ["stun:stun.l.google.com:19302"],
+            // },
             {
                 urls: ["turn:turn.obtuse.kr:5349", "turn:turn.obtuse.kr:5349?transport=tcp"],
                 username: "turnserver",
