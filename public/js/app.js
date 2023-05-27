@@ -353,7 +353,7 @@ const makeConnection = () => {
             {
                 urls: ["turn:turn.obtuse.kr:5349", "turn:turn.obtuse.kr:5349?transport=tcp"],
                 username: "turnserver",
-                credential: "*Obtuse_turnServer",
+                credential: "obtuseTurnServer",
             },
             // {
             //   urls: "turn:openrelay.metered.ca:443?transport=tcp",
