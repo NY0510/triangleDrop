@@ -344,17 +344,41 @@ socket.on("ice", (ice) => {
 const makeConnection = () => {
     myPeerConnection = new RTCPeerConnection({
         iceServers: [
-            {
-                urls: ["stun:stun.obtuse.kr:5349"],
-            },
             // {
-            //     urls: ["stun:stun.l.google.com:19302"],
+            //     urls: ["stun:stun.obtuse.kr:5349"],
             // },
             {
-                urls: ["turn:turn.obtuse.kr:5349", "turn:turn.obtuse.kr:5349?transport=tcp"],
-                username: "turnserver",
-                credential: "obtuseTurnServer",
+                urls: ["stun:stun.l.google.com:19302"],
             },
+            {
+                urls: "stun:a.relay.metered.ca:80",
+            },
+            {
+                urls: "turn:a.relay.metered.ca:80",
+                username: "820ed8db16a08759e390da6f",
+                credential: "oRJu69Ko3ydIRDIp",
+            },
+            {
+                urls: "turn:a.relay.metered.ca:80?transport=tcp",
+                username: "820ed8db16a08759e390da6f",
+                credential: "oRJu69Ko3ydIRDIp",
+            },
+            {
+                urls: "turn:a.relay.metered.ca:443",
+                username: "820ed8db16a08759e390da6f",
+                credential: "oRJu69Ko3ydIRDIp",
+            },
+            {
+                urls: "turn:a.relay.metered.ca:443?transport=tcp",
+                username: "820ed8db16a08759e390da6f",
+                credential: "oRJu69Ko3ydIRDIp",
+            },
+            // {
+            //     urls: ["turn:turn.obtuse.kr:5349", "turn:turn.obtuse.kr:5349?transport=tcp"],
+            //     username: "turnserver",
+            //     credential: "obtuseTurnServer",
+            // },
+
             // {
             //   urls: "turn:openrelay.metered.ca:443?transport=tcp",
             //   username: "openrelayproject",
