@@ -1,4 +1,4 @@
-<img src="https://triangledrop.obtuse.cf/img/favicon/apple-icon-precomposed.png" width="100px" />
+<img src="https://triangledrop.obtuse.kr/img/favicon/apple-icon-precomposed.png" width="100px" />
 
 # Triangle Drop
 
